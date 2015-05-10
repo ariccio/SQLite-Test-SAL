@@ -1961,7 +1961,7 @@ static void open_db(_In_ ShellState *p, int keepAlive){
 **    \NNN  -> ascii character NNN in octal
 **    \\    -> backslash
 */
-static void resolve_backslashes(char *z){
+static void resolve_backslashes(_Inout_z_ char *z){
   int i, j;
   char c;
   while( *z && *z!='\\' ) z++;
@@ -2007,7 +2007,7 @@ static int hexDigitValue(char c){
 /*
 ** Interpret zArg as an integer value, possibly with suffixes.
 */
-static sqlite3_int64 integerValue(const char *zArg){
+static sqlite3_int64 integerValue(_In_z_ const char *zArg){
   sqlite3_int64 v = 0;
   static const struct { char *zSuffix; int iMult; } aMult[] = {
     { "KiB", 1024 },
@@ -2054,7 +2054,7 @@ static sqlite3_int64 integerValue(const char *zArg){
 ** Interpret zArg as either an integer or a boolean value.  Return 1 or 0
 ** for TRUE and FALSE.  Return the integer value if appropriate.
 */
-static int booleanValue(char *zArg){
+static int booleanValue(_In_z_ _Const_ char *zArg){
   int i;
   if( zArg[0]=='0' && zArg[1]=='x' ){
     for(i=2; hexDigitValue(zArg[i])>=0; i++){}
@@ -2076,7 +2076,8 @@ static int booleanValue(char *zArg){
 /*
 ** Close an output file, assuming it is not stderr or stdout
 */
-static void output_file_close(FILE *f){
+_Pre_satisfies_( (f != stdout) && (f != stderr) )
+static void output_file_close(_In_ _Post_ptr_invalid_ FILE *f){
   if( f && f!=stdout && f!=stderr ) fclose(f);
 }
 
@@ -2085,7 +2086,7 @@ static void output_file_close(FILE *f){
 ** recognized and do the right thing.  NULL is returned if the output 
 ** filename is "off".
 */
-static FILE *output_file_open(const char *zFile){
+static FILE *output_file_open(_In_z_ const char *zFile){
   FILE *f;
   if( strcmp(zFile,"stdout")==0 ){
     f = stdout;
@@ -2105,7 +2106,7 @@ static FILE *output_file_open(const char *zFile){
 /*
 ** A routine for handling output from sqlite3_trace().
 */
-static void sql_trace_callback(void *pArg, const char *z){
+static void sql_trace_callback(_In_opt_ void *pArg, _In_z_ const char *z){
   FILE *f = (FILE*)pArg;
   if( f ){
     int i = (int)strlen(z);
@@ -2128,9 +2129,9 @@ static void test_breakpoint(void){
 */
 typedef struct ImportCtx ImportCtx;
 struct ImportCtx {
-  const char *zFile;  /* Name of the input file */
+  _Field_z_ const char *zFile;  /* Name of the input file */
   FILE *in;           /* Read the CSV text from this input stream */
-  char *z;            /* Accumulated text for a field */
+  _Field_z_ char *z;            /* Accumulated text for a field */
   int n;              /* Number of bytes in z */
   int nAlloc;         /* Space allocated for z[] */
   int nLine;          /* Current line number */
@@ -2165,7 +2166,7 @@ static void import_append_char(ImportCtx *p, int c){
 **      EOF on end-of-file.
 **   +  Report syntax errors on stderr
 */
-static char *SQLITE_CDECL csv_read_one_field(ImportCtx *p){
+static char *SQLITE_CDECL csv_read_one_field(_Inout_ ImportCtx *p){
   int c;
   int cSep = p->cColSep;
   int rSep = p->cRowSep;
@@ -2239,7 +2240,7 @@ static char *SQLITE_CDECL csv_read_one_field(ImportCtx *p){
 **      EOF on end-of-file.
 **   +  Report syntax errors on stderr
 */
-static char *SQLITE_CDECL ascii_read_one_field(ImportCtx *p){
+static char *SQLITE_CDECL ascii_read_one_field(_Inout_ ImportCtx *p){
   int c;
   int cSep = p->cColSep;
   int rSep = p->cRowSep;
@@ -2267,9 +2268,9 @@ static char *SQLITE_CDECL ascii_read_one_field(ImportCtx *p){
 ** work for WITHOUT ROWID tables.
 */
 static void tryToCloneData(
-  ShellState *p,
-  sqlite3 *newDb,
-  const char *zTable
+  _In_ ShellState *p,
+  _Inout_ sqlite3 *newDb,
+  _In_z_ const char *zTable
 ){
   sqlite3_stmt *pQuery = 0; 
   sqlite3_stmt *pInsert = 0;
@@ -2380,10 +2381,10 @@ end_data_xfer:
 ** sqlite_master table, try again moving backwards.
 */
 static void tryToCloneSchema(
-  ShellState *p,
-  sqlite3 *newDb,
-  const char *zWhere,
-  void (*xForEach)(ShellState*,sqlite3*,const char*)
+  _In_ ShellState *p,
+  _Inout_ sqlite3 *newDb,
+  _In_z_ const char *zWhere,
+  void (*xForEach)(_In_ ShellState*, _Inout_ sqlite3*, _In_z_ const char*)
 ){
   sqlite3_stmt *pQuery = 0;
   char *zQuery = 0;
@@ -2454,7 +2455,7 @@ end_schema_xfer:
 ** as possible out of the main database (which might be corrupt) and write it
 ** into zNewDb.
 */
-static void tryToClone(ShellState *p, const char *zNewDb){
+static void tryToClone(_In_ ShellState *p, _In_z_ const char *zNewDb){
   int rc;
   sqlite3 *newDb = 0;
   if( access(zNewDb,0)==0 ){
@@ -2479,7 +2480,7 @@ static void tryToClone(ShellState *p, const char *zNewDb){
 /*
 ** Change the output file back to stdout
 */
-static void output_reset(ShellState *p){
+static void output_reset(_In_ ShellState *p){
   if( p->outfile[0]=='|' ){
 #ifndef SQLITE_OMIT_POPEN
     pclose(p->out);
@@ -2494,7 +2495,7 @@ static void output_reset(ShellState *p){
 /*
 ** Run an SQL command and return the single integer result.
 */
-static int db_int(ShellState *p, const char *zSql){
+static int db_int(_In_ ShellState *p, _In_z_ const char *zSql){
   sqlite3_stmt *pStmt;
   int res = 0;
   sqlite3_prepare_v2(p->db, zSql, -1, &pStmt, 0);
@@ -2508,10 +2509,10 @@ static int db_int(ShellState *p, const char *zSql){
 /*
 ** Convert a 2-byte or 4-byte big-endian integer into a native integer
 */
-unsigned int get2byteInt(unsigned char *a){
+unsigned int get2byteInt(_In_ unsigned char *a){
   return (a[0]<<8) + a[1];
 }
-unsigned int get4byteInt(unsigned char *a){
+unsigned int get4byteInt(_In_ unsigned char *a){
   return (a[0]<<24) + (a[1]<<16) + (a[2]<<8) + a[3];
 }
 
