@@ -3054,10 +3054,10 @@ SQLITE_API sqlite3_int64 SQLITE_STDCALL sqlite3_uri_int64(_In_z_ const char*, _I
 ** was invoked incorrectly by the application.  In that case, the
 ** error code and message may or may not be set.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_errcode(sqlite3 *db);
-SQLITE_API int SQLITE_STDCALL sqlite3_extended_errcode(sqlite3 *db);
-SQLITE_API const char *SQLITE_STDCALL sqlite3_errmsg(sqlite3*);
-SQLITE_API const void *SQLITE_STDCALL sqlite3_errmsg16(sqlite3*);
+SQLITE_API int SQLITE_STDCALL sqlite3_errcode(_In_ sqlite3 *db);
+SQLITE_API int SQLITE_STDCALL sqlite3_extended_errcode(_In_ sqlite3 *db);
+SQLITE_API const char *SQLITE_STDCALL sqlite3_errmsg(_In_ sqlite3*);
+SQLITE_API const void *SQLITE_STDCALL sqlite3_errmsg16(_In_ sqlite3*);
 SQLITE_API const char *SQLITE_STDCALL sqlite3_errstr(int);
 
 /*
