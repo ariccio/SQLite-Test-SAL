@@ -7216,7 +7216,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_strnicmp(_In_z_ const char *, _In_z_ const
 ** Note that this routine returns zero on a match and non-zero if the strings
 ** do not match, the same as [sqlite3_stricmp()] and [sqlite3_strnicmp()].
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_strglob(const char *zGlob, const char *zStr);
+SQLITE_API int SQLITE_STDCALL sqlite3_strglob(_In_z_ const char *zGlob, _In_z_ const char *zStr);
 
 /*
 ** CAPI3REF: Error Logging Interface
