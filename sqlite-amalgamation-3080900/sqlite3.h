@@ -2251,7 +2251,7 @@ SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_get_table(
   _Out_ _Post_readable_size_(((*pnRow)+1)*(*pnColumn))char ***pazResult,    /* Results of the query */
   _Out_ int *pnRow,           /* Number of result rows written here */
   _Out_ int *pnColumn,        /* Number of result columns written here */
-  _On_failure_( _Outptr_result_z_ ) char **pzErrmsg       /* Error msg written here */
+  _On_failure_( _Outptr_opt_result_z_ ) char **pzErrmsg       /* Error msg written here */
 );
 SQLITE_API void SQLITE_STDCALL sqlite3_free_table(char **result);
 
@@ -2506,7 +2506,7 @@ SQLITE_API sqlite3_int64 SQLITE_STDCALL sqlite3_memory_highwater(int resetFlag);
 ** internally and without recourse to the [sqlite3_vfs] xRandomness
 ** method.
 */
-SQLITE_API void SQLITE_STDCALL sqlite3_randomness(int N, void *P);
+SQLITE_API void SQLITE_STDCALL sqlite3_randomness(int N, _Out_opt_ _Out_writes_bytes_(N) void *P);
 
 /*
 ** CAPI3REF: Compile-Time Authorization Callbacks
