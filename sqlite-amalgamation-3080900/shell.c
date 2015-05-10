@@ -1757,8 +1757,8 @@ static SQLITE_API_ANY_RESULT_CODE_INT dump_callback(_In_ void *pArg, int nArg, _
 ** "ORDER BY rowid DESC" to the end.
 */
 static int run_schema_dump_query(
-  ShellState *p, 
-  const char *zQuery
+  _In_ ShellState *p, 
+  _In_z_ const char *zQuery
 ){
   int rc;
   char *zErr = 0;
@@ -1867,9 +1867,9 @@ static int process_input(ShellState *p, FILE *in);
 ** if the file does not exist or is unreadable.
 */
 static void readfileFunc(
-  sqlite3_context *context,
+  _In_ sqlite3_context *context,
   int argc,
-  sqlite3_value **argv
+  _In_reads_(argc) sqlite3_value **argv
 ){
   const char *zName;
   FILE *in;
@@ -1899,9 +1899,9 @@ static void readfileFunc(
 ** file X for writing.
 */
 static void writefileFunc(
-  sqlite3_context *context,
+  _In_ sqlite3_context *context,
   int argc,
-  sqlite3_value **argv
+  _In_reads_(argc) sqlite3_value **argv
 ){
   FILE *out;
   const char *z;
@@ -1926,7 +1926,7 @@ static void writefileFunc(
 ** Make sure the database is open.  If it is not, then open it.  If
 ** the database fails to open, print an error message and exit.
 */
-static void open_db(ShellState *p, int keepAlive){
+static void open_db(_In_ ShellState *p, int keepAlive){
   if( p->db==0 ){
     sqlite3_initialize();
     sqlite3_open(p->zDbFilename, &p->db);
