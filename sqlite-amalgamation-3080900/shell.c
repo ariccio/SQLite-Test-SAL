@@ -248,8 +248,8 @@ static HANDLE hProcess;
 static FILETIME ftKernelBegin;
 static FILETIME ftUserBegin;
 static sqlite3_int64 ftWallBegin;
-typedef BOOL (WINAPI *GETPROCTIMES)(HANDLE, LPFILETIME, LPFILETIME,
-                                    LPFILETIME, LPFILETIME);
+typedef _Success_( return != 0 ) BOOL (WINAPI *GETPROCTIMES)(_In_ HANDLE, _Out_ LPFILETIME, _Out_ LPFILETIME,
+                                    _Out_ LPFILETIME, _Out_ LPFILETIME);
 static GETPROCTIMES getProcessTimesAddr = NULL;
 
 /*
