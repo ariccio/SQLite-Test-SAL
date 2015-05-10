@@ -5555,7 +5555,7 @@ struct sqlite3_index_info {
     unsigned char omit;      /* Do not code a test for this constraint */
   } *aConstraintUsage;
   int idxNum;                /* Number used to identify the index */
-  char *idxStr;              /* String, possibly obtained from sqlite3_malloc */
+  _Field_z_ char *idxStr;              /* String, possibly obtained from sqlite3_malloc */
   int needToFreeIdxStr;      /* Free idxStr using sqlite3_free() if true */
   int orderByConsumed;       /* True if output is already ordered */
   double estimatedCost;           /* Estimated cost of using this index */
@@ -5604,14 +5604,14 @@ struct sqlite3_index_info {
 ** destructor.
 */
 SQLITE_API int SQLITE_STDCALL sqlite3_create_module(
-  sqlite3 *db,               /* SQLite connection to register module with */
-  const char *zName,         /* Name of the module */
+  _In_ sqlite3 *db,               /* SQLite connection to register module with */
+  _In_z_ const char *zName,         /* Name of the module */
   const sqlite3_module *p,   /* Methods for the module */
   void *pClientData          /* Client data for xCreate/xConnect */
 );
 SQLITE_API int SQLITE_STDCALL sqlite3_create_module_v2(
-  sqlite3 *db,               /* SQLite connection to register module with */
-  const char *zName,         /* Name of the module */
+  _In_ sqlite3 *db,               /* SQLite connection to register module with */
+  _In_z_ const char *zName,         /* Name of the module */
   const sqlite3_module *p,   /* Methods for the module */
   void *pClientData,         /* Client data for xCreate/xConnect */
   void(*xDestroy)(void*)     /* Module destructor function */
