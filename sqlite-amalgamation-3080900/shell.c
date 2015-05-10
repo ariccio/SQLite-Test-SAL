@@ -1220,7 +1220,7 @@ _Ret_maybenull_z_ static char *save_err_msg(
 /*
 ** Display memory stats.
 */
-static int display_stats(
+static SQLITE_API_ANY_RESULT_CODE_INT display_stats(
   sqlite3 *db,                /* Database to query */
   ShellState *pArg,           /* Pointer to ShellState */
   int bReset                  /* True to reset the stats */
