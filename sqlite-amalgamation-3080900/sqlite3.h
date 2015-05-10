@@ -6256,7 +6256,7 @@ SQLITE_API sqlite3_mutex *SQLITE_STDCALL sqlite3_db_mutex(sqlite3*);
 **
 ** See also: [SQLITE_FCNTL_LOCKSTATE]
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_file_control(sqlite3*, const char *zDbName, int op, void*);
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_file_control(_In_ sqlite3*, _In_z_ PCSTR zDbName, int op, _Out_ void*);
 
 /*
 ** CAPI3REF: Testing Interface
