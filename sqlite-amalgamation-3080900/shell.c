@@ -4331,7 +4331,7 @@ static void usage(int showDetail){
 /*
 ** Initialize the state information in data
 */
-static void main_init(ShellState *data) {
+static void main_init(_Inout_ ShellState *data) {
   memset(data, 0, sizeof(*data));
   data->mode = MODE_List;
   memcpy(data->colSeparator,SEP_Column, 2);
@@ -4349,7 +4349,7 @@ static void main_init(ShellState *data) {
 ** Output text to the console in a font that attracts extra attention.
 */
 #ifdef _WIN32
-static void printBold(const char *zText){
+static void printBold(_In_z_ const char *zText){
   HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
   CONSOLE_SCREEN_BUFFER_INFO defaultScreenInfo;
   GetConsoleScreenBufferInfo(out, &defaultScreenInfo);
@@ -4360,7 +4360,7 @@ static void printBold(const char *zText){
   SetConsoleTextAttribute(out, defaultScreenInfo.wAttributes);
 }
 #else
-static void printBold(const char *zText){
+static void printBold(_In_z_ const char *zText){
   printf("\033[1m%s\033[0m", zText);
 }
 #endif
@@ -4369,7 +4369,8 @@ static void printBold(const char *zText){
 ** Get the argument to an --option.  Throw an error and die if no argument
 ** is available.
 */
-static char *cmdline_option_value(int argc, char **argv, int i){
+_At_buffer_( argv, _Iter_, argc, _In_z_ )
+static char *cmdline_option_value(int argc, _In_reads_( argc ) char **argv, int i){
   if( i==argc ){
     fprintf(stderr, "%s: Error: missing argument to %s\n",
             argv[0], argv[argc-1]);
@@ -4378,7 +4379,8 @@ static char *cmdline_option_value(int argc, char **argv, int i){
   return argv[i];
 }
 
-int SQLITE_CDECL main(int argc, char **argv){
+_At_buffer_( argv, _Iter_, argc, _In_z_ )
+int SQLITE_CDECL main(int argc, _In_reads_( argc ) char **argv){
   char *zErrMsg = 0;
   ShellState data;
   const char *zInitFile = 0;
