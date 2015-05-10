@@ -428,9 +428,11 @@ static int isNumber(_In_z_ const char *z, _Out_opt_ int *realnum){
 ** since the shell is built around the callback paradigm it would be a lot
 ** of work. Instead just use this hack, which is quite harmless.
 */
-static const char *zShellStatic = 0;
+_Field_z_ static const char *zShellStatic = 0;
+
+_Pre_satisfies_( zShellStatic != 0 )
 static void shellstaticFunc(
-  sqlite3_context *context,
+  _In_ sqlite3_context *context,
   int argc,
   sqlite3_value **argv
 ){
@@ -451,7 +453,7 @@ static void shellstaticFunc(
 ** If zLine is not NULL then it is a malloced buffer returned from
 ** a previous call to this routine that may be reused.
 */
-static char *local_getline(char *zLine, FILE *in){
+_Ret_maybenull_z_ static char *local_getline(_In_opt_z_ char *zLine, _In_ FILE *in){
   int nLine = zLine==0 ? 0 : 100;
   int n = 0;
 
