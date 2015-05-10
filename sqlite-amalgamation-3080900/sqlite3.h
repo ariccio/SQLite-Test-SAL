@@ -2245,13 +2245,13 @@ SQLITE_API int SQLITE_STDCALL sqlite3_busy_timeout(sqlite3*, int ms);
 ** reflected in subsequent calls to [sqlite3_errcode()] or
 ** [sqlite3_errmsg()].
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_get_table(
-  sqlite3 *db,          /* An open database */
-  const char *zSql,     /* SQL to be evaluated */
-  char ***pazResult,    /* Results of the query */
-  int *pnRow,           /* Number of result rows written here */
-  int *pnColumn,        /* Number of result columns written here */
-  char **pzErrmsg       /* Error msg written here */
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_get_table(
+  _In_ sqlite3 *db,          /* An open database */
+  _In_z_ const char *zSql,     /* SQL to be evaluated */
+  _Out_ _Post_readable_size_(((*pnRow)+1)*(*pnColumn))char ***pazResult,    /* Results of the query */
+  _Out_ int *pnRow,           /* Number of result rows written here */
+  _Out_ int *pnColumn,        /* Number of result columns written here */
+  _On_failure_( _Outptr_result_z_ ) char **pzErrmsg       /* Error msg written here */
 );
 SQLITE_API void SQLITE_STDCALL sqlite3_free_table(char **result);
 
