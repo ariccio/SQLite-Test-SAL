@@ -3125,7 +3125,7 @@ typedef struct sqlite3_stmt sqlite3_stmt;
 **
 ** New run-time limit categories may be added in future releases.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_limit(sqlite3*, int id, int newVal);
+SQLITE_API int SQLITE_STDCALL sqlite3_limit(_In_ sqlite3*, int id, int newVal);
 
 /*
 ** CAPI3REF: Run-Time Limit Categories
