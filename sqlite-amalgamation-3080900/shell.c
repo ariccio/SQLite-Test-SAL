@@ -2608,7 +2608,7 @@ static SQLITE_API_ANY_RESULT_CODE_INT shell_dbinfo_command(_In_ ShellState *p, i
 **
 ** Return 1 on error, 2 to exit, and 0 otherwise.
 */
-static int do_meta_command(_Inout_z_ char *zLine, _In_ ShellState *p){
+static SQLITE_API_ANY_RESULT_CODE_INT do_meta_command(_Inout_z_ char *zLine, _In_ ShellState *p){
   int i = 1;
   int nArg = 0;
   int n, c;
@@ -3996,7 +3996,7 @@ meta_command_exit:
 ** Return TRUE if a semicolon occurs anywhere in the first N characters
 ** of string z[].
 */
-static int line_contains_semicolon(const char *z, int N){
+static int line_contains_semicolon(_In_reads_or_z_( N ) const char *z, int N){
   int i;
   for(i=0; i<N; i++){  if( z[i]==';' ) return 1; }
   return 0;
@@ -4005,7 +4005,7 @@ static int line_contains_semicolon(const char *z, int N){
 /*
 ** Test to see if a line consists entirely of whitespace.
 */
-static int _all_whitespace(const char *z){
+static int _all_whitespace(_In_z_ const char *z){
   for(; *z; z++){
     if( IsSpace(z[0]) ) continue;
     if( *z=='/' && z[1]=='*' ){
@@ -4031,7 +4031,7 @@ static int _all_whitespace(const char *z){
 ** than a semi-colon.  The SQL Server style "go" command is understood
 ** as is the Oracle "/".
 */
-static int line_is_command_terminator(const char *zLine){
+static int line_is_command_terminator(_In_z_ const char *zLine){
   while( IsSpace(zLine[0]) ){ zLine++; };
   if( zLine[0]=='/' && _all_whitespace(&zLine[1]) ){
     return 1;  /* Oracle */
@@ -4047,7 +4047,7 @@ static int line_is_command_terminator(const char *zLine){
 ** Return true if zSql is a complete SQL statement.  Return false if it
 ** ends in the middle of a string literal or C-style comment.
 */
-static int line_is_complete(char *zSql, int nSql){
+static int line_is_complete(_Inout_z_ char *zSql, int nSql){
   int rc;
   if( zSql==0 ) return 1;
   zSql[nSql] = ';';
@@ -4066,7 +4066,7 @@ static int line_is_complete(char *zSql, int nSql){
 **
 ** Return the number of errors.
 */
-static int process_input(ShellState *p, FILE *in){
+static int process_input(_In_ ShellState *p, _In_opt_ FILE *in){
   char *zLine = 0;          /* A single input line */
   char *zSql = 0;           /* Accumulated SQL text */
   int nLine;                /* Length of current line */
@@ -4247,8 +4247,8 @@ static char *find_home_dir(void){
 ** Returns the number of errors.
 */
 static void process_sqliterc(
-  ShellState *p,                  /* Configuration data */
-  const char *sqliterc_override   /* Name of config file. NULL to use default */
+  _In_ ShellState *p,                  /* Configuration data */
+  _In_opt_z_ const char *sqliterc_override   /* Name of config file. NULL to use default */
 ){
   char *home_dir = NULL;
   const char *sqliterc = sqliterc_override;
