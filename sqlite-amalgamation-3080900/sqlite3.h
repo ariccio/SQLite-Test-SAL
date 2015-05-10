@@ -5925,7 +5925,7 @@ SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_read(_In_ 
 **
 ** See also: [sqlite3_blob_read()].
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_blob_write(sqlite3_blob *, const void *z, int n, int iOffset);
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_write(_In_ sqlite3_blob *, _In_reads_bytes_( n ) const void *z, _In_range_( 0, INT_MAX ) int n, _In_range_( 0, INT_MAX ) int iOffset);
 
 /*
 ** CAPI3REF: Virtual File System Objects
