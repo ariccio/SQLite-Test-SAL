@@ -6338,11 +6338,11 @@ SQLITE_API int SQLITE_CDECL sqlite3_test_control(int op, ...);
 **
 ** See also: [sqlite3_db_status()]
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_status(int op, int *pCurrent, int *pHighwater, int resetFlag);
-SQLITE_API int SQLITE_STDCALL sqlite3_status64(
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_status(int op, _Out_ int *pCurrent, _Out_ int *pHighwater, int resetFlag);
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_status64(
   int op,
-  sqlite3_int64 *pCurrent,
-  sqlite3_int64 *pHighwater,
+  _Out_ sqlite3_int64 *pCurrent,
+  _Out_ sqlite3_int64 *pHighwater,
   int resetFlag
 );
 
