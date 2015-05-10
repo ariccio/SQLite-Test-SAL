@@ -5884,7 +5884,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_blob_bytes(sqlite3_blob *);
 **
 ** See also: [sqlite3_blob_write()].
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_blob_read(sqlite3_blob *, void *Z, int N, int iOffset);
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_read(_In_ sqlite3_blob *, _Out_writes_bytes_(N) void *Z, _In_range_( 0, INT_MAX ) int N, _In_range_( 0, INT_MAX ) int iOffset);
 
 /*
 ** CAPI3REF: Write Data Into A BLOB Incrementally
