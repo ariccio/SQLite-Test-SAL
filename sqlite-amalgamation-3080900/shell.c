@@ -1488,13 +1488,13 @@ static void explain_data_delete(_Post_ptr_invalid_ ShellState *p){
 ** function except it takes a slightly different callback 
 ** and callback data argument.
 */
-static int shell_exec(
-  sqlite3 *db,                              /* An open database */
-  const char *zSql,                         /* SQL to be evaluated */
-  int (*xCallback)(void*,int,char**,char**,int*),   /* Callback function */
+static SQLITE_API_ANY_RESULT_CODE_INT shell_exec(
+  _In_ sqlite3 *db,                              /* An open database */
+  _In_z_ const char *zSql,                         /* SQL to be evaluated */
+  SQLITE_API_ANY_RESULT_CODE_INT (*xCallback)(void*,int n, _In_reads_( n ) char**,_In_reads_( n ) char**, _In_reads_( n ) int*),   /* Callback function */
                                             /* (not the same as sqlite3_exec) */
-  ShellState *pArg,                         /* Pointer to ShellState */
-  char **pzErrMsg                           /* Error msg written here */
+  _In_opt_ ShellState *pArg,                         /* Pointer to ShellState */
+  _Outptr_opt_result_z_ char **pzErrMsg                           /* Error msg written here */
 ){
   sqlite3_stmt *pStmt = NULL;     /* Statement to execute. */
   int rc = SQLITE_OK;             /* Return Code */
