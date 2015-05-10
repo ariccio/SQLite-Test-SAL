@@ -5322,11 +5322,11 @@ SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_table_column_me
 **
 ** See also the [load_extension() SQL function].
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_load_extension(
-  sqlite3 *db,          /* Load the extension into this database connection */
-  const char *zFile,    /* Name of the shared library containing extension */
-  const char *zProc,    /* Entry point.  Derived from zFile if 0 */
-  char **pzErrMsg       /* Put error message here if not 0 */
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_load_extension(
+  _In_ sqlite3 *db,          /* Load the extension into this database connection */
+  _In_z_ PCSTR zFile,    /* Name of the shared library containing extension */
+  _In_opt_z_ PCSTR zProc,    /* Entry point.  Derived from zFile if 0 */
+  _Outptr_opt_result_z_ char **pzErrMsg       /* Put error message here if not 0 */
 );
 
 /*
