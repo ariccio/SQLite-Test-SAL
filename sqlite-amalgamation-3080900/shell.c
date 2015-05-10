@@ -168,6 +168,10 @@ static void setTextMode(FILE *out){
 # define setTextMode(X)
 #endif
 
+/*                                         SQLITE_OK == 0     SQLITE_ROW == 100    SQLITE_DONE == 101*/
+typedef _Return_type_success_( ( return == 0 ) || ( return == 100 ) || ( return == 101 ) ) int SQLITE_API_ANY_RESULT_CODE_INT;
+
+
 
 /* True if the timer is enabled */
 static int enableTimer = 0;
@@ -1154,10 +1158,10 @@ _Ret_maybenull_z_ static char *appendText(_In_opt_z_ _Post_ptr_invalid_ char *zI
 ** "--" comment occurs at the end of the statement, the comment
 ** won't consume the semicolon terminator.
 */
-static int run_table_dump_query(
-  ShellState *p,           /* Query context */
-  const char *zSelect,     /* SELECT statement to extract content */
-  const char *zFirstRow    /* Print before first row, if not NULL */
+static SQLITE_API_ANY_RESULT_CODE_INT run_table_dump_query(
+  _In_ ShellState *p,           /* Query context */
+  _In_z_ const char *zSelect,     /* SELECT statement to extract content */
+  _In_opt_z_ const char *zFirstRow    /* Print before first row, if not NULL */
 ){
   sqlite3_stmt *pSelect;
   int rc;
