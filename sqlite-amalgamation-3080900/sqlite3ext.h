@@ -22,8 +22,6 @@
 typedef struct sqlite3_api_routines sqlite3_api_routines;
 
 
-/*                                         SQLITE_OK == 0     SQLITE_ROW == 100    SQLITE_DONE == 101*/
-typedef _Return_type_success_( ( return == 0 ) || ( return == 100 ) || ( return == 101 ) ) int SQLITE_API_RESULT_CODE_INT;
 
 /*
 ** The following structure holds pointers to all of the SQLite API

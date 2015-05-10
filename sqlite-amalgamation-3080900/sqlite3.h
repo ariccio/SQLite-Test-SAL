@@ -42,6 +42,14 @@ extern "C" {
 #endif
 
 
+/*                                         SQLITE_OK == 0     SQLITE_ROW == 100    SQLITE_DONE == 101*/
+typedef _Return_type_success_( ( return == 0 ) || ( return == 100 ) || ( return == 101 ) ) int SQLITE_API_ANY_RESULT_CODE_INT;
+
+/*                                         SQLITE_OK == 0     SQLITE_ROW == 100    SQLITE_DONE == 101*/
+typedef _Return_type_success_( ( return == 0 ) || ( return == 100 ) || ( return == 101 ) ) int SQLITE_API_OK_ONLY_RESULT_CODE_INT;
+
+
+
 /*
 ** Provide the ability to override linkage features of the interface.
 */
@@ -173,8 +181,8 @@ SQLITE_API int SQLITE_STDCALL sqlite3_libversion_number(void);
 ** [sqlite_compileoption_get()] and the [compile_options pragma].
 */
 #ifndef SQLITE_OMIT_COMPILEOPTION_DIAGS
-SQLITE_API int SQLITE_STDCALL sqlite3_compileoption_used(const char *zOptName);
-SQLITE_API const char *SQLITE_STDCALL sqlite3_compileoption_get(int N);
+SQLITE_API int SQLITE_STDCALL sqlite3_compileoption_used(_In_z_ PCSTR zOptName);
+SQLITE_API _Ret_z_ PCSTR SQLITE_STDCALL sqlite3_compileoption_get(_In_range_(0, ArraySize(azCompileOpt)) int N);
 #endif
 
 /*
@@ -309,8 +317,8 @@ typedef sqlite_uint64 sqlite3_uint64;
 ** ^Calling sqlite3_close() or sqlite3_close_v2() with a NULL pointer
 ** argument is a harmless no-op.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_close(sqlite3*);
-SQLITE_API int SQLITE_STDCALL sqlite3_close_v2(sqlite3*);
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_close(_In_ _Post_ptr_invalid_ sqlite3*);
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_close_v2(_In_ _Post_ptr_invalid_ sqlite3*);
 
 /*
 ** The type for a callback function.
@@ -380,12 +388,12 @@ typedef int (*sqlite3_callback)(void*,int,char**, char**);
 **      the 2nd parameter of sqlite3_exec() while sqlite3_exec() is running.
 ** </ul>
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_exec(
-  sqlite3*,                                  /* An open database */
-  const char *sql,                           /* SQL to be evaluated */
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_exec(
+  _In_ sqlite3*,                                  /* An open database */
+  _In_z_ PCSTR sql,                           /* SQL to be evaluated */
   int (*callback)(void*,int,char**,char**),  /* Callback function */
   void *,                                    /* 1st argument to callback */
-  char **errmsg                              /* Error msg written here */
+  _On_failure_( _Outptr_opt_result_z_ ) char **errmsg                              /* Error msg written here */
 );
 
 /*
