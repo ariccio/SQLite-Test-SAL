@@ -7186,8 +7186,8 @@ SQLITE_API int SQLITE_STDCALL sqlite3_backup_pagecount(sqlite3_backup *p);
 ** SQLITE_LOCKED.)^
 */
 SQLITE_API int SQLITE_STDCALL sqlite3_unlock_notify(
-  sqlite3 *pBlocked,                          /* Waiting connection */
-  void (*xNotify)(void **apArg, int nArg),    /* Callback function to invoke */
+  _In_ sqlite3 *pBlocked,                          /* Waiting connection */
+  _In_opt_ void (*xNotify)(_In_reads_( nArg ) void **apArg, int nArg),    /* Callback function to invoke */
   void *pNotifyArg                            /* Argument to pass to xNotify */
 );
 
