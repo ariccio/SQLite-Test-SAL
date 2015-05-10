@@ -7275,8 +7275,8 @@ SQLITE_API void SQLITE_CDECL sqlite3_log(int iErrCode, _Printf_format_string_ _I
 ** those overwrite any prior [sqlite3_wal_hook()] settings.
 */
 SQLITE_API void *SQLITE_STDCALL sqlite3_wal_hook(
-  sqlite3*, 
-  int(*)(void *,sqlite3*,const char*,int),
+  _In_ sqlite3*, 
+  SQLITE_API_ANY_RESULT_CODE_INT(*)(void *,_In_ sqlite3*,_In_z_ const char*,int),
   void*
 );
 
