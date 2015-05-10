@@ -5638,7 +5638,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_create_module_v2(
 struct sqlite3_vtab {
   const sqlite3_module *pModule;  /* The module for this virtual table */
   int nRef;                       /* Number of open cursors */
-  char *zErrMsg;                  /* Error message from sqlite3_mprintf() */
+  _Field_z_ char *zErrMsg;                  /* Error message from sqlite3_mprintf() */
   /* Virtual table implementations will typically add additional fields */
 };
 
@@ -5787,14 +5787,14 @@ typedef struct sqlite3_blob sqlite3_blob;
 ** To avoid a resource leak, every open [BLOB handle] should eventually
 ** be released by a call to [sqlite3_blob_close()].
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_blob_open(
-  sqlite3*,
-  const char *zDb,
-  const char *zTable,
-  const char *zColumn,
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_open(
+  _In_ sqlite3*,
+  _In_z_ PCSTR zDb,
+  _In_z_ PCSTR zTable,
+  _In_z_ PCSTR zColumn,
   sqlite3_int64 iRow,
   int flags,
-  sqlite3_blob **ppBlob
+  _Outptr_result_nullonfailure_ sqlite3_blob **ppBlob
 );
 
 /*
