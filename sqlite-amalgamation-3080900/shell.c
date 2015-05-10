@@ -357,14 +357,14 @@ static volatile int seenInterrupt = 0;
 ** This is the name of our program. It is set in main(), used
 ** in a number of other places, mostly for error messages.
 */
-static char *Argv0;
+_Field_z_ static char *Argv0;
 
 /*
 ** Prompt strings. Initialized in main. Settable with
 **   .prompt main continue
 */
-static char mainPrompt[20];     /* First line prompt. default: "sqlite> "*/
-static char continuePrompt[20]; /* Continuation prompt. default: "   ...> " */
+_Field_z_ static char mainPrompt[20];     /* First line prompt. default: "sqlite> "*/
+_Field_z_ static char continuePrompt[20]; /* Continuation prompt. default: "   ...> " */
 
 /*
 ** Write I/O traces to the following stream.
@@ -380,7 +380,7 @@ static FILE *iotrace = 0;
 ** is written to iotrace.
 */
 #ifdef SQLITE_ENABLE_IOTRACE
-static void SQLITE_CDECL iotracePrintf(const char *zFormat, ...){
+static void SQLITE_CDECL iotracePrintf(_Printf_format_string_ _In_z_ const char *zFormat, ...){
   va_list ap;
   char *z;
   if( iotrace==0 ) return;
@@ -396,7 +396,7 @@ static void SQLITE_CDECL iotracePrintf(const char *zFormat, ...){
 /*
 ** Determines if a string is a number of not.
 */
-static int isNumber(const char *z, int *realnum){
+static int isNumber(_In_z_ const char *z, _Out_opt_ int *realnum){
   if( *z=='-' || *z=='+' ) z++;
   if( !IsDigit(*z) ){
     return 0;
