@@ -133,10 +133,20 @@ extern int isatty(int);
 #define isatty(x) 1
 #endif
 
+
+#ifdef __cplusplus
+
+/* ctype macros that work with signed characters */
+#define IsSpace(X)  isspace(static_cast<unsigned char>(X))
+#define IsDigit(X)  isdigit(static_cast<unsigned char>(X))
+#define ToLower(X)  (char)tolower(static_cast<unsigned char>(X))
+#else
 /* ctype macros that work with signed characters */
 #define IsSpace(X)  isspace((unsigned char)X)
 #define IsDigit(X)  isdigit((unsigned char)X)
 #define ToLower(X)  (char)tolower((unsigned char)X)
+
+#endif
 
 /* On Windows, we normally run with output mode of TEXT so that \n characters
 ** are automatically translated into \r\n.  However, this behavior needs
