@@ -7239,7 +7239,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_strglob(_In_z_ const char *zGlob, _In_z_ c
 ** a few hundred characters, it will be truncated to the length of the
 ** buffer.
 */
-SQLITE_API void SQLITE_CDECL sqlite3_log(int iErrCode, const char *zFormat, ...);
+SQLITE_API void SQLITE_CDECL sqlite3_log(int iErrCode, _Printf_format_string_ _In_z_ const char *zFormat, ...);
 
 /*
 ** CAPI3REF: Write-Ahead Log Commit Hook
