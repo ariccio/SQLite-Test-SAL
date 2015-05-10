@@ -7329,7 +7329,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_wal_autocheckpoint(sqlite3 *db, int N);
 ** start a callback but which do not need the full power (and corresponding
 ** complication) of [sqlite3_wal_checkpoint_v2()].
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_wal_checkpoint(sqlite3 *db, const char *zDb);
+SQLITE_API int SQLITE_STDCALL sqlite3_wal_checkpoint(_In_ sqlite3 *db, _In_z_ const char *zDb);
 
 /*
 ** CAPI3REF: Checkpoint a database
