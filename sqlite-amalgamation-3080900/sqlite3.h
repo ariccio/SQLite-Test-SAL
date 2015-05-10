@@ -7200,8 +7200,8 @@ SQLITE_API int SQLITE_STDCALL sqlite3_unlock_notify(
 ** strings in a case-independent fashion, using the same definition of "case
 ** independence" that SQLite uses internally when comparing identifiers.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_stricmp(const char *, const char *);
-SQLITE_API int SQLITE_STDCALL sqlite3_strnicmp(const char *, const char *, int);
+SQLITE_API int SQLITE_STDCALL sqlite3_stricmp(_In_z_ const char *, _In_z_ const char *);
+SQLITE_API int SQLITE_STDCALL sqlite3_strnicmp(_In_z_ const char *, _In_z_ const char *, int);
 
 /*
 ** CAPI3REF: String Globbing
