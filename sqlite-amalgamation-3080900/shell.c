@@ -1206,8 +1206,8 @@ static SQLITE_API_ANY_RESULT_CODE_INT run_table_dump_query(
 /*
 ** Allocate space and save off current error string.
 */
-static char *save_err_msg(
-  sqlite3 *db            /* Database to query */
+_Ret_maybenull_z_ static char *save_err_msg(
+  _In_ sqlite3 *db            /* Database to query */
 ){
   int nErrMsg = 1+strlen30(sqlite3_errmsg(db));
   char *zErrMsg = sqlite3_malloc(nErrMsg);
