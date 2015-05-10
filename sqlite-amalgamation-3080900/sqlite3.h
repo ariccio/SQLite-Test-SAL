@@ -6072,10 +6072,10 @@ SQLITE_API int SQLITE_STDCALL sqlite3_vfs_unregister(sqlite3_vfs*);
 ** See also: [sqlite3_mutex_held()] and [sqlite3_mutex_notheld()].
 */
 SQLITE_API sqlite3_mutex *SQLITE_STDCALL sqlite3_mutex_alloc(int);
-SQLITE_API void SQLITE_STDCALL sqlite3_mutex_free(sqlite3_mutex*);
-SQLITE_API void SQLITE_STDCALL sqlite3_mutex_enter(sqlite3_mutex*);
-SQLITE_API int SQLITE_STDCALL sqlite3_mutex_try(sqlite3_mutex*);
-SQLITE_API void SQLITE_STDCALL sqlite3_mutex_leave(sqlite3_mutex*);
+SQLITE_API void SQLITE_STDCALL sqlite3_mutex_free(_In_ _Post_ptr_invalid_ sqlite3_mutex*);
+_Acquires_exclusive_lock_( *m ) SQLITE_API void SQLITE_STDCALL sqlite3_mutex_enter(_In_ sqlite3_mutex* m);
+_When_( return == SQLITE_OK, _Acquires_exclusive_lock_( *m ) ) SQLITE_API int SQLITE_STDCALL sqlite3_mutex_try(sqlite3_mutex* m);
+_Releases_exclusive_lock_( *m ) SQLITE_API void SQLITE_STDCALL sqlite3_mutex_leave(_In_ sqlite3_mutex* m);
 
 /*
 ** CAPI3REF: Mutex Methods Object
