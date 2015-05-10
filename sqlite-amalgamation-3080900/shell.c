@@ -1339,7 +1339,7 @@ static SQLITE_API_ANY_RESULT_CODE_INT display_stats(
 */
 static void display_scanstats(
   sqlite3 *db,                    /* Database to query */
-  ShellState *pArg                /* Pointer to ShellState */
+  _In_ ShellState *pArg                /* Pointer to ShellState */
 ){
 #ifdef SQLITE_ENABLE_STMT_SCANSTATUS
   int i, k, n, mx;
@@ -1385,7 +1385,7 @@ static void display_scanstats(
 ** is equal, according to strcmp(), to any of the strings in the array.
 ** Otherwise, return zero.
 */
-static int str_in_array(const char *zStr, const char **azArray){
+static int str_in_array(_In_z_ const char *zStr, _Null_terminated_ const char **azArray){
   int i;
   for(i=0; azArray[i]; i++){
     if( 0==strcmp(zStr, azArray[i]) ) return 1;
@@ -1411,7 +1411,7 @@ static int str_in_array(const char *zStr, const char **azArray){
 **       then indent all opcodes between the earlier instruction
 **       and "Goto" by 2 spaces.
 */
-static void explain_data_prepare(ShellState *p, sqlite3_stmt *pSql){
+static void explain_data_prepare(_In_ ShellState *p, _In_ sqlite3_stmt *pSql){
   const char *zSql;               /* The text of the SQL statement */
   const char *z;                  /* Used to check if this is an EXPLAIN */
   int *abYield = 0;               /* True if op is an OP_Yield */
@@ -1472,7 +1472,7 @@ static void explain_data_prepare(ShellState *p, sqlite3_stmt *pSql){
 /*
 ** Free the array allocated by explain_data_prepare().
 */
-static void explain_data_delete(ShellState *p){
+static void explain_data_delete(_Post_ptr_invalid_ ShellState *p){
   sqlite3_free(p->aiIndent);
   p->aiIndent = 0;
   p->nIndent = 0;
