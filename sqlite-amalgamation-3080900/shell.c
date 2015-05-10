@@ -496,7 +496,7 @@ _Ret_maybenull_z_ static char *local_getline(_In_opt_z_ char *zLine, _In_ FILE *
 ** be freed by the caller or else passed back into this routine via the
 ** zPrior argument for reuse.
 */
-static char *one_input_line(FILE *in, char *zPrior, int isContinuation){
+_Ret_maybenull_z_ static char *one_input_line(_In_opt_ FILE *in, _In_opt_z_ char *zPrior, int isContinuation){
   char *zPrompt;
   char *zResult;
   if( in!=0 ){
@@ -548,7 +548,7 @@ struct ShellState {
   int writableSchema;    /* True if PRAGMA writable_schema=ON */
   int showHeader;        /* True to show column names in List or Column mode */
   unsigned shellFlgs;    /* Various flags */
-  char *zDestTable;      /* Name of destination table when MODE_Insert */
+  _Field_z_ char *zDestTable;      /* Name of destination table when MODE_Insert */
   char colSeparator[20]; /* Column separator character for several modes */
   char rowSeparator[20]; /* Row separator character for MODE_Ascii */
   int colWidth[100];     /* Requested width of each column when in column mode*/
@@ -557,9 +557,9 @@ struct ShellState {
                          ** the database */
   SavedModeInfo normalMode;/* Holds the mode just before .explain ON */
   char outfile[FILENAME_MAX]; /* Filename for *out */
-  const char *zDbFilename;    /* name of the database file */
-  char *zFreeOnClose;         /* Filename to free when closing */
-  const char *zVfs;           /* Name of VFS to use */
+  _Field_z_ const char *zDbFilename;    /* name of the database file */
+  _Field_z_ char *zFreeOnClose;         /* Filename to free when closing */
+  _Field_z_ const char *zVfs;           /* Name of VFS to use */
   sqlite3_stmt *pStmt;   /* Current statement if any. */
   FILE *pLog;            /* Write log output here */
   int *aiIndent;         /* Array of indents used in MODE_Explain */
@@ -623,7 +623,7 @@ static const char *modeDescr[] = {
 ** Compute a string length that is limited to what can be stored in
 ** lower 30 bits of a 32-bit signed integer.
 */
-static int strlen30(const char *z){
+static int strlen30(_In_z_ const char *z){
   const char *z2 = z;
   while( *z2 ){ z2++; }
   return 0x3fffffff & (int)(z2 - z);
@@ -632,7 +632,7 @@ static int strlen30(const char *z){
 /*
 ** A callback for the sqlite3_log() interface.
 */
-static void shellLog(void *pArg, int iErrCode, const char *zMsg){
+static void shellLog(_In_ void *pArg, int iErrCode, _In_z_ const char *zMsg){
   ShellState *p = (ShellState*)pArg;
   if( p->pLog==0 ) return;
   fprintf(p->pLog, "(%d) %s\n", iErrCode, zMsg);
@@ -642,7 +642,7 @@ static void shellLog(void *pArg, int iErrCode, const char *zMsg){
 /*
 ** Output the given string as a hex-encoded blob (eg. X'1234' )
 */
-static void output_hex_blob(FILE *out, const void *pBlob, int nBlob){
+static void output_hex_blob(_In_ FILE *out, _In_ _In_reads_bytes_( nBlob ) const void *pBlob, int nBlob){
   int i;
   char *zBlob = (char *)pBlob;
   fprintf(out,"X'");
@@ -653,7 +653,7 @@ static void output_hex_blob(FILE *out, const void *pBlob, int nBlob){
 /*
 ** Output the given string as a quoted string using SQL quoting conventions.
 */
-static void output_quoted_string(FILE *out, const char *z){
+static void output_quoted_string(_In_ FILE *out, _In_z_ const char *z){
   int i;
   int nSingle = 0;
   setBinaryMode(out);
@@ -685,7 +685,7 @@ static void output_quoted_string(FILE *out, const char *z){
 /*
 ** Output the given string as a quoted according to C or TCL quoting rules.
 */
-static void output_c_string(FILE *out, const char *z){
+static void output_c_string(_In_ FILE *out, _In_z_ const char *z){
   unsigned int c;
   fputc('"', out);
   while( (c = *(z++))!=0 ){
@@ -717,7 +717,7 @@ static void output_c_string(FILE *out, const char *z){
 ** Output the given string with characters that are special to
 ** HTML escaped.
 */
-static void output_html_string(FILE *out, const char *z){
+static void output_html_string(_In_ FILE *out, _In_z_ const char *z){
   int i;
   if( z==0 ) z = "";
   while( *z ){
@@ -777,7 +777,7 @@ static const char needCsvQuote[] = {
 ** the null value.  Strings are quoted if necessary.  The separator
 ** is only issued if bSep is true.
 */
-static void output_csv(ShellState *p, const char *z, int bSep){
+static void output_csv(_In_ ShellState *p, _In_z_ const char *z, int bSep){
   FILE *out = p->out;
   if( z==0 ){
     fprintf(out,"%s",p->nullValue);
@@ -824,12 +824,14 @@ static void interrupt_handler(int NotUsed){
 ** This is the callback routine that the shell
 ** invokes for each row of a query result.
 */
+_At_buffer_( azArg, _Iter_, nArg, _In_z_ )
+_At_buffer_( azCol, _Iter_, nArg, _In_z_ )
 static int shell_callback(
-  void *pArg,
+  _In_ void *pArg,
   int nArg,        /* Number of result columns */
-  char **azArg,    /* Text of each result column */
-  char **azCol,    /* Column names */
-  int *aiType      /* Column types */
+  _In_reads_( nArg ) char **azArg,    /* Text of each result column */
+  _In_reads_( nArg ) char **azCol,    /* Column names */
+  _In_reads_( nArg ) int *aiType      /* Column types */
 ){
   int i;
   ShellState *p = (ShellState*)pArg;
