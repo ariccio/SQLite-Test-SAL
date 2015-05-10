@@ -1053,7 +1053,9 @@ static int shell_callback(
 ** This is the callback routine that the SQLite library
 ** invokes for each row of a query result.
 */
-static int callback(void *pArg, int nArg, char **azArg, char **azCol){
+_At_buffer_( azArg, _Iter_, nArg, _In_z_ )
+_At_buffer_( azCol, _Iter_, nArg, _In_z_ )
+static int callback(_In_ void *pArg, int nArg, _In_reads_( nArg ) char **azArg, _In_reads_( nArg ) char **azCol){
   /* since we don't have type info, call the shell_callback with a NULL value */
   return shell_callback(pArg, nArg, azArg, azCol, NULL);
 }
@@ -1063,7 +1065,7 @@ static int callback(void *pArg, int nArg, char **azArg, char **azCol){
 ** the name of the table given.  Escape any quote characters in the
 ** table name.
 */
-static void set_table_name(ShellState *p, const char *zName){
+static void set_table_name(_In_ ShellState *p, _In_z_ const char *zName){
   int i, n;
   int needQuote;
   char *z;
@@ -1104,7 +1106,7 @@ static void set_table_name(ShellState *p, const char *zName){
 ** If the third argument, quote, is not '\0', then it is used as a 
 ** quote character for zAppend.
 */
-static char *appendText(char *zIn, char const *zAppend, char quote){
+_Ret_maybenull_z_ static char *appendText(_In_opt_z_ _Post_ptr_invalid_ char *zIn, _In_z_ char const *zAppend, char quote){
   int len;
   int i;
   int nAppend = strlen30(zAppend);
