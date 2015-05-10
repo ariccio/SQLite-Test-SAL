@@ -1653,7 +1653,9 @@ static SQLITE_API_ANY_RESULT_CODE_INT shell_exec(
 ** the table type ("index" or "table") and SQL to create the table.
 ** This routine should print text sufficient to recreate the table.
 */
-static int dump_callback(void *pArg, int nArg, char **azArg, char **azCol){
+_At_buffer_( azArg, _Iter_, nArg, _In_z_ )
+_At_buffer_( azCol, _Iter_, nArg, _In_z_ )
+static SQLITE_API_ANY_RESULT_CODE_INT dump_callback(_In_ void *pArg, int nArg, _In_reads_(nArg) char **azArg, _In_reads_(nArg) char **azCol){
   int rc;
   const char *zTable;
   const char *zType;
