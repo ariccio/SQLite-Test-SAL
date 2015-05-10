@@ -5276,16 +5276,16 @@ SQLITE_API SQLITE_DEPRECATED void SQLITE_STDCALL sqlite3_soft_heap_limit(int N);
 ** parsed, if that has not already been done, and returns an error if
 ** any errors are encountered while loading the schema.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_table_column_metadata(
-  sqlite3 *db,                /* Connection handle */
-  const char *zDbName,        /* Database name or NULL */
-  const char *zTableName,     /* Table name */
-  const char *zColumnName,    /* Column name */
-  char const **pzDataType,    /* OUTPUT: Declared data type */
-  char const **pzCollSeq,     /* OUTPUT: Collation sequence name */
-  int *pNotNull,              /* OUTPUT: True if NOT NULL constraint exists */
-  int *pPrimaryKey,           /* OUTPUT: True if column part of PK */
-  int *pAutoinc               /* OUTPUT: True if column is auto-increment */
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_table_column_metadata(
+  _In_ sqlite3 *db,                /* Connection handle */
+  _In_opt_z_ PCSTR zDbName,        /* Database name or NULL */
+  _In_z_ PCSTR zTableName,     /* Table name */
+  _In_opt_z_ PCSTR zColumnName,    /* Column name */
+  _Outptr_result_z_ char const **pzDataType,    /* OUTPUT: Declared data type */
+  _Outptr_result_z_ char const **pzCollSeq,     /* OUTPUT: Collation sequence name */
+  _Out_ int *pNotNull,              /* OUTPUT: True if NOT NULL constraint exists */
+  _Out_ int *pPrimaryKey,           /* OUTPUT: True if column part of PK */
+  _Out_ int *pAutoinc               /* OUTPUT: True if column is auto-increment */
 );
 
 /*
