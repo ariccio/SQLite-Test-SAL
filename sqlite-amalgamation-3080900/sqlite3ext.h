@@ -114,8 +114,8 @@ struct sqlite3_api_routines {
   int  (*libversion_number)(void);
   void *(*malloc)(int);
   char * (*mprintf)(const char*,...);
-  int  (*open)(const char*,sqlite3**);
-  int  (*open16)(const void*,sqlite3**);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT  (*open)(_In_z_ PCSTR, _Outptr_ sqlite3**);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT  (*open16)(_In_z_ const void*, _Outptr_ sqlite3**);
   int  (*prepare)(sqlite3*,const char*,int,sqlite3_stmt**,const char**);
   int  (*prepare16)(sqlite3*,const void*,int,sqlite3_stmt**,const void**);
   void * (*profile)(sqlite3*,void(*)(void*,const char*,sqlite_uint64),void*);
@@ -190,7 +190,7 @@ struct sqlite3_api_routines {
   void (*mutex_free)(sqlite3_mutex*);
   void (*mutex_leave)(sqlite3_mutex*);
   int (*mutex_try)(sqlite3_mutex*);
-  int (*open_v2)(const char*,sqlite3**,int,const char*);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*open_v2)(_In_z_ PCSTR, _Outptr_ sqlite3**,int,_In_z_ PCSTR);
   int (*release_memory)(int);
   void (*result_error_nomem)(sqlite3_context*);
   void (*result_error_toobig)(sqlite3_context*);
