@@ -7422,12 +7422,12 @@ SQLITE_API int SQLITE_STDCALL sqlite3_wal_checkpoint(_In_ sqlite3 *db, _In_z_ co
 ** ^The [PRAGMA wal_checkpoint] command can be used to invoke this interface
 ** from SQL.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_wal_checkpoint_v2(
-  sqlite3 *db,                    /* Database handle */
-  const char *zDb,                /* Name of attached database (or NULL) */
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_wal_checkpoint_v2(
+  _In_ sqlite3 *db,                    /* Database handle */
+  _In_opt_z_ const char *zDb,                /* Name of attached database (or NULL) */
   int eMode,                      /* SQLITE_CHECKPOINT_* value */
-  int *pnLog,                     /* OUT: Size of WAL log in frames */
-  int *pnCkpt                     /* OUT: Total number of frames checkpointed */
+  _Out_ int *pnLog,                     /* OUT: Size of WAL log in frames */
+  _Out_ int *pnCkpt                     /* OUT: Total number of frames checkpointed */
 );
 
 /*
