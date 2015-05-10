@@ -2521,7 +2521,8 @@ unsigned int get4byteInt(_In_ unsigned char *a){
 **
 ** Return 1 on error, 2 to exit, and 0 otherwise.
 */
-static int shell_dbinfo_command(ShellState *p, int nArg, char **azArg){
+_At_buffer_( azArg, _Iter_, nArg, _In_z_ )
+static SQLITE_API_ANY_RESULT_CODE_INT shell_dbinfo_command(_In_ ShellState *p, int nArg, _In_reads_(nArg) char **azArg){
   static const struct { const char *zName; int ofst; } aField[] = {
      { "file change counter:",  24  },
      { "database page count:",  28  },
@@ -2607,7 +2608,7 @@ static int shell_dbinfo_command(ShellState *p, int nArg, char **azArg){
 **
 ** Return 1 on error, 2 to exit, and 0 otherwise.
 */
-static int do_meta_command(char *zLine, ShellState *p){
+static int do_meta_command(_Inout_z_ char *zLine, _In_ ShellState *p){
   int i = 1;
   int nArg = 0;
   int n, c;
