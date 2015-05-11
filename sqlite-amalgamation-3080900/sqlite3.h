@@ -41,12 +41,13 @@
 extern "C" {
 #endif
 
+#include <sal.h>
+#include <climits>
+/*                                         SQLITE_OK == 0     SQLITE_ROW == 100    SQLITE_DONE == 101*/
+typedef _Return_type_success_((return == 0)||(return == 100)||(return == 101)) int SQLITE_API_ANY_RESULT_CODE_INT;
 
 /*                                         SQLITE_OK == 0     SQLITE_ROW == 100    SQLITE_DONE == 101*/
-typedef _Return_type_success_( ( return == 0 ) || ( return == 100 ) || ( return == 101 ) ) int SQLITE_API_ANY_RESULT_CODE_INT;
-
-/*                                         SQLITE_OK == 0     SQLITE_ROW == 100    SQLITE_DONE == 101*/
-typedef _Return_type_success_( return == 0 ) int SQLITE_API_OK_ONLY_RESULT_CODE_INT;
+typedef _Return_type_success_(return == 0) int SQLITE_API_OK_ONLY_RESULT_CODE_INT;
 
 
 
@@ -181,8 +182,8 @@ SQLITE_API int SQLITE_STDCALL sqlite3_libversion_number(void);
 ** [sqlite_compileoption_get()] and the [compile_options pragma].
 */
 #ifndef SQLITE_OMIT_COMPILEOPTION_DIAGS
-SQLITE_API int SQLITE_STDCALL sqlite3_compileoption_used(_In_z_ PCSTR zOptName);
-SQLITE_API _Ret_z_ PCSTR SQLITE_STDCALL sqlite3_compileoption_get(_In_range_(0, ArraySize(azCompileOpt)) int N);
+SQLITE_API int SQLITE_STDCALL sqlite3_compileoption_used(_In_z_ const char* zOptName);
+SQLITE_API _Ret_z_ const char* SQLITE_STDCALL sqlite3_compileoption_get(_In_range_(0, ArraySize(azCompileOpt)) int N);
 #endif
 
 /*
@@ -390,7 +391,7 @@ typedef int (*sqlite3_callback)(void*,int,char**, char**);
 */
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_exec(
   _In_ sqlite3*,                                  /* An open database */
-  _In_z_ PCSTR sql,                           /* SQL to be evaluated */
+  _In_z_ const char* sql,                           /* SQL to be evaluated */
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*callback)(void*,int sizeArgs, _In_reads_( sizeArgs ) char**, _In_reads_( sizeArgs ) char**),  /* Callback function */
   void *,                                    /* 1st argument to callback */
   _On_failure_( _Outptr_opt_result_z_ ) char **errmsg                              /* Error msg written here */
@@ -2088,7 +2089,7 @@ SQLITE_API void SQLITE_STDCALL sqlite3_interrupt(sqlite3*);
 ** The input to [sqlite3_complete16()] must be a zero-terminated
 ** UTF-16 string in native byte order.
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_complete(_In_z_ PCSTR sql);
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_complete(_In_z_ const char* sql);
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_complete16(_In_z_ const void *sql);
 
 /*
@@ -2359,10 +2360,10 @@ SQLITE_API void SQLITE_STDCALL sqlite3_free_table(char **result);
 ** addition that after the string has been read and copied into
 ** the result, [sqlite3_free()] is called on the input string.)^
 */
-SQLITE_API _Ret_maybenull_ _Ret_z_ PCSTR SQLITE_CDECL sqlite3_mprintf(_Printf_format_string_ PCSTR,...);
-SQLITE_API _Ret_maybenull_ _Ret_z_ PCSTR SQLITE_STDCALL sqlite3_vmprintf(_Printf_format_string_ PCSTR, va_list);
-SQLITE_API _Ret_z_ PCSTR SQLITE_CDECL sqlite3_snprintf(_In_range_( 1, INT_MAX ) int n, _Pre_writable_size_( n ) char*,_Printf_format_string_ PCSTR, ...);
-SQLITE_API _Ret_z_ PCSTR SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( 1, INT_MAX ) int n,_Pre_writable_size_( n ) char*, _Printf_format_string_ PCSTR, va_list);
+SQLITE_API _Ret_maybenull_ _Ret_z_ const char* SQLITE_CDECL sqlite3_mprintf(_Printf_format_string_ _In_z_ const char*,...);
+SQLITE_API _Ret_maybenull_ _Ret_z_ const char* SQLITE_STDCALL sqlite3_vmprintf(_Printf_format_string_ _In_z_ const char*, va_list);
+SQLITE_API _Ret_z_ const char* SQLITE_CDECL sqlite3_snprintf(_In_range_( 1, INT_MAX ) int n, _Pre_writable_size_( n ) char*,_Printf_format_string_ _In_z_ const char*, ...);
+SQLITE_API _Ret_z_ const char* SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( 1, INT_MAX ) int n,_Pre_writable_size_( n ) char*, _Printf_format_string_ _In_z_ const char*, va_list);
 
 /*
 ** CAPI3REF: Memory Allocation Subsystem
@@ -2506,7 +2507,7 @@ SQLITE_API sqlite3_int64 SQLITE_STDCALL sqlite3_memory_highwater(int resetFlag);
 ** internally and without recourse to the [sqlite3_vfs] xRandomness
 ** method.
 */
-SQLITE_API void SQLITE_STDCALL sqlite3_randomness(int N, _Out_opt_ _Out_writes_bytes_(N) void *P);
+SQLITE_API void SQLITE_STDCALL sqlite3_randomness(int N, _Out_writes_bytes_opt_(N) void *P);
 
 /*
 ** CAPI3REF: Compile-Time Authorization Callbacks
@@ -2956,7 +2957,7 @@ SQLITE_API void SQLITE_STDCALL sqlite3_progress_handler(_In_ sqlite3*, int, _In_
 ** See also: [sqlite3_temp_directory]
 */
 SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_open(
-  _In_z_ PCSTR filename,   /* Database filename (UTF-8) */
+  _In_z_ const char* filename,   /* Database filename (UTF-8) */
   _Outptr_ sqlite3 **ppDb          /* OUT: SQLite db handle */
 );
 SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_open16(
@@ -2964,10 +2965,10 @@ SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_open16(
   _Outptr_ sqlite3 **ppDb          /* OUT: SQLite db handle */
 );
 SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_open_v2(
-  _In_z_ PCSTR filename,   /* Database filename (UTF-8) */
+  _In_z_ const char* filename,   /* Database filename (UTF-8) */
   _Outptr_ sqlite3 **ppDb,         /* OUT: SQLite db handle */
   int flags,              /* Flags */
-  _In_z_ PCSTR zVfs        /* Name of VFS module to use */
+  _In_z_ const char* zVfs        /* Name of VFS module to use */
 );
 
 /*
@@ -3277,14 +3278,14 @@ SQLITE_API int SQLITE_STDCALL sqlite3_limit(_In_ sqlite3*, int id, int newVal);
 */
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare(
   _In_ sqlite3 *db,            /* Database handle */
-  _In_z_ PCSTR zSql,       /* SQL statement, UTF-8 encoded */
+  _In_z_ const char* zSql,       /* SQL statement, UTF-8 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
   _Outptr_ sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
   const char **pzTail     /* OUT: Pointer to unused portion of zSql */
 );
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare_v2(
   _In_ sqlite3 *db,            /* Database handle */
-  _In_z_ PCSTR zSql,       /* SQL statement, UTF-8 encoded */
+  _In_z_ const char* zSql,       /* SQL statement, UTF-8 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
   _Outptr_ sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
   const char **pzTail     /* OUT: Pointer to unused portion of zSql */
@@ -5278,9 +5279,9 @@ SQLITE_API SQLITE_DEPRECATED void SQLITE_STDCALL sqlite3_soft_heap_limit(int N);
 */
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_table_column_metadata(
   _In_ sqlite3 *db,                /* Connection handle */
-  _In_opt_z_ PCSTR zDbName,        /* Database name or NULL */
-  _In_z_ PCSTR zTableName,     /* Table name */
-  _In_opt_z_ PCSTR zColumnName,    /* Column name */
+  _In_opt_z_ const char* zDbName,        /* Database name or NULL */
+  _In_z_ const char* zTableName,     /* Table name */
+  _In_opt_z_ const char* zColumnName,    /* Column name */
   _Outptr_result_z_ char const **pzDataType,    /* OUTPUT: Declared data type */
   _Outptr_result_z_ char const **pzCollSeq,     /* OUTPUT: Collation sequence name */
   _Out_ int *pNotNull,              /* OUTPUT: True if NOT NULL constraint exists */
@@ -5324,9 +5325,9 @@ SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_table_column_me
 */
 SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_load_extension(
   _In_ sqlite3 *db,          /* Load the extension into this database connection */
-  _In_z_ PCSTR zFile,    /* Name of the shared library containing extension */
-  _In_opt_z_ PCSTR zProc,    /* Entry point.  Derived from zFile if 0 */
-  _Outptr_opt_result_z_ char **pzErrMsg       /* Put error message here if not 0 */
+  _In_z_ const char* zFile,    /* Name of the shared library containing extension */
+  _In_opt_z_ const char* zProc,    /* Entry point.  Derived from zFile if 0 */
+  _On_failure_( _Outptr_opt_result_z_ )  char **pzErrMsg       /* Put error message here if not 0 */
 );
 
 /*
@@ -5789,9 +5790,9 @@ typedef struct sqlite3_blob sqlite3_blob;
 */
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_open(
   _In_ sqlite3*,
-  _In_z_ PCSTR zDb,
-  _In_z_ PCSTR zTable,
-  _In_z_ PCSTR zColumn,
+  _In_z_ const char* zDb,
+  _In_z_ const char* zTable,
+  _In_z_ const char* zColumn,
   sqlite3_int64 iRow,
   int flags,
   _Outptr_result_nullonfailure_ sqlite3_blob **ppBlob
@@ -5956,7 +5957,7 @@ SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_write(_In_
 ** ^(If the default VFS is unregistered, another VFS is chosen as
 ** the default.  The choice for the new VFS is arbitrary.)^
 */
-SQLITE_API sqlite3_vfs *SQLITE_STDCALL sqlite3_vfs_find(_In_opt_z_ PCSTR zVfsName);
+SQLITE_API sqlite3_vfs *SQLITE_STDCALL sqlite3_vfs_find(_In_opt_z_ const char* zVfsName);
 SQLITE_API int SQLITE_STDCALL sqlite3_vfs_register(sqlite3_vfs*, int makeDflt);
 SQLITE_API int SQLITE_STDCALL sqlite3_vfs_unregister(sqlite3_vfs*);
 
@@ -6256,7 +6257,7 @@ SQLITE_API sqlite3_mutex *SQLITE_STDCALL sqlite3_db_mutex(sqlite3*);
 **
 ** See also: [SQLITE_FCNTL_LOCKSTATE]
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_file_control(_In_ sqlite3*, _In_z_ PCSTR zDbName, int op, _Out_ void*);
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_file_control(_In_ sqlite3*, _In_opt_z_ const char* zDbName, int op, _Out_ void*);
 
 /*
 ** CAPI3REF: Testing Interface
