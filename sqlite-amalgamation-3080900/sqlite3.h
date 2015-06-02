@@ -155,8 +155,8 @@ typedef _Return_type_success_(return == 0) int SQLITE_API_OK_ONLY_RESULT_CODE_IN
 ** See also: [sqlite_version()] and [sqlite_source_id()].
 */
 SQLITE_API SQLITE_EXTERN const char sqlite3_version[];
-SQLITE_API const char *SQLITE_STDCALL sqlite3_libversion(void);
-SQLITE_API const char *SQLITE_STDCALL sqlite3_sourceid(void);
+_Ret_z_ SQLITE_API const char *SQLITE_STDCALL sqlite3_libversion(void);
+_Ret_z_ SQLITE_API const char *SQLITE_STDCALL sqlite3_sourceid(void);
 SQLITE_API int SQLITE_STDCALL sqlite3_libversion_number(void);
 
 /*
@@ -2254,7 +2254,7 @@ SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_get_table(
   _Out_ int *pnColumn,        /* Number of result columns written here */
   _On_failure_( _Outptr_opt_result_z_ ) char **pzErrmsg       /* Error msg written here */
 );
-SQLITE_API void SQLITE_STDCALL sqlite3_free_table(char **result);
+SQLITE_API void SQLITE_STDCALL sqlite3_free_table(_Post_ptr_invalid_ char **result);
 
 /*
 ** CAPI3REF: Formatted String Printing Functions
@@ -3057,9 +3057,9 @@ SQLITE_API sqlite3_int64 SQLITE_STDCALL sqlite3_uri_int64(_In_z_ const char*, _I
 */
 SQLITE_API int SQLITE_STDCALL sqlite3_errcode(_In_ sqlite3 *db);
 SQLITE_API int SQLITE_STDCALL sqlite3_extended_errcode(_In_ sqlite3 *db);
-SQLITE_API const char *SQLITE_STDCALL sqlite3_errmsg(_In_ sqlite3*);
+_Ret_z_ SQLITE_API const char *SQLITE_STDCALL sqlite3_errmsg(_In_ sqlite3*);
 SQLITE_API const void *SQLITE_STDCALL sqlite3_errmsg16(_In_ sqlite3*);
-SQLITE_API const char *SQLITE_STDCALL sqlite3_errstr(int);
+_Ret_z_ SQLITE_API const char *SQLITE_STDCALL sqlite3_errstr(int);
 
 /*
 ** CAPI3REF: SQL Statement Object
@@ -3126,7 +3126,7 @@ typedef struct sqlite3_stmt sqlite3_stmt;
 **
 ** New run-time limit categories may be added in future releases.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_limit(_In_ sqlite3*, int id, int newVal);
+SQLITE_API int SQLITE_STDCALL sqlite3_limit(_In_ sqlite3*, _In_range_( 0, SQLITE_N_LIMIT ) int id, int newVal);
 
 /*
 ** CAPI3REF: Run-Time Limit Categories
@@ -3278,31 +3278,31 @@ SQLITE_API int SQLITE_STDCALL sqlite3_limit(_In_ sqlite3*, int id, int newVal);
 */
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare(
   _In_ sqlite3 *db,            /* Database handle */
-  _In_z_ const char* zSql,       /* SQL statement, UTF-8 encoded */
+  _When_( nByte < 0, _In_z_ ) _When_( nByte >= 0, _In_reads_bytes_( nByte ) ) const char* zSql,       /* SQL statement, UTF-8 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
   _Outptr_ sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
-  const char **pzTail     /* OUT: Pointer to unused portion of zSql */
+  _Outptr_opt_ const char **pzTail     /* OUT: Pointer to unused portion of zSql */
 );
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare_v2(
   _In_ sqlite3 *db,            /* Database handle */
-  _In_z_ const char* zSql,       /* SQL statement, UTF-8 encoded */
+  _When_( nByte < 0, _In_z_ ) _When_( nByte >= 0, _In_reads_bytes_( nByte ) ) const char* zSql,       /* SQL statement, UTF-8 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
   _Outptr_ sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
-  const char **pzTail     /* OUT: Pointer to unused portion of zSql */
+  _Outptr_opt_ const char **pzTail     /* OUT: Pointer to unused portion of zSql */
 );
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare16(
   _In_ sqlite3 *db,            /* Database handle */
-  const void *zSql,       /* SQL statement, UTF-16 encoded */
+  _When_( nByte < 0, _In_z_ ) _When_( nByte >= 0, _In_reads_bytes_( nByte ) ) const void *zSql,       /* SQL statement, UTF-16 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
   _Outptr_ sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
-  const void **pzTail     /* OUT: Pointer to unused portion of zSql */
+  _Outptr_opt_ const void **pzTail     /* OUT: Pointer to unused portion of zSql */
 );
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare16_v2(
   _In_ sqlite3 *db,            /* Database handle */
-  const void *zSql,       /* SQL statement, UTF-16 encoded */
+  _When_( nByte < 0, _In_z_ ) _When_( nByte >= 0, _In_reads_bytes_( nByte ) ) const void *zSql,       /* SQL statement, UTF-16 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
   _Outptr_ sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
-  const void **pzTail     /* OUT: Pointer to unused portion of zSql */
+  _Outptr_opt_ const void **pzTail     /* OUT: Pointer to unused portion of zSql */
 );
 
 /*
@@ -3312,7 +3312,7 @@ SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare16_v2(
 ** SQL text used to create a [prepared statement] if that statement was
 ** compiled using either [sqlite3_prepare_v2()] or [sqlite3_prepare16_v2()].
 */
-SQLITE_API const char *SQLITE_STDCALL sqlite3_sql(_In_ sqlite3_stmt *pStmt);
+_Ret_z_ SQLITE_API const char *SQLITE_STDCALL sqlite3_sql(_In_ sqlite3_stmt *pStmt);
 
 /*
 ** CAPI3REF: Determine If An SQL Statement Writes The Database
