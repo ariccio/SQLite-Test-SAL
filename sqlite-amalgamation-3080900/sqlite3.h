@@ -183,7 +183,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_libversion_number(void);
 */
 #ifndef SQLITE_OMIT_COMPILEOPTION_DIAGS
 SQLITE_API int SQLITE_STDCALL sqlite3_compileoption_used(_In_z_ const char* zOptName);
-SQLITE_API _Ret_z_ const char* SQLITE_STDCALL sqlite3_compileoption_get(_In_range_(0, ArraySize(azCompileOpt)) int N);
+SQLITE_API _Ret_maybenull_z_ const char* SQLITE_STDCALL sqlite3_compileoption_get(_In_range_(0, ArraySize(azCompileOpt)) int N);
 #endif
 
 /*
