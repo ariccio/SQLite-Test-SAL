@@ -3126,7 +3126,7 @@ typedef struct sqlite3_stmt sqlite3_stmt;
 **
 ** New run-time limit categories may be added in future releases.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_limit(_In_ sqlite3*, _In_range_( 0, SQLITE_N_LIMIT ) int id, int newVal);
+SQLITE_API int SQLITE_STDCALL sqlite3_limit(_Inout_ sqlite3*, _In_range_( 0, SQLITE_N_LIMIT ) int id, int newVal);
 
 /*
 ** CAPI3REF: Run-Time Limit Categories
@@ -3523,7 +3523,7 @@ typedef struct sqlite3_context sqlite3_context;
 ** See also: [sqlite3_bind_parameter_count()],
 ** [sqlite3_bind_parameter_name()], and [sqlite3_bind_parameter_index()].
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_bind_blob(sqlite3_stmt*, int, const void*, int n, void(*)(void*));
+SQLITE_API int SQLITE_STDCALL sqlite3_bind_blob(_In_ sqlite3_stmt*, int, const void*, _In_range_( 0, INT_MAX ) int n, void(*)(void*));
 SQLITE_API int SQLITE_STDCALL sqlite3_bind_blob64(sqlite3_stmt*, int, const void*, sqlite3_uint64,
                         void(*)(void*));
 SQLITE_API int SQLITE_STDCALL sqlite3_bind_double(sqlite3_stmt*, int, double);
@@ -6074,9 +6074,9 @@ SQLITE_API int SQLITE_STDCALL sqlite3_vfs_unregister(sqlite3_vfs*);
 */
 SQLITE_API sqlite3_mutex *SQLITE_STDCALL sqlite3_mutex_alloc(int);
 SQLITE_API void SQLITE_STDCALL sqlite3_mutex_free(_In_ _Post_ptr_invalid_ sqlite3_mutex*);
-_Acquires_exclusive_lock_( *m ) SQLITE_API void SQLITE_STDCALL sqlite3_mutex_enter(_In_ sqlite3_mutex* m);
-_When_( return == SQLITE_OK, _Acquires_exclusive_lock_( *m ) ) SQLITE_API int SQLITE_STDCALL sqlite3_mutex_try(sqlite3_mutex* m);
-_Releases_exclusive_lock_( *m ) SQLITE_API void SQLITE_STDCALL sqlite3_mutex_leave(_In_ sqlite3_mutex* m);
+_Acquires_lock_( *m ) SQLITE_API void SQLITE_STDCALL sqlite3_mutex_enter(_In_opt_ sqlite3_mutex* m);
+_When_( return == SQLITE_OK, _Acquires_lock_( *m ) ) SQLITE_API int SQLITE_STDCALL sqlite3_mutex_try(_In_opt_ sqlite3_mutex* m);
+_Releases_lock_( *m ) SQLITE_API void SQLITE_STDCALL sqlite3_mutex_leave(_In_opt_ sqlite3_mutex* m);
 
 /*
 ** CAPI3REF: Mutex Methods Object
