@@ -2453,8 +2453,8 @@ SQLITE_API _Ret_z_ const char* SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( 1, I
 ** a block of memory after it has been released using
 ** [sqlite3_free()] or [sqlite3_realloc()].
 */
-SQLITE_API void *SQLITE_STDCALL sqlite3_malloc(int);
-SQLITE_API void *SQLITE_STDCALL sqlite3_malloc64(sqlite3_uint64);
+_Check_return_ _Ret_maybenull_ _Post_writable_byte_size_( n ) SQLITE_API void *SQLITE_STDCALL sqlite3_malloc(_In_range_(1, INT_MAX) int n);
+_Check_return_ _Ret_maybenull_ _Post_writable_byte_size_( n ) SQLITE_API void *SQLITE_STDCALL sqlite3_malloc64(sqlite3_uint64 n);
 SQLITE_API void *SQLITE_STDCALL sqlite3_realloc(void*, int);
 SQLITE_API void *SQLITE_STDCALL sqlite3_realloc64(void*, sqlite3_uint64);
 SQLITE_API void SQLITE_STDCALL sqlite3_free( _Post_ptr_invalid_ void*);
@@ -4387,7 +4387,7 @@ SQLITE_API void *SQLITE_STDCALL sqlite3_user_data(sqlite3_context*);
 ** and [sqlite3_create_function16()] routines that originally
 ** registered the application defined function.
 */
-SQLITE_API sqlite3 *SQLITE_STDCALL sqlite3_context_db_handle(sqlite3_context*);
+SQLITE_API sqlite3 *SQLITE_STDCALL sqlite3_context_db_handle(_In_ _Pre_satisfies_( ( p != NULL ) && ( p->pFunc != NULL ) && ( p->pOut != NULL ) ) sqlite3_context*);
 
 /*
 ** CAPI3REF: Function Auxiliary Data
