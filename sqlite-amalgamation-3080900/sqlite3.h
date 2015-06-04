@@ -183,7 +183,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_libversion_number(void);
 */
 #ifndef SQLITE_OMIT_COMPILEOPTION_DIAGS
 SQLITE_API int SQLITE_STDCALL sqlite3_compileoption_used(_In_z_ const char* zOptName);
-SQLITE_API _Ret_maybenull_z_ const char* SQLITE_STDCALL sqlite3_compileoption_get(_In_range_(0, ArraySize(azCompileOpt)) int N);
+SQLITE_API _Ret_maybenull_z_ const char* SQLITE_STDCALL sqlite3_compileoption_get(_In_range_(0, (sizeof(azCompileOpt)/sizeof(azCompileOpt[0]))) int N);
 #endif
 
 /*
@@ -2362,8 +2362,8 @@ SQLITE_API void SQLITE_STDCALL sqlite3_free_table(_Post_ptr_invalid_ char **resu
 */
 SQLITE_API _Ret_maybenull_ _Ret_z_ const char* SQLITE_CDECL sqlite3_mprintf(_Printf_format_string_ _In_z_ const char*,...);
 SQLITE_API _Ret_maybenull_ _Ret_z_ const char* SQLITE_STDCALL sqlite3_vmprintf(_Printf_format_string_ _In_z_ const char*, va_list);
-SQLITE_API _Ret_z_ const char* SQLITE_CDECL sqlite3_snprintf(_In_range_( 1, INT_MAX ) int n, _Pre_writable_size_( n ) char*,_Printf_format_string_ _In_z_ const char*, ...);
-SQLITE_API _Ret_z_ const char* SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( 1, INT_MAX ) int n,_Pre_writable_size_( n ) char*, _Printf_format_string_ _In_z_ const char*, va_list);
+SQLITE_API _Ret_z_ const char* SQLITE_CDECL sqlite3_snprintf(_In_range_( >=, 1 ) int n, _Pre_writable_size_( n ) char*,_Printf_format_string_ _In_z_ const char*, ...);
+SQLITE_API _Ret_z_ const char* SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( >=, 1 ) int n,_Pre_writable_size_( n ) char*, _Printf_format_string_ _In_z_ const char*, va_list);
 
 /*
 ** CAPI3REF: Memory Allocation Subsystem
@@ -2453,7 +2453,7 @@ SQLITE_API _Ret_z_ const char* SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( 1, I
 ** a block of memory after it has been released using
 ** [sqlite3_free()] or [sqlite3_realloc()].
 */
-_Check_return_ _Ret_maybenull_ _Post_writable_byte_size_( n ) SQLITE_API void *SQLITE_STDCALL sqlite3_malloc(_In_range_(1, INT_MAX) int n);
+_Check_return_ _Ret_maybenull_ _Post_writable_byte_size_( n ) SQLITE_API void *SQLITE_STDCALL sqlite3_malloc(_In_range_(>=, 1) int n);
 _Check_return_ _Ret_maybenull_ _Post_writable_byte_size_( n ) SQLITE_API void *SQLITE_STDCALL sqlite3_malloc64(sqlite3_uint64 n);
 SQLITE_API void *SQLITE_STDCALL sqlite3_realloc(void*, int);
 SQLITE_API void *SQLITE_STDCALL sqlite3_realloc64(void*, sqlite3_uint64);
