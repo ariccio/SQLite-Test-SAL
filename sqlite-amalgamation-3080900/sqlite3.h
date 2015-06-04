@@ -2360,8 +2360,8 @@ SQLITE_API void SQLITE_STDCALL sqlite3_free_table(_Post_ptr_invalid_ char **resu
 ** addition that after the string has been read and copied into
 ** the result, [sqlite3_free()] is called on the input string.)^
 */
-SQLITE_API _Ret_maybenull_ _Ret_z_ const char* SQLITE_CDECL sqlite3_mprintf(_Printf_format_string_ _In_z_ const char*,...);
-SQLITE_API _Ret_maybenull_ _Ret_z_ const char* SQLITE_STDCALL sqlite3_vmprintf(_Printf_format_string_ _In_z_ const char*, va_list);
+SQLITE_API _Ret_maybenull_z_ const char* SQLITE_CDECL sqlite3_mprintf(_Printf_format_string_ _In_z_ const char*,...);
+SQLITE_API _Ret_maybenull_z_ const char* SQLITE_STDCALL sqlite3_vmprintf(_Printf_format_string_ _In_z_ const char*, va_list);
 SQLITE_API _Ret_z_ const char* SQLITE_CDECL sqlite3_snprintf(_In_range_( >=, 1 ) int n, _Pre_writable_size_( n ) char*,_Printf_format_string_ _In_z_ const char*, ...);
 SQLITE_API _Ret_z_ const char* SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( >=, 1 ) int n,_Pre_writable_size_( n ) char*, _Printf_format_string_ _In_z_ const char*, va_list);
 
@@ -3523,7 +3523,7 @@ typedef struct sqlite3_context sqlite3_context;
 ** See also: [sqlite3_bind_parameter_count()],
 ** [sqlite3_bind_parameter_name()], and [sqlite3_bind_parameter_index()].
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_bind_blob(_In_ sqlite3_stmt*, int, const void*, _In_range_( 0, INT_MAX ) int n, void(*)(void*));
+SQLITE_API int SQLITE_STDCALL sqlite3_bind_blob(_In_ sqlite3_stmt*, int, const void*, _In_range_( >=, 0 ) int n, void(*)(void*));
 SQLITE_API int SQLITE_STDCALL sqlite3_bind_blob64(sqlite3_stmt*, int, const void*, sqlite3_uint64,
                         void(*)(void*));
 SQLITE_API int SQLITE_STDCALL sqlite3_bind_double(sqlite3_stmt*, int, double);
@@ -4387,7 +4387,7 @@ SQLITE_API void *SQLITE_STDCALL sqlite3_user_data(sqlite3_context*);
 ** and [sqlite3_create_function16()] routines that originally
 ** registered the application defined function.
 */
-SQLITE_API sqlite3 *SQLITE_STDCALL sqlite3_context_db_handle(_In_ _Pre_satisfies_( ( p != NULL ) && ( p->pFunc != NULL ) && ( p->pOut != NULL ) ) sqlite3_context*);
+SQLITE_API sqlite3 *SQLITE_STDCALL sqlite3_context_db_handle(_In_ _Pre_satisfies_( ( p != 0 ) && ( p->pFunc != 0 ) && ( p->pOut != 0 ) ) sqlite3_context*);
 
 /*
 ** CAPI3REF: Function Auxiliary Data
@@ -5885,7 +5885,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_blob_bytes(sqlite3_blob *);
 **
 ** See also: [sqlite3_blob_write()].
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_read(_In_ sqlite3_blob *, _Out_writes_bytes_(N) void *Z, _In_range_( 0, INT_MAX ) int N, _In_range_( 0, INT_MAX ) int iOffset);
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_read(_In_ sqlite3_blob *, _Out_writes_bytes_(N) void *Z, _In_range_( >=, 0 ) int N, _In_range_( >=, 0 ) int iOffset);
 
 /*
 ** CAPI3REF: Write Data Into A BLOB Incrementally
@@ -5926,7 +5926,7 @@ SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_read(_In_ 
 **
 ** See also: [sqlite3_blob_read()].
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_write(_In_ sqlite3_blob *, _In_reads_bytes_( n ) const void *z, _In_range_( 0, INT_MAX ) int n, _In_range_( 0, INT_MAX ) int iOffset);
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_write(_In_ sqlite3_blob *, _In_reads_bytes_( n ) const void *z, _In_range_( >=, 0 ) int n, _In_range_( >=, 0 ) int iOffset);
 
 /*
 ** CAPI3REF: Virtual File System Objects
@@ -6074,9 +6074,9 @@ SQLITE_API int SQLITE_STDCALL sqlite3_vfs_unregister(sqlite3_vfs*);
 */
 SQLITE_API sqlite3_mutex *SQLITE_STDCALL sqlite3_mutex_alloc(int);
 SQLITE_API void SQLITE_STDCALL sqlite3_mutex_free(_In_ _Post_ptr_invalid_ sqlite3_mutex*);
-_Acquires_lock_( *m ) SQLITE_API void SQLITE_STDCALL sqlite3_mutex_enter(_In_opt_ sqlite3_mutex* m);
-_When_( return == SQLITE_OK, _Acquires_lock_( *m ) ) SQLITE_API int SQLITE_STDCALL sqlite3_mutex_try(_In_opt_ sqlite3_mutex* m);
-_Releases_lock_( *m ) SQLITE_API void SQLITE_STDCALL sqlite3_mutex_leave(_In_opt_ sqlite3_mutex* m);
+_When_( p != 0, _Acquires_lock_( *p ) ) SQLITE_API void SQLITE_STDCALL sqlite3_mutex_enter(_In_opt_ sqlite3_mutex* p);
+_When_( ( return == SQLITE_OK ) && ( m != 0 ), _Acquires_lock_( *m ) ) SQLITE_API int SQLITE_STDCALL sqlite3_mutex_try(_In_opt_ sqlite3_mutex* m);
+_When_( m != 0, _Releases_lock_( *m ) ) SQLITE_API void SQLITE_STDCALL sqlite3_mutex_leave(_In_opt_ sqlite3_mutex* m);
 
 /*
 ** CAPI3REF: Mutex Methods Object
