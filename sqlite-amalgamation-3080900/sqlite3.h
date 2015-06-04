@@ -4440,7 +4440,7 @@ SQLITE_API sqlite3 *SQLITE_STDCALL sqlite3_context_db_handle(_In_ _Pre_satisfies
 ** the SQL function is running.
 */
 SQLITE_API void *SQLITE_STDCALL sqlite3_get_auxdata(sqlite3_context*, int N);
-SQLITE_API void SQLITE_STDCALL sqlite3_set_auxdata(sqlite3_context*, int N, void*, void (*)(void*));
+SQLITE_API void SQLITE_STDCALL sqlite3_set_auxdata(_Requires_lock_held_( pCtx->pVdbe->db->mutex ) sqlite3_context* pCtx, int N, void*, void (*)(void*));
 
 
 /*
@@ -4579,11 +4579,11 @@ SQLITE_API void SQLITE_STDCALL sqlite3_result_blob(sqlite3_context*, const void*
 SQLITE_API void SQLITE_STDCALL sqlite3_result_blob64(sqlite3_context*,const void*,
                            sqlite3_uint64,void(*)(void*));
 SQLITE_API void SQLITE_STDCALL sqlite3_result_double(sqlite3_context*, double);
-SQLITE_API void SQLITE_STDCALL sqlite3_result_error(sqlite3_context*, const char*, int);
-SQLITE_API void SQLITE_STDCALL sqlite3_result_error16(sqlite3_context*, const void*, int);
-SQLITE_API void SQLITE_STDCALL sqlite3_result_error_toobig(sqlite3_context*);
+SQLITE_API void SQLITE_STDCALL sqlite3_result_error(_Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, const char*, int);
+SQLITE_API void SQLITE_STDCALL sqlite3_result_error16(_Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, const void*, int);
+SQLITE_API void SQLITE_STDCALL sqlite3_result_error_toobig(_Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx);
 SQLITE_API void SQLITE_STDCALL sqlite3_result_error_nomem(sqlite3_context*);
-SQLITE_API void SQLITE_STDCALL sqlite3_result_error_code(sqlite3_context*, int);
+SQLITE_API void SQLITE_STDCALL sqlite3_result_error_code(_Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, int);
 SQLITE_API void SQLITE_STDCALL sqlite3_result_int(sqlite3_context*, int);
 SQLITE_API void SQLITE_STDCALL sqlite3_result_int64(sqlite3_context*, sqlite3_int64);
 SQLITE_API void SQLITE_STDCALL sqlite3_result_null(sqlite3_context*);
@@ -7067,8 +7067,8 @@ SQLITE_API sqlite3_backup *SQLITE_STDCALL sqlite3_backup_init(
   sqlite3 *pSource,                      /* Source database handle */
   const char *zSourceName                /* Source database name */
 );
-SQLITE_API int SQLITE_STDCALL sqlite3_backup_step(sqlite3_backup *p, int nPage);
-SQLITE_API int SQLITE_STDCALL sqlite3_backup_finish(sqlite3_backup *p);
+SQLITE_API int SQLITE_STDCALL sqlite3_backup_step(_Requires_lock_held_( p->pDestDb->mutex ) sqlite3_backup *p, int nPage);
+SQLITE_API int SQLITE_STDCALL sqlite3_backup_finish(_Requires_lock_held_( p->pDestDb->mutex ) sqlite3_backup *p);
 SQLITE_API int SQLITE_STDCALL sqlite3_backup_remaining(sqlite3_backup *p);
 SQLITE_API int SQLITE_STDCALL sqlite3_backup_pagecount(sqlite3_backup *p);
 
