@@ -2590,7 +2590,7 @@ SQLITE_API void SQLITE_STDCALL sqlite3_randomness(int N, _Out_writes_bytes_opt_(
 ** sqlite3_prepare_v2() to reprepare a statement after a schema change.
 */
 SQLITE_API int SQLITE_STDCALL sqlite3_set_authorizer(
-  _In_ sqlite3*,
+  _In_ sqlite3* db,
   SQLITE_API_ANY_RESULT_CODE_INT (*xAuth)(void*,int,_In_z_ const char*,_In_z_ const char*,_In_z_ const char*,_In_z_ const char*),
   void *pUserData
 );
