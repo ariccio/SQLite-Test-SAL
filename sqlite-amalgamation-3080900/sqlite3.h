@@ -4317,7 +4317,7 @@ SQLITE_API const unsigned char *SQLITE_STDCALL sqlite3_value_text(sqlite3_value*
 SQLITE_API const void *SQLITE_STDCALL sqlite3_value_text16(sqlite3_value*);
 SQLITE_API const void *SQLITE_STDCALL sqlite3_value_text16le(sqlite3_value*);
 SQLITE_API const void *SQLITE_STDCALL sqlite3_value_text16be(sqlite3_value*);
-SQLITE_API int SQLITE_STDCALL sqlite3_value_type(sqlite3_value*);
+SQLITE_API int SQLITE_STDCALL sqlite3_value_type(_Const_ _In_ sqlite3_value*);
 SQLITE_API int SQLITE_STDCALL sqlite3_value_numeric_type(sqlite3_value*);
 
 /*
