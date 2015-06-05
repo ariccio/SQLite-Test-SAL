@@ -4307,7 +4307,7 @@ SQLITE_API SQLITE_DEPRECATED int SQLITE_STDCALL sqlite3_memory_alarm(void(*)(voi
 ** These routines must be called from the same thread as
 ** the SQL function that supplied the [sqlite3_value*] parameters.
 */
-SQLITE_API const void *SQLITE_STDCALL sqlite3_value_blob(sqlite3_value*);
+SQLITE_API const void *SQLITE_STDCALL sqlite3_value_blob(_Requires_lock_held_( ((Mem*) pVal)->db->mutex ) sqlite3_value* pVal);
 SQLITE_API int SQLITE_STDCALL sqlite3_value_bytes(sqlite3_value*);
 SQLITE_API int SQLITE_STDCALL sqlite3_value_bytes16(sqlite3_value*);
 SQLITE_API double SQLITE_STDCALL sqlite3_value_double(sqlite3_value*);
