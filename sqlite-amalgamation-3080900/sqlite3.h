@@ -6074,9 +6074,9 @@ SQLITE_API int SQLITE_STDCALL sqlite3_vfs_unregister(sqlite3_vfs*);
 */
 SQLITE_API sqlite3_mutex *SQLITE_STDCALL sqlite3_mutex_alloc(int);
 SQLITE_API void SQLITE_STDCALL sqlite3_mutex_free(_In_ _Post_ptr_invalid_ sqlite3_mutex*);
-SQLITE_API void SQLITE_STDCALL sqlite3_mutex_enter(_In_opt_ _When_( p != 0, _Acquires_lock_( _Curr_ ) ) sqlite3_mutex* p);
-SQLITE_API int SQLITE_STDCALL sqlite3_mutex_try(_In_opt_ _When_( ( return == SQLITE_OK ) && ( m != 0 ), _Acquires_lock_( _Curr_ ) ) sqlite3_mutex* m);
-SQLITE_API void SQLITE_STDCALL sqlite3_mutex_leave(_In_opt_ _When_( m != 0, _Requires_lock_held_( _Curr_ ) _Releases_lock_( _Curr_ ) ) sqlite3_mutex* m);
+SQLITE_API void SQLITE_STDCALL sqlite3_mutex_enter(_In_opt_ _When_( p != 0, _Acquires_lock_( *_Curr_ ) ) sqlite3_mutex* p);
+SQLITE_API int SQLITE_STDCALL sqlite3_mutex_try(_In_opt_ _When_( ( return == SQLITE_OK ) && ( m != 0 ), _Acquires_lock_( *_Curr_ ) ) sqlite3_mutex* m);
+SQLITE_API void SQLITE_STDCALL sqlite3_mutex_leave(_In_opt_ _When_( m != 0, _Requires_lock_held_( *_Curr_ ) _Releases_lock_( *_Curr_ ) ) sqlite3_mutex* m);
 
 /*
 ** CAPI3REF: Mutex Methods Object
