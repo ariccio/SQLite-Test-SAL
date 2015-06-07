@@ -2373,7 +2373,7 @@ SQLITE_API void SQLITE_STDCALL sqlite3_free_table(_Post_ptr_invalid_ char **resu
 */
 SQLITE_API _Ret_maybenull_z_ const char* SQLITE_CDECL sqlite3_mprintf(_Printf_format_string_ _In_z_ const char*,...);
 SQLITE_API _Ret_maybenull_z_ const char* SQLITE_STDCALL sqlite3_vmprintf(_Printf_format_string_ _In_z_ const char*, va_list);
-SQLITE_API _Ret_z_ const char* SQLITE_CDECL sqlite3_snprintf(_In_range_( >=, 1 ) int n, _Pre_writable_size_( n ) char*,_Printf_format_string_ _In_z_ const char*, ...);
+SQLITE_API _Ret_maybenull_z_ const char* SQLITE_CDECL sqlite3_snprintf(_In_range_( >=, 1 ) int n, _Pre_writable_size_( n ) char*,_Printf_format_string_ _In_z_ const char*, ...);
 SQLITE_API _Ret_maybenull_z_ const char* SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( >=, 1 ) int n,_Pre_writable_size_( n ) char*, _Printf_format_string_ _In_z_ const char*, va_list);
 
 /*
@@ -6407,7 +6407,7 @@ SQLITE_API int SQLITE_CDECL sqlite3_test_control(int op, ...);
 **
 ** See also: [sqlite3_db_status()]
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_status(int op, _Out_ int *pCurrent, _Out_ int *pHighwater, int resetFlag);
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_status(int op, _Out_ int *pCurrent, _Out_ int *pHighwater, int resetFlag);
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_status64(
   int op,
   _Out_ sqlite3_int64 *pCurrent,
