@@ -1,0 +1,4 @@
+sqlite3KeyInfoUnref
+sqlite3ValueFree
+freeEphemeralFunction
+sqlite3VtabUnlock
