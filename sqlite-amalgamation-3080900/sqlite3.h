@@ -7138,7 +7138,7 @@ SQLITE_API _Result_nullonfailure_ sqlite3_backup *SQLITE_STDCALL sqlite3_backup_
   _In_z_  const char *zSourceName                /* Source database name */
 );
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_backup_step(_Requires_lock_held_( p->pDestDb->mutex ) _Requires_lock_held_( p->pSrc->db->mutex ) _Requires_lock_held_( p->pDest->db->mutex ) sqlite3_backup *p, int nPage);
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_backup_finish(_Requires_lock_held_( p->pDestDb->mutex ) Requires_lock_held_( p->pSrc->db->mutex ) _Requires_lock_held_( p->pDest->db->mutex ) sqlite3_backup *p);
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_backup_finish(_Requires_lock_held_( p->pDestDb->mutex ) _Requires_lock_held_( p->pSrc->db->mutex ) _Requires_lock_held_( p->pDest->db->mutex ) sqlite3_backup *p);
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_backup_remaining(sqlite3_backup *p);
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_backup_pagecount(sqlite3_backup *p);
 
