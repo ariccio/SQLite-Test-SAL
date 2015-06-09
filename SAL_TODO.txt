@@ -2,3 +2,7 @@ sqlite3KeyInfoUnref
 sqlite3ValueFree
 freeEphemeralFunction
 sqlite3VtabUnlock
+releasePage
+sqlite3BtreeKeySize
+sqlite3BtreeMovetoUnpacked
+sqlite3VdbeRecordUnpack
