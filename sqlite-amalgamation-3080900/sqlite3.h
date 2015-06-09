@@ -5332,7 +5332,7 @@ SQLITE_API SQLITE_DEPRECATED void SQLITE_STDCALL sqlite3_soft_heap_limit(int N);
 ** parsed, if that has not already been done, and returns an error if
 ** any errors are encountered while loading the schema.
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_table_column_metadata(
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_table_column_metadata(
   _In_ sqlite3 *db,                /* Connection handle */
   _In_opt_z_ const char* zDbName,        /* Database name or NULL */
   _In_z_ const char* zTableName,     /* Table name */
