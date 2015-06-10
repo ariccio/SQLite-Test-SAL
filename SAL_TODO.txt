@@ -77,3 +77,16 @@ memjrnlSync
 fts3SyncMethod
 fts3CommitMethod
 fts3SavepointMethod
+relocatePage
+incrVacuumStep
+autoVacuumCommit
+unlockBtreeIfUnused
+getOverflowPage
+sqlite3BtreeDataSize
+sqlite3BtreeKey
+moveToRoot
+btreeNext
+btreePrevious
+allocateBtreePage
+clearCell
+dropCell
