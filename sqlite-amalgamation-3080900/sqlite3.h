@@ -4622,7 +4622,14 @@ typedef void (*sqlite3_destructor_type)(void*);
 SQLITE_API void SQLITE_STDCALL sqlite3_result_blob(sqlite3_context*, const void*, int, void(*)(void*));
 SQLITE_API void SQLITE_STDCALL sqlite3_result_blob64(sqlite3_context*,const void*,
                            sqlite3_uint64,void(*)(void*));
-SQLITE_API void SQLITE_STDCALL sqlite3_result_double(sqlite3_context*, double);
+
+
+_Requires_lock_held_( pCtx->pOut->db->mutex )
+SQLITE_API void SQLITE_STDCALL sqlite3_result_double(_Pre_satisfies_( pCtx != 0 ) _Pre_satisfies_( pCtx->pOut != 0 ) sqlite3_context* pCtx, double);
+
+
+
+
 SQLITE_API void SQLITE_STDCALL sqlite3_result_error(_Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, const char*, int);
 SQLITE_API void SQLITE_STDCALL sqlite3_result_error16(_Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, const void*, int);
 SQLITE_API void SQLITE_STDCALL sqlite3_result_error_toobig(_Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx);
@@ -5495,37 +5502,37 @@ typedef struct sqlite3_module sqlite3_module;
 */
 struct sqlite3_module {
   int iVersion;
-  int (*xCreate)(sqlite3*, void *pAux,
-               int argc, const char *const*argv,
-               sqlite3_vtab **ppVTab, char**);
-  int (*xConnect)(sqlite3*, void *pAux,
-               int argc, const char *const*argv,
-               sqlite3_vtab **ppVTab, char**);
-  int (*xBestIndex)(sqlite3_vtab *pVTab, sqlite3_index_info*);
-  int (*xDisconnect)(sqlite3_vtab *pVTab);
-  int (*xDestroy)(sqlite3_vtab *pVTab);
-  int (*xOpen)(sqlite3_vtab *pVTab, sqlite3_vtab_cursor **ppCursor);
-  int (*xClose)(sqlite3_vtab_cursor*);
-  int (*xFilter)(sqlite3_vtab_cursor*, int idxNum, const char *idxStr,
-                int argc, sqlite3_value **argv);
-  int (*xNext)(sqlite3_vtab_cursor*);
-  int (*xEof)(sqlite3_vtab_cursor*);
-  int (*xColumn)(sqlite3_vtab_cursor*, sqlite3_context*, int);
-  int (*xRowid)(sqlite3_vtab_cursor*, sqlite3_int64 *pRowid);
-  int (*xUpdate)(sqlite3_vtab *, int, sqlite3_value **, sqlite3_int64 *);
-  int (*xBegin)(sqlite3_vtab *pVTab);
-  int (*xSync)(sqlite3_vtab *pVTab);
-  int (*xCommit)(sqlite3_vtab *pVTab);
-  int (*xRollback)(sqlite3_vtab *pVTab);
-  int (*xFindFunction)(sqlite3_vtab *pVtab, int nArg, const char *zName,
-                       void (**pxFunc)(sqlite3_context*,int,sqlite3_value**),
-                       void **ppArg);
-  int (*xRename)(sqlite3_vtab *pVtab, const char *zNew);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xCreate)(_Inout_ sqlite3*, void *pAux,
+               _In_range_( >=, 3 ) int argc, _Pre_readable_size_( argc ) _At_buffer_( argv, _Iter_, argc, _In_z_ ) const char *const*argv,
+               _Outptr_ sqlite3_vtab **ppVTab, _On_failure_( _Outptr_opt_result_maybenull_z_ ) char**);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xConnect)(_Inout_ sqlite3*, void *pAux,
+               _In_range_( >=, 3 ) int argc, _Pre_readable_size_( argc ) _At_buffer_( argv, _Iter_, argc, _In_z_ ) const char *const*argv,
+               _Outptr_ sqlite3_vtab **ppVTab, _On_failure_( _Outptr_opt_result_maybenull_z_ ) char**);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xBestIndex)(_Inout_ sqlite3_vtab *pVTab, _Out_ sqlite3_index_info*);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xDisconnect)(_Post_invalid_ sqlite3_vtab *pVTab);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xDestroy)(_Post_ptr_invalid_ sqlite3_vtab *pVTab);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xOpen)(_Inout_ sqlite3_vtab *pVTab, _Outptr_ sqlite3_vtab_cursor **ppCursor);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xClose)(_Post_ptr_invalid_ sqlite3_vtab_cursor*);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xFilter)(_Inout_ sqlite3_vtab_cursor*, int idxNum, _In_z_ const char *idxStr,
+                _In_range_( >=, 0 ) int argc, _Pre_readable_size_( argc ) sqlite3_value **argv);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xNext)(_Inout_ sqlite3_vtab_cursor*);
+  int (*xEof)(_In_ sqlite3_vtab_cursor*);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xColumn)(_Inout_ sqlite3_vtab_cursor*, _Out_ sqlite3_context*, int);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xRowid)(_In_ sqlite3_vtab_cursor*, _Out_ sqlite3_int64 *pRowid);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xUpdate)(_Inout_ sqlite3_vtab *pVTab, _In_range_( >=, 0 ) int argc, _Pre_readable_size_( argc ) _At_buffer_( argv, _Iter_, argc, _Pre_satisfies_( argv[_Iter_] != 0 ) ) sqlite3_value **argv, _Out_ sqlite3_int64 *pRowid);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xBegin)(_Inout_ sqlite3_vtab *pVTab);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xSync)(_Inout_ sqlite3_vtab *pVTab);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xCommit)(_Inout_ sqlite3_vtab *pVTab);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xRollback)(_Inout_ sqlite3_vtab *pVTab);
+  _Success_( return ) int (*xFindFunction)(_In_ sqlite3_vtab *pVtab, _In_range_( >=, 0 ) int nArg, _In_z_ const char *zName,
+                       _Outptr_ void (**pxFunc)(_Inout_ sqlite3_context* pCtx, _In_range_( >=, 0 ) int argc, _Pre_readable_size_( argc ) _At_buffer_( argv, _Iter_, argc, _Pre_satisfies_( argv[_Iter_] != 0 ) ) sqlite3_value** argv),
+                       _Outptr_ void **ppArg);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xRename)(_Inout_ sqlite3_vtab *pVtab, _In_z_ const char *zNew);
   /* The methods above are in version 1 of the sqlite_module object. Those 
   ** below are for version 2 and greater. */
-  int (*xSavepoint)(sqlite3_vtab *pVTab, int);
-  int (*xRelease)(sqlite3_vtab *pVTab, int);
-  int (*xRollbackTo)(sqlite3_vtab *pVTab, int);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xSavepoint)(_Inout_ sqlite3_vtab *pVTab, int);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xRelease)(_Inout_ sqlite3_vtab *pVTab, int);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xRollbackTo)(_Inout_ sqlite3_vtab *pVTab, int);
 };
 
 /*
