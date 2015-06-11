@@ -2264,7 +2264,7 @@ SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_get_table(
   _Outptr_ _Post_readable_size_(((*pnRow)+1)*(*pnColumn))char ***pazResult,    /* Results of the query */
   _Out_ int *pnRow,           /* Number of result rows written here */
   _Out_ int *pnColumn,        /* Number of result columns written here */
-  _On_failure_( _Outptr_opt_result_z_ ) char **pzErrmsg       /* Error msg written here */
+  _On_failure_( _Outptr_opt_result_maybenull_z_ ) char **pzErrmsg       /* Error msg written here */
 );
 SQLITE_API void SQLITE_STDCALL sqlite3_free_table(_Post_ptr_invalid_ char **result);
 
@@ -5525,7 +5525,7 @@ struct sqlite3_module {
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xSync)(_Inout_ sqlite3_vtab *pVTab);
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xCommit)(_Inout_ sqlite3_vtab *pVTab);
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xRollback)(_Inout_ sqlite3_vtab *pVTab);
-  _Success_( return ) int (*xFindFunction)(_In_ sqlite3_vtab *pVtab, _In_range_( >=, 0 ) int nArg, _In_z_ const char *zName,
+  _Success_( return != 0 ) int (*xFindFunction)(_In_ sqlite3_vtab *pVtab, _In_range_( >=, 0 ) int nArg, _In_z_ const char *zName,
                        _Outptr_ void (**pxFunc)(_Inout_ sqlite3_context* pCtx, _In_range_( >=, 0 ) int argc, _Pre_readable_size_( argc ) _At_buffer_( argv, _Iter_, argc, _Pre_satisfies_( argv[_Iter_] != 0 ) ) sqlite3_value** argv),
                        _Outptr_ void **ppArg);
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xRename)(_Inout_ sqlite3_vtab *pVtab, _In_z_ const char *zNew);
@@ -7139,10 +7139,11 @@ typedef struct sqlite3_backup sqlite3_backup;
 ** same time as another thread is invoking sqlite3_backup_step() it is
 ** possible that they return invalid values.
 */
-SQLITE_API _Result_nullonfailure_ sqlite3_backup *SQLITE_STDCALL sqlite3_backup_init(
-  sqlite3 *pDest,                        /* Destination database handle */
+_Pre_satisfies_( pDest != pSource )
+SQLITE_API _Ret_maybenull_ sqlite3_backup *SQLITE_STDCALL sqlite3_backup_init(
+  _Inout_ sqlite3 *pDest,                        /* Destination database handle */
   _In_z_ const char *zDestName,                 /* Destination database name */
-  sqlite3 *pSource,                      /* Source database handle */
+  _Inout_ sqlite3 *pSource,                      /* Source database handle */
   _In_z_  const char *zSourceName                /* Source database name */
 );
 
