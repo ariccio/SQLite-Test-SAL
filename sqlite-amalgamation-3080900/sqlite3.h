@@ -3072,8 +3072,8 @@ SQLITE_API sqlite3_int64 SQLITE_STDCALL sqlite3_uri_int64(_In_z_ const char*, _I
 ** was invoked incorrectly by the application.  In that case, the
 ** error code and message may or may not be set.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_errcode(_In_ sqlite3 *db);
-SQLITE_API int SQLITE_STDCALL sqlite3_extended_errcode(_In_ sqlite3 *db);
+SQLITE_API int SQLITE_STDCALL sqlite3_errcode(_In_opt_ _Const_ sqlite3 *db);
+SQLITE_API int SQLITE_STDCALL sqlite3_extended_errcode(_In_opt_ _Const_ sqlite3 *db);
 _Ret_z_ SQLITE_API const char *SQLITE_STDCALL sqlite3_errmsg(_In_ sqlite3*);
 SQLITE_API const void *SQLITE_STDCALL sqlite3_errmsg16(_In_ sqlite3*);
 _Ret_z_ SQLITE_API const char *SQLITE_STDCALL sqlite3_errstr(int);
@@ -5345,7 +5345,7 @@ SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_table_colum
   _In_opt_z_ const char* zDbName,        /* Database name or NULL */
   _In_z_ const char* zTableName,     /* Table name */
   _In_opt_z_ const char* zColumnName,    /* Column name */
-  _Outptr_opt_result_z_ char const **pzDataType,    /* OUTPUT: Declared data type */
+  _Outptr_opt_result_z_ _On_failure_(_Deref_post_null_) char const **pzDataType,    /* OUTPUT: Declared data type */
   _Outptr_opt_result_z_ char const **pzCollSeq,     /* OUTPUT: Collation sequence name */
   _Out_opt_ int *pNotNull,              /* OUTPUT: True if NOT NULL constraint exists */
   _Out_opt_ int *pPrimaryKey,           /* OUTPUT: True if column part of PK */
