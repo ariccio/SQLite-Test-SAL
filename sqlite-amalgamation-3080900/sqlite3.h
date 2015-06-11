@@ -319,8 +319,8 @@ typedef sqlite_uint64 sqlite3_uint64;
 ** ^Calling sqlite3_close() or sqlite3_close_v2() with a NULL pointer
 ** argument is a harmless no-op.
 */
-SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_close(_In_ _Post_ptr_invalid_ sqlite3*);
-SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_close_v2(_In_ _Post_ptr_invalid_ sqlite3*);
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_close(_In_opt_ _Post_ptr_invalid_ sqlite3*);
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_close_v2(_In_opt_ _Post_ptr_invalid_ sqlite3*);
 
 /*
 ** The type for a callback function.
@@ -393,7 +393,7 @@ typedef int (*sqlite3_callback)(void*,int,char**, char**);
 */
 SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_exec(
   _In_ sqlite3*,                                  /* An open database */
-  _In_z_ const char* sql,                           /* SQL to be evaluated */
+  _In_opt_z_ const char* sql,                           /* SQL to be evaluated */
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*callback)(void*,int sizeArgs, _In_reads_( sizeArgs ) char**, _In_reads_( sizeArgs ) char**),  /* Callback function */
   void *,                                    /* 1st argument to callback */
   _On_failure_( _Outptr_opt_result_z_ ) char **errmsg                              /* Error msg written here */
@@ -5345,11 +5345,11 @@ SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_table_colum
   _In_opt_z_ const char* zDbName,        /* Database name or NULL */
   _In_z_ const char* zTableName,     /* Table name */
   _In_opt_z_ const char* zColumnName,    /* Column name */
-  _Outptr_result_z_ char const **pzDataType,    /* OUTPUT: Declared data type */
-  _Outptr_result_z_ char const **pzCollSeq,     /* OUTPUT: Collation sequence name */
-  _Out_ int *pNotNull,              /* OUTPUT: True if NOT NULL constraint exists */
-  _Out_ int *pPrimaryKey,           /* OUTPUT: True if column part of PK */
-  _Out_ int *pAutoinc               /* OUTPUT: True if column is auto-increment */
+  _Outptr_opt_result_z_ char const **pzDataType,    /* OUTPUT: Declared data type */
+  _Outptr_opt_result_z_ char const **pzCollSeq,     /* OUTPUT: Collation sequence name */
+  _Out_opt_ int *pNotNull,              /* OUTPUT: True if NOT NULL constraint exists */
+  _Out_opt_ int *pPrimaryKey,           /* OUTPUT: True if column part of PK */
+  _Out_opt_ int *pAutoinc               /* OUTPUT: True if column is auto-increment */
 );
 
 /*
@@ -7515,9 +7515,9 @@ SQLITE_API int SQLITE_STDCALL sqlite3_wal_checkpoint(_In_ sqlite3 *db, _In_z_ co
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_wal_checkpoint_v2(
   _In_ sqlite3 *db,                    /* Database handle */
   _In_opt_z_ const char *zDb,                /* Name of attached database (or NULL) */
-  int eMode,                      /* SQLITE_CHECKPOINT_* value */
-  _Out_ int *pnLog,                     /* OUT: Size of WAL log in frames */
-  _Out_ int *pnCkpt                     /* OUT: Total number of frames checkpointed */
+  _In_range_( SQLITE_CHECKPOINT_PASSIVE, SQLITE_CHECKPOINT_TRUNCATE ) int eMode,                      /* SQLITE_CHECKPOINT_* value */
+  _Out_opt_ int *pnLog,                     /* OUT: Size of WAL log in frames */
+  _Out_opt_ int *pnCkpt                     /* OUT: Total number of frames checkpointed */
 );
 
 /*
