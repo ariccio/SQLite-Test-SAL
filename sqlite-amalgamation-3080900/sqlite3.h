@@ -5345,7 +5345,7 @@ SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_table_colum
   _In_opt_z_ const char* zDbName,        /* Database name or NULL */
   _In_z_ const char* zTableName,     /* Table name */
   _In_opt_z_ const char* zColumnName,    /* Column name */
-  _Outptr_opt_result_z_ _On_failure_(_Deref_post_null_) char const **pzDataType,    /* OUTPUT: Declared data type */
+  _Outptr_opt_result_z_ _On_failure_(_Deref_post_opt_z_) char const **pzDataType,    /* OUTPUT: Declared data type */
   _Outptr_opt_result_z_ char const **pzCollSeq,     /* OUTPUT: Collation sequence name */
   _Out_opt_ int *pNotNull,              /* OUTPUT: True if NOT NULL constraint exists */
   _Out_opt_ int *pPrimaryKey,           /* OUTPUT: True if column part of PK */
