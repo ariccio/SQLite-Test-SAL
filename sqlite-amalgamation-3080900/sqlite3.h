@@ -391,7 +391,7 @@ typedef int (*sqlite3_callback)(void*,int,char**, char**);
 **      the 2nd parameter of sqlite3_exec() while sqlite3_exec() is running.
 ** </ul>
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_exec(
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_exec(
   _In_ sqlite3*,                                  /* An open database */
   _In_z_ const char* sql,                           /* SQL to be evaluated */
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*callback)(void*,int sizeArgs, _In_reads_( sizeArgs ) char**, _In_reads_( sizeArgs ) char**),  /* Callback function */
@@ -2257,10 +2257,11 @@ SQLITE_API int SQLITE_STDCALL sqlite3_busy_timeout(sqlite3*, int ms);
 ** reflected in subsequent calls to [sqlite3_errcode()] or
 ** [sqlite3_errmsg()].
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_get_table(
+_At_buffer_( *pazResult, _Iter_, *pnColumn, _At_( (*pazResult)[ _Iter_ ], _Post_z_ ) )
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_get_table(
   _In_ sqlite3 *db,          /* An open database */
   _In_z_ const char *zSql,     /* SQL to be evaluated */
-  _Out_ _Post_readable_size_(((*pnRow)+1)*(*pnColumn))char ***pazResult,    /* Results of the query */
+  _Outptr_ _Post_readable_size_(((*pnRow)+1)*(*pnColumn))char ***pazResult,    /* Results of the query */
   _Out_ int *pnRow,           /* Number of result rows written here */
   _Out_ int *pnColumn,        /* Number of result columns written here */
   _On_failure_( _Outptr_opt_result_z_ ) char **pzErrmsg       /* Error msg written here */
@@ -5856,7 +5857,7 @@ typedef struct sqlite3_blob sqlite3_blob;
 ** To avoid a resource leak, every open [BLOB handle] should eventually
 ** be released by a call to [sqlite3_blob_close()].
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_open(
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_open(
   _In_ sqlite3*,
   _In_z_ const char* zDb,
   _In_z_ const char* zTable,

@@ -208,3 +208,5 @@ fts3QuoteId
 fts3Appendf
 fts3IsSpecialColumn
 rowSetTreeToList
+sqlite3ExprIsConstantOrFunction
+blobReadWrite
