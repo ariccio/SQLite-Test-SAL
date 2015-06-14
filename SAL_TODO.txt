@@ -14,7 +14,6 @@ fts3auxConnectMethod
 fts3tokConnectMethod
 rtreeConnect
 statConnect
-pcache1Create
 fts3CreateMethod
 rtreeCreate
 isCreate
