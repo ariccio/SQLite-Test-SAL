@@ -4429,7 +4429,7 @@ SQLITE_API void *SQLITE_STDCALL sqlite3_user_data(sqlite3_context*);
 ** and [sqlite3_create_function16()] routines that originally
 ** registered the application defined function.
 */
-_Post_equal_to_( p->pOut->db ) _Post_same_lock_( p->pOut->db->mutex, return->mutex ) _Analysis_assume_( return == p->pOut->db )
+_Post_equal_to_( p->pOut->db ) _Post_same_lock_( p->pOut->db->mutex, return->mutex ) _Always_( return == p->pOut->db )
 SQLITE_API sqlite3 *SQLITE_STDCALL sqlite3_context_db_handle(_In_ _Pre_satisfies_( ( p != 0 ) && ( p->pFunc != 0 ) && ( p->pOut != 0 ) ) sqlite3_context* p);
 
 /*
