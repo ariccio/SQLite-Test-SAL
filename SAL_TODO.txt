@@ -234,3 +234,4 @@ sqlite3LogEst
 sqlite3LogEstAdd
 sqlite3LogEstFromDouble
 sqlite3LogEstToInt
+sqlite3_io_methods

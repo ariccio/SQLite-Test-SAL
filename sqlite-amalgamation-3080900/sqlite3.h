@@ -758,7 +758,7 @@ struct sqlite3_io_methods {
   int (*xShmUnmap)(sqlite3_file*, int deleteFlag);
   /* Methods above are valid for version 2 */
   int (*xFetch)(sqlite3_file*, sqlite3_int64 iOfst, int iAmt, void **pp);
-  int (*xUnfetch)(sqlite3_file*, sqlite3_int64 iOfst, void *p);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xUnfetch)(_In_ _Pre_satisfies_( ( p==0 ) == ( ((winFile*)fd)->nFetchOut == 0 ) ) _Pre_satisfies_( p==0 || p == &((u8 *)((winFile*)fd)->pMapRegion)[iOff] ) sqlite3_file* fd, sqlite3_int64 iOfst, _In_opt_ _When_( p == 0, _At_( ((winFile*)fd)->pMapRegion, _Post_ptr_invalid_ ) ) void *p);
   /* Methods above are valid for version 3 */
   /* Additional methods may be added in future releases */
 };
