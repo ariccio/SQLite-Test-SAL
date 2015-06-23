@@ -214,3 +214,7 @@ sqlite3VdbeRecordCompare
 vdbeRecordCompareString
 vdbeRecordCompareDebug
 sqlite3VdbeSerialGet
+btreeLockCarefully
+sqlite3BtreePutData
+accessPayload
+sqlite3ApiExit

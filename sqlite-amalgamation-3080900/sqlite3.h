@@ -5958,7 +5958,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_blob_bytes(sqlite3_blob *);
 **
 ** See also: [sqlite3_blob_write()].
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_read(_In_ sqlite3_blob *, _Out_writes_bytes_(N) void *Z, _In_range_( >=, 0 ) int N, _In_range_( >=, 0 ) int iOffset);
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_read(_In_ sqlite3_blob *, _Pre_writable_size_( N + iOffset ) _Out_writes_bytes_(N) void *Z, _In_range_( >=, 0 ) int N, _In_range_( >=, 0 ) int iOffset);
 
 /*
 ** CAPI3REF: Write Data Into A BLOB Incrementally
@@ -6000,7 +6000,7 @@ SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_read(_In_ 
 **
 ** See also: [sqlite3_blob_read()].
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_write(_In_ sqlite3_blob *, _In_reads_bytes_( n ) const void *z, _In_range_( >=, 0 ) int n, _In_range_( >=, 0 ) int iOffset);
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_write(_In_ sqlite3_blob *, _Pre_readable_byte_size_( n + iOffset ) _In_reads_bytes_( n ) const void *z, _In_range_( >=, 0 ) int n, _In_range_( >=, 0 ) int iOffset);
 
 /*
 ** CAPI3REF: Virtual File System Objects
