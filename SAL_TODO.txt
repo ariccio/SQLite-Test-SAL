@@ -238,3 +238,5 @@ sqlite3_io_methods
 exprDup
 sqlite3ExprDup
 sqlite3_result_error_nomem
+xFileControl
+winTruncate
