@@ -7149,7 +7149,7 @@ SQLITE_API _Ret_maybenull_ sqlite3_backup *SQLITE_STDCALL sqlite3_backup_init(
 
 _At_( p->pDestDb, _Out_ )
 _At_( p->pDest, _Out_ )
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_backup_step(_Requires_lock_held_( p->pDestDb->mutex ) _Requires_lock_held_( p->pSrc->db->mutex ) _Requires_lock_held_( p->pDest->db->mutex ) sqlite3_backup *p, int nPage);
+SQLITE_API _Success_( (return == 0) || (return == 101) ) int SQLITE_STDCALL sqlite3_backup_step(_Requires_lock_held_( p->pDestDb->mutex ) _Requires_lock_held_( p->pSrc->db->mutex ) _Requires_lock_held_( p->pDest->db->mutex ) sqlite3_backup *p, int nPage);
 
 
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_backup_finish(_Requires_lock_held_( p->pDestDb->mutex ) _Requires_lock_held_( p->pSrc->db->mutex ) _Requires_lock_held_( p->pDest->db->mutex ) sqlite3_backup *p);
