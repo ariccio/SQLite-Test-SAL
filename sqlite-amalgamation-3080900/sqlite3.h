@@ -3843,7 +3843,8 @@ SQLITE_API const void *SQLITE_STDCALL sqlite3_column_decltype16(sqlite3_stmt*,in
 ** then the more specific [error codes] are returned directly
 ** by sqlite3_step().  The use of the "v2" interface is recommended.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_step(sqlite3_stmt*);
+_At_( ((Vdbe*)pStmt)->db, _Inout_ )
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_step(sqlite3_stmt*pStmt);
 
 /*
 ** CAPI3REF: Number of columns in a result set
