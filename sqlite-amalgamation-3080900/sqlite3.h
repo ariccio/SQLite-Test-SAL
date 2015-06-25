@@ -4226,8 +4226,8 @@ SQLITE_API int SQLITE_STDCALL sqlite3_reset(sqlite3_stmt *pStmt);
 ** statement in which the function is running.
 */
 SQLITE_API int SQLITE_STDCALL sqlite3_create_function(
-  sqlite3 *db,
-  const char *zFunctionName,
+  _In_ sqlite3 *db,
+  _In_z_ const char *zFunctionName,
   int nArg,
   int eTextRep,
   void *pApp,
@@ -4236,8 +4236,8 @@ SQLITE_API int SQLITE_STDCALL sqlite3_create_function(
   void (*xFinal)(sqlite3_context*)
 );
 SQLITE_API int SQLITE_STDCALL sqlite3_create_function16(
-  sqlite3 *db,
-  const void *zFunctionName,
+  _In_ sqlite3 *db,
+  _In_z_ const void *zFunctionName,
   int nArg,
   int eTextRep,
   void *pApp,
@@ -4246,8 +4246,8 @@ SQLITE_API int SQLITE_STDCALL sqlite3_create_function16(
   void (*xFinal)(sqlite3_context*)
 );
 SQLITE_API int SQLITE_STDCALL sqlite3_create_function_v2(
-  sqlite3 *db,
-  const char *zFunctionName,
+  _In_ sqlite3 *db,
+  _In_z_ const char *zFunctionName,
   int nArg,
   int eTextRep,
   void *pApp,
