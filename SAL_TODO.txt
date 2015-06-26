@@ -349,3 +349,10 @@ whereAndInfoDelete
 whereClauseClear
 isLikeOrGlob
 whereCombineDisjuncts
+createCollation
+sqlite3_errmsg16
+sqlite3CreateFunc
+sqlite3LeaveMutexAndCloseZombie
+disconnectAllVtab
+functionDestroy
+sqlite3CloseSavepoints
