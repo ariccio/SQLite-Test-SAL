@@ -245,3 +245,17 @@ sqlite3SrcListAppendFromTerm
 synthCollSeq
 sqlite3CheckCollSeq
 sqlite3SrcListLookup
+sqlite3_value_text
+sqlite3DbRealloc
+sqlite3ParseUri
+sqlite3SchemaGet
+sqlite3PagerLockingMode
+sqlite3BtreeSecureDelete
+sqlite3BtreeSetPagerFlags
+sqlite3SelectDelete
+sqlite3ExprListDelete
+sqlite3ResolveExprNames
+sqlite3GetVdbe
+sqlite3AuthRead
+sqlite3TableLock
+TableLock
