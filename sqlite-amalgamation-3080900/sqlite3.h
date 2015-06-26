@@ -5891,7 +5891,7 @@ SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_open(
 **
 ** ^This function sets the database handle error code and message.
 */
-SQLITE_API SQLITE_EXPERIMENTAL int SQLITE_STDCALL sqlite3_blob_reopen(sqlite3_blob *, sqlite3_int64);
+SQLITE_API SQLITE_EXPERIMENTAL SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_reopen(sqlite3_blob *pBlob, sqlite3_int64 iRow);
 
 /*
 ** CAPI3REF: Close A BLOB Handle
