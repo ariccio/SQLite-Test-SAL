@@ -111,7 +111,6 @@ sqlite3PagerOpenSavepoint
 sqlite3PagerMovepage
 sqlite3PagerOkToChangeJournalMode
 sqlite3PagerOpenWal
-findElementWithHash
 ftsCompareFunction
 sqlite3Fts3HashClear
 sqlite3Fts3HashInit
@@ -240,3 +239,5 @@ sqlite3ExprDup
 sqlite3_result_error_nomem
 xFileControl
 winTruncate
+reindexTable
+sqlite3Dequote
