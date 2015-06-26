@@ -241,3 +241,7 @@ xFileControl
 winTruncate
 reindexTable
 sqlite3Dequote
+sqlite3SrcListAppendFromTerm
+synthCollSeq
+sqlite3CheckCollSeq
+sqlite3SrcListLookup
