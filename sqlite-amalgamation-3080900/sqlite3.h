@@ -5740,7 +5740,7 @@ struct sqlite3_vtab_cursor {
 ** to declare the format (the names and datatypes of the columns) of
 ** the virtual tables they implement.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_declare_vtab(sqlite3*, const char *zSQL);
+SQLITE_API int SQLITE_STDCALL sqlite3_declare_vtab(_Requires_lock_held_( db->mutex ) sqlite3* db, const char *zSQL);
 
 /*
 ** CAPI3REF: Overload A Function For A Virtual Table
