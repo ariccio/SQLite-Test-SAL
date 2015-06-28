@@ -370,3 +370,9 @@ convertCompoundSelectToSubquery
 searchWith
 finalizeAggFunctions
 sqlite3BeginTrigger
+sqlite3VdbeMemInit
+setResultStrOrError
+sqlite3_result_blob
+sqlite3_result_blob64
+resolveAlias
+sqlite3_value_bytes16

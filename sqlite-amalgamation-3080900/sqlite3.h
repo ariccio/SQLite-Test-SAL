@@ -4348,15 +4348,15 @@ SQLITE_API SQLITE_DEPRECATED int SQLITE_STDCALL sqlite3_memory_alarm(void(*)(voi
 ** the SQL function that supplied the [sqlite3_value*] parameters.
 */
 SQLITE_API const void *SQLITE_STDCALL sqlite3_value_blob(_Requires_lock_held_( ((Mem*) pVal)->db->mutex ) sqlite3_value* pVal);
-SQLITE_API int SQLITE_STDCALL sqlite3_value_bytes(sqlite3_value*);
-SQLITE_API int SQLITE_STDCALL sqlite3_value_bytes16(sqlite3_value*);
+SQLITE_API int SQLITE_STDCALL sqlite3_value_bytes(_Requires_lock_held_( pVal->db->mutex ) sqlite3_value* pVal);
+SQLITE_API int SQLITE_STDCALL sqlite3_value_bytes16(_Requires_lock_held_( pVal->db->mutex ) sqlite3_value* pVal);
 SQLITE_API double SQLITE_STDCALL sqlite3_value_double(sqlite3_value*);
 SQLITE_API int SQLITE_STDCALL sqlite3_value_int(sqlite3_value*);
 SQLITE_API sqlite3_int64 SQLITE_STDCALL sqlite3_value_int64(sqlite3_value*);
-SQLITE_API const unsigned char *SQLITE_STDCALL sqlite3_value_text(sqlite3_value*);
-SQLITE_API const void *SQLITE_STDCALL sqlite3_value_text16(sqlite3_value*);
-SQLITE_API const void *SQLITE_STDCALL sqlite3_value_text16le(sqlite3_value*);
-SQLITE_API const void *SQLITE_STDCALL sqlite3_value_text16be(sqlite3_value*);
+SQLITE_API const unsigned char *SQLITE_STDCALL sqlite3_value_text(_Requires_lock_held_( pVal->db->mutex ) sqlite3_value* pVal);
+SQLITE_API const void *SQLITE_STDCALL sqlite3_value_text16(_Requires_lock_held_( pVal->db->mutex ) sqlite3_value* pVal);
+SQLITE_API const void *SQLITE_STDCALL sqlite3_value_text16le(_Requires_lock_held_( pVal->db->mutex ) sqlite3_value* pVal);
+SQLITE_API const void *SQLITE_STDCALL sqlite3_value_text16be(_Requires_lock_held_( pVal->db->mutex ) sqlite3_value* pVal);
 SQLITE_API int SQLITE_STDCALL sqlite3_value_type(_Const_ _In_ sqlite3_value*);
 SQLITE_API int SQLITE_STDCALL sqlite3_value_numeric_type(sqlite3_value*);
 
@@ -4621,9 +4621,9 @@ typedef void (*sqlite3_destructor_type)(void*);
 ** than the one containing the application-defined function that received
 ** the [sqlite3_context] pointer, the results are undefined.
 */
-SQLITE_API void SQLITE_STDCALL sqlite3_result_blob(sqlite3_context*, const void*, int, void(*)(void*));
-SQLITE_API void SQLITE_STDCALL sqlite3_result_blob64(sqlite3_context*,const void*,
-                           sqlite3_uint64,void(*)(void*));
+SQLITE_API void SQLITE_STDCALL sqlite3_result_blob(_Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, const void* z, int n, void(*xDel)(void*));
+SQLITE_API void SQLITE_STDCALL sqlite3_result_blob64(_Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx,const void* z,
+                           sqlite3_uint64 n, void(*xDel)(void*));
 
 
 _Requires_lock_held_( pCtx->pOut->db->mutex )
