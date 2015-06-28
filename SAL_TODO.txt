@@ -314,7 +314,6 @@ updateAccumulator
 explainSimpleCount
 sqlite3Select
 sqlite3DeleteTriggerStep
-sqlite3FixInit
 sqlite3FinishTrigger
 sqlite3TriggerSelectStep
 triggerStepAllocate
@@ -356,3 +355,18 @@ sqlite3LeaveMutexAndCloseZombie
 disconnectAllVtab
 functionDestroy
 sqlite3CloseSavepoints
+schemaIsValid
+sqlite3BtreeIsInReadTrans
+sqlite3BtreeIsInBackup
+sqlite3BtreeBeginTrans
+sqlite3VdbeSetColName
+SelectDest
+generateColumnTypes
+sqlite3ExprCacheClear
+multiSelectValues
+substExprList
+substSelect
+convertCompoundSelectToSubquery
+searchWith
+finalizeAggFunctions
+sqlite3BeginTrigger

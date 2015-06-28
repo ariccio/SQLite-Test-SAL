@@ -3075,7 +3075,7 @@ SQLITE_API sqlite3_int64 SQLITE_STDCALL sqlite3_uri_int64(_In_z_ const char*, _I
 SQLITE_API int SQLITE_STDCALL sqlite3_errcode(_In_opt_ _Const_ sqlite3 *db);
 SQLITE_API int SQLITE_STDCALL sqlite3_extended_errcode(_In_opt_ _Const_ sqlite3 *db);
 _Ret_z_ SQLITE_API const char *SQLITE_STDCALL sqlite3_errmsg(_In_ sqlite3*);
-SQLITE_API const void *SQLITE_STDCALL sqlite3_errmsg16(_In_ sqlite3*);
+SQLITE_API const void *SQLITE_STDCALL sqlite3_errmsg16(_In_ _Requires_lock_held_( db->mutex ) sqlite3* db);
 _Ret_z_ SQLITE_API const char *SQLITE_STDCALL sqlite3_errstr(int);
 
 /*
