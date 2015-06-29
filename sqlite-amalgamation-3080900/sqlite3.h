@@ -2378,7 +2378,7 @@ SQLITE_API _Ret_maybenull_z_ const char* SQLITE_STDCALL sqlite3_vmprintf(_Printf
 
 
 SQLITE_API _Ret_writes_z_( n ) const char* SQLITE_CDECL sqlite3_snprintf(_In_range_( >=, 1 ) int n, _Out_writes_z_( n ) char*,_Printf_format_string_ _In_z_ const char*, ...);
-SQLITE_API _Ret_writes_z_( n ) const char* SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( >=, 1 ) int n, _Ret_writes_z_( n ) char*, _Printf_format_string_ _In_z_ const char*, va_list);
+SQLITE_API _Ret_writes_z_( n ) const char* SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( >=, 1 ) int n, _Out_writes_z_( n ) char*, _Printf_format_string_ _In_z_ const char*, va_list);
 
 /*
 ** CAPI3REF: Memory Allocation Subsystem
@@ -5743,7 +5743,7 @@ struct sqlite3_vtab_cursor {
 ** to declare the format (the names and datatypes of the columns) of
 ** the virtual tables they implement.
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_declare_vtab(_Requires_lock_held_( db->mutex ) sqlite3* db, const char *zSQL);
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_declare_vtab(_In_ _Requires_lock_held_( db->mutex ) sqlite3* db, const char *zSQL);
 
 /*
 ** CAPI3REF: Overload A Function For A Virtual Table
