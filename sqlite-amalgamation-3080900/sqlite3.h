@@ -396,7 +396,7 @@ SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_exec(
   _In_opt_z_ const char* sql,                           /* SQL to be evaluated */
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*callback)(void*,int sizeArgs, _In_reads_( sizeArgs ) char**, _In_reads_( sizeArgs ) char**),  /* Callback function */
   void *,                                    /* 1st argument to callback */
-  _On_failure_( _Outptr_opt_result_z_ ) char **errmsg                              /* Error msg written here */
+  _On_failure_( _Outptr_opt_result_maybenull_z_ ) char **errmsg                              /* Error msg written here */
 );
 
 /*
@@ -2377,8 +2377,8 @@ SQLITE_API _Ret_maybenull_z_ const char* SQLITE_STDCALL sqlite3_vmprintf(_Printf
 
 
 
-SQLITE_API _Ret_writes_z_( n ) const char* SQLITE_CDECL sqlite3_snprintf(_In_range_( >=, 1 ) int n, _Out_writes_z_( n ) char*,_Printf_format_string_ _In_z_ const char*, ...);
-SQLITE_API _Ret_writes_z_( n ) const char* SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( >=, 1 ) int n, _Out_writes_z_( n ) char*, _Printf_format_string_ _In_z_ const char*, va_list);
+SQLITE_API _Ret_writes_maybenull_z_( n ) const char* SQLITE_CDECL sqlite3_snprintf(_In_range_( >=, 1 ) int n, _Out_writes_z_( n ) char*,_Printf_format_string_ _In_z_ const char*, ...);
+SQLITE_API _Ret_writes_maybenull_z_( n ) const char* SQLITE_STDCALL sqlite3_vsnprintf(_In_range_( >=, 1 ) int n, _Out_writes_z_( n ) char*, _Printf_format_string_ _In_z_ const char*, va_list);
 
 /*
 ** CAPI3REF: Memory Allocation Subsystem
@@ -2981,7 +2981,7 @@ SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_open(
 );
 SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_open16(
   _In_z_ const void *filename,   /* Database filename (UTF-16) */
-  _Outptr_ sqlite3 **ppDb          /* OUT: SQLite db handle */
+  _Outptr_result_nullonfailure_ sqlite3 **ppDb          /* OUT: SQLite db handle */
 );
 SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_open_v2(
   _In_z_ const char* filename,   /* Database filename (UTF-8) */
