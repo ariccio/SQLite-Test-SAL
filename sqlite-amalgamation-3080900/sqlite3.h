@@ -4640,17 +4640,17 @@ SQLITE_API void SQLITE_STDCALL sqlite3_result_error16(_Requires_lock_held_( pCtx
 SQLITE_API void SQLITE_STDCALL sqlite3_result_error_toobig(_Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx);
 SQLITE_API void SQLITE_STDCALL sqlite3_result_error_nomem(sqlite3_context*);
 SQLITE_API void SQLITE_STDCALL sqlite3_result_error_code(_Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, int);
-SQLITE_API void SQLITE_STDCALL sqlite3_result_int(sqlite3_context*, int);
-SQLITE_API void SQLITE_STDCALL sqlite3_result_int64(sqlite3_context*, sqlite3_int64);
-SQLITE_API void SQLITE_STDCALL sqlite3_result_null(sqlite3_context*);
-SQLITE_API void SQLITE_STDCALL sqlite3_result_text(sqlite3_context*, const char*, int, void(*)(void*));
-SQLITE_API void SQLITE_STDCALL sqlite3_result_text64(sqlite3_context*, const char*,sqlite3_uint64,
-                           void(*)(void*), unsigned char encoding);
-SQLITE_API void SQLITE_STDCALL sqlite3_result_text16(sqlite3_context*, const void*, int, void(*)(void*));
+SQLITE_API void SQLITE_STDCALL sqlite3_result_int(_Inout_ _Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, int);
+SQLITE_API void SQLITE_STDCALL sqlite3_result_int64(_Inout_ _Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, sqlite3_int64);
+SQLITE_API void SQLITE_STDCALL sqlite3_result_null(_Inout_ _Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx);
+SQLITE_API void SQLITE_STDCALL sqlite3_result_text(_Inout_ _Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, const char* z, int n, void(*xDel)(void*));
+SQLITE_API void SQLITE_STDCALL sqlite3_result_text64(_Inout_ _Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, const char* z, sqlite3_uint64 n,
+                           void(*xDel)(void*), unsigned char encoding);
+SQLITE_API void SQLITE_STDCALL sqlite3_result_text16(_Inout_ _Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, const void* z, int n, void(*xDel)(void*));
 SQLITE_API void SQLITE_STDCALL sqlite3_result_text16le(sqlite3_context*, const void*, int,void(*)(void*));
 SQLITE_API void SQLITE_STDCALL sqlite3_result_text16be(sqlite3_context*, const void*, int,void(*)(void*));
-SQLITE_API void SQLITE_STDCALL sqlite3_result_value(sqlite3_context*, sqlite3_value*);
-SQLITE_API void SQLITE_STDCALL sqlite3_result_zeroblob(sqlite3_context*, int n);
+SQLITE_API void SQLITE_STDCALL sqlite3_result_value(_Inout_ _Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, sqlite3_value* pValue);
+SQLITE_API void SQLITE_STDCALL sqlite3_result_zeroblob(_Inout_ _Requires_lock_held_( pCtx->pOut->db->mutex ) sqlite3_context* pCtx, int n);
 
 /*
 ** CAPI3REF: Define New Collating Sequences

@@ -454,3 +454,16 @@ sqlite3ValueSetNull
 sqlite3ValueFree
 checkTreePage
 sqlite3BtreeCount
+sqlite3VdbeAddParseSchemaOp
+sqlite3VdbeAddOpList
+sqlite3_result_text
+sqlite3_result_text64
+sqlite3_result_text16
+sqlite3_result_zeroblob
+sqlite3_result_value
+sqlite3_result_error_nomem
+sqlite3_result_error_code
+sqlite3_result_error_toobig
+sqlite3_result_error16
+sqlite3_result_error
+sqlite3InvalidFunction
