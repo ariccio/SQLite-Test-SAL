@@ -452,3 +452,5 @@ sqlite3ValueSetStr
 sqlite3ValueBytes
 sqlite3ValueSetNull
 sqlite3ValueFree
+checkTreePage
+sqlite3BtreeCount
