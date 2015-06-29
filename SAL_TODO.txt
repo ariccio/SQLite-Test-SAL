@@ -376,3 +376,4 @@ sqlite3_result_blob
 sqlite3_result_blob64
 resolveAlias
 sqlite3_value_bytes16
+sqlite3StrAccumInit
