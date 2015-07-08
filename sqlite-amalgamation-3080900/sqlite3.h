@@ -7147,11 +7147,11 @@ typedef struct sqlite3_backup sqlite3_backup;
 ** same time as another thread is invoking sqlite3_backup_step() it is
 ** possible that they return invalid values.
 */
-_Pre_satisfies_( pDest != pSource )
+_Pre_satisfies_( pDestDb != pSourceDb )
 SQLITE_API _Ret_maybenull_ sqlite3_backup *SQLITE_STDCALL sqlite3_backup_init(
-  _Inout_ sqlite3 *pDest,                        /* Destination database handle */
+  _Inout_ sqlite3 *pDestDb,                        /* Destination database handle */
   _In_z_ const char *zDestName,                 /* Destination database name */
-  _Inout_ sqlite3 *pSource,                      /* Source database handle */
+  _Inout_ sqlite3 *pSourceDb,                      /* Source database handle */
   _In_z_  const char *zSourceName                /* Source database name */
 );
 
@@ -7523,7 +7523,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_wal_checkpoint(_In_ sqlite3 *db, _In_z_ co
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_wal_checkpoint_v2(
   _In_ sqlite3 *db,                    /* Database handle */
   _In_opt_z_ const char *zDb,                /* Name of attached database (or NULL) */
-  _In_range_( SQLITE_CHECKPOINT_PASSIVE, SQLITE_CHECKPOINT_TRUNCATE ) int eMode,                      /* SQLITE_CHECKPOINT_* value */
+  _In_range_( 0, 3 ) int eMode,                      /* SQLITE_CHECKPOINT_* value */
   _Out_opt_ int *pnLog,                     /* OUT: Size of WAL log in frames */
   _Out_opt_ int *pnCkpt                     /* OUT: Total number of frames checkpointed */
 );

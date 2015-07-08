@@ -467,3 +467,8 @@ sqlite3_result_error_toobig
 sqlite3_result_error16
 sqlite3_result_error
 sqlite3InvalidFunction
+fillInCell
+sqlite3BtreeInsert
+btreeMoveto
+btreeParseCellPtr
+sqlite3AllocateIndexObject
