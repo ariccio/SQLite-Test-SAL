@@ -49,7 +49,11 @@ typedef _Return_type_success_((return == 0)||(return == 100)||(return == 101)) i
 /*                                         SQLITE_OK == 0     SQLITE_ROW == 100    SQLITE_DONE == 101*/
 typedef _Return_type_success_(return == 0) int SQLITE_API_OK_ONLY_RESULT_CODE_INT;
 
-
+#ifdef __cplusplus
+#define SQL_STATIC_ASSERT_MACRO( x ) static_assert( x )
+#else
+#define SQL_STATIC_ASSERT_MACRO( x )
+#endif
 
 /*
 ** Provide the ability to override linkage features of the interface.
