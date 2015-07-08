@@ -400,6 +400,7 @@ static void SQLITE_CDECL iotracePrintf(_Printf_format_string_ _In_z_ const char 
 /*
 ** Determines if a string is a number of not.
 */
+_Success_( return != 0 )
 static int isNumber(_In_z_ const char *z, _Out_opt_ int *realnum){
   if( *z=='-' || *z=='+' ) z++;
   if( !IsDigit(*z) ){
@@ -829,14 +830,14 @@ static void interrupt_handler(int NotUsed){
 ** This is the callback routine that the shell
 ** invokes for each row of a query result.
 */
-_At_buffer_( azArg, _Iter_, nArg, _In_z_ )
-_At_buffer_( azCol, _Iter_, nArg, _In_z_ )
+_At_buffer_( azArg, _Iter_, nArg, _At_( azArg[ _Iter_ ], _In_opt_z_ ) )
+_At_buffer_( azCol, _Iter_, nArg, _At_( azCol[ _Iter_ ], _In_opt_z_ ) )
 static int shell_callback(
-  _In_ void *pArg,
-  int nArg,        /* Number of result columns */
-  _In_reads_( nArg ) char **azArg,    /* Text of each result column */
-  _In_reads_( nArg ) char **azCol,    /* Column names */
-  _In_reads_( nArg ) int *aiType      /* Column types */
+  _In_ _Points_to_data_ void *pArg,
+  _In_range_( >=, 0 ) _Const_ int nArg,        /* Number of result columns */
+  _In_reads_opt_( nArg ) _Const_ char **azArg,    /* Text of each result column */
+  _In_reads_( nArg ) _Const_ char **azCol,    /* Column names */
+  _In_reads_opt_( nArg ) _Const_ int *aiType      /* Column types */
 ){
   int i;
   ShellState *p = (ShellState*)pArg;
@@ -1080,7 +1081,7 @@ static int callback(_In_ void *pArg, int nArg, _In_reads_( nArg ) char **azArg, 
 ** the name of the table given.  Escape any quote characters in the
 ** table name.
 */
-static void set_table_name(_In_ ShellState *p, _In_z_ const char *zName){
+static void set_table_name(_In_ ShellState *p, _In_opt_z_ const char *zName){
   int i, n;
   int needQuote;
   char *z;
@@ -1169,7 +1170,7 @@ _Ret_maybenull_z_ static char *appendText(_In_opt_z_ _Post_ptr_invalid_ char *zI
 ** "--" comment occurs at the end of the statement, the comment
 ** won't consume the semicolon terminator.
 */
-static SQLITE_API_ANY_RESULT_CODE_INT run_table_dump_query(
+static SQLITE_API_OK_ONLY_RESULT_CODE_INT run_table_dump_query(
   _In_ ShellState *p,           /* Query context */
   _In_z_ const char *zSelect,     /* SELECT statement to extract content */
   _In_opt_z_ const char *zFirstRow    /* Print before first row, if not NULL */
@@ -1232,8 +1233,8 @@ _Ret_maybenull_z_ static char *save_err_msg(
 ** Display memory stats.
 */
 static SQLITE_API_ANY_RESULT_CODE_INT display_stats(
-  sqlite3 *db,                /* Database to query */
-  ShellState *pArg,           /* Pointer to ShellState */
+  _In_opt_ sqlite3 *db,                /* Database to query */
+  _In_opt_ ShellState *pArg,           /* Pointer to ShellState */
   int bReset                  /* True to reset the stats */
 ){
   int iCur;
@@ -1422,6 +1423,7 @@ static int str_in_array(_In_z_ const char *zStr, _Null_terminated_ const char **
 **       then indent all opcodes between the earlier instruction
 **       and "Goto" by 2 spaces.
 */
+_At_( p->aiIndent, _Out_ )
 static void explain_data_prepare(_In_ ShellState *p, _In_ sqlite3_stmt *pSql){
   const char *zSql;               /* The text of the SQL statement */
   const char *z;                  /* Used to check if this is an EXPLAIN */
@@ -1483,7 +1485,7 @@ static void explain_data_prepare(_In_ ShellState *p, _In_ sqlite3_stmt *pSql){
 /*
 ** Free the array allocated by explain_data_prepare().
 */
-static void explain_data_delete(_Post_ptr_invalid_ ShellState *p){
+static void explain_data_delete( _Inout_ _At_( p->aiIndent, _In_opt_ _Post_ptr_invalid_ ) ShellState *p){
   sqlite3_free(p->aiIndent);
   p->aiIndent = 0;
   p->nIndent = 0;
@@ -1505,7 +1507,7 @@ static SQLITE_API_ANY_RESULT_CODE_INT shell_exec(
   SQLITE_API_ANY_RESULT_CODE_INT (*xCallback)(void*,int n, _In_reads_( n ) char**,_In_reads_( n ) char**, _In_reads_( n ) int*),   /* Callback function */
                                             /* (not the same as sqlite3_exec) */
   _In_opt_ ShellState *pArg,                         /* Pointer to ShellState */
-  _Outptr_opt_result_z_ char **pzErrMsg                           /* Error msg written here */
+  _Outptr_opt_result_maybenull_z_ char **pzErrMsg                           /* Error msg written here */
 ){
   sqlite3_stmt *pStmt = NULL;     /* Statement to execute. */
   int rc = SQLITE_OK;             /* Return Code */
@@ -1873,7 +1875,7 @@ static char zHelp[] =
 ;
 
 /* Forward reference */
-static int process_input(ShellState *p, FILE *in);
+static int process_input(_In_ ShellState *p, _In_opt_ FILE *in);
 /*
 ** Implementation of the "readfile(X)" SQL function.  The entire content
 ** of the file named X is read and returned as a BLOB.  NULL is returned
@@ -2108,7 +2110,7 @@ static int booleanValue(_In_z_ _Const_ char *zArg){
 ** Close an output file, assuming it is not stderr or stdout
 */
 _Pre_satisfies_( (f != stdout) && (f != stderr) )
-static void output_file_close(_In_ _Post_ptr_invalid_ FILE *f){
+static void output_file_close(_In_opt_ _Post_ptr_invalid_ FILE *f){
   if( f && f!=stdout && f!=stderr ) fclose(f);
 }
 
@@ -4434,7 +4436,7 @@ static void usage(int showDetail){
 /*
 ** Initialize the state information in data
 */
-static void main_init(_Inout_ ShellState *data) {
+static void main_init(_Out_ ShellState *data) {
   memset(data, 0, sizeof(*data));
   data->mode = MODE_List;
   memcpy(data->colSeparator,SEP_Column, 2);

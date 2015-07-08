@@ -3299,28 +3299,28 @@ SQLITE_API int SQLITE_STDCALL sqlite3_limit(_Inout_ sqlite3*, _In_range_( 0, SQL
 ** </li>
 ** </ol>
 */
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare(
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare(
   _In_ sqlite3 *db,            /* Database handle */
   _When_( nByte < 0, _In_z_ ) _When_( nByte >= 0, _In_reads_bytes_( nByte ) ) const char* zSql,       /* SQL statement, UTF-8 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
   _Outptr_ sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
   _Outptr_opt_ const char **pzTail     /* OUT: Pointer to unused portion of zSql */
 );
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare_v2(
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare_v2(
   _In_ sqlite3 *db,            /* Database handle */
   _When_( nByte < 0, _In_z_ ) _When_( nByte >= 0, _In_reads_bytes_( nByte ) ) const char* zSql,       /* SQL statement, UTF-8 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
   _Outptr_ sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
   _Outptr_opt_ const char **pzTail     /* OUT: Pointer to unused portion of zSql */
 );
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare16(
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare16(
   _In_ sqlite3 *db,            /* Database handle */
   _When_( nByte < 0, _In_z_ ) _When_( nByte >= 0, _In_reads_bytes_( nByte ) ) const void *zSql,       /* SQL statement, UTF-16 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
   _Outptr_ sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
   _Outptr_opt_ const void **pzTail     /* OUT: Pointer to unused portion of zSql */
 );
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare16_v2(
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare16_v2(
   _In_ sqlite3 *db,            /* Database handle */
   _When_( nByte < 0, _In_z_ ) _When_( nByte >= 0, _In_reads_bytes_( nByte ) ) const void *zSql,       /* SQL statement, UTF-16 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
