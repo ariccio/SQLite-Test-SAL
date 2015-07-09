@@ -3851,7 +3851,7 @@ SQLITE_API const void *SQLITE_STDCALL sqlite3_column_decltype16(sqlite3_stmt*,in
 ** by sqlite3_step().  The use of the "v2" interface is recommended.
 */
 _At_( ((Vdbe*)pStmt)->db, _Inout_ )
-SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_step(sqlite3_stmt*pStmt);
+SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_step(_Inout_ sqlite3_stmt*pStmt);
 
 /*
 ** CAPI3REF: Number of columns in a result set
