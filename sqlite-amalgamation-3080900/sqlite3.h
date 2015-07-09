@@ -7426,7 +7426,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_wal_autocheckpoint(sqlite3 *db, int N);
 ** start a callback but which do not need the full power (and corresponding
 ** complication) of [sqlite3_wal_checkpoint_v2()].
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_wal_checkpoint(_In_ sqlite3 *db, _In_z_ const char *zDb);
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_wal_checkpoint(_Inout_ sqlite3 *db, _In_opt_z_ const char *zDb);
 
 /*
 ** CAPI3REF: Checkpoint a database
@@ -7521,7 +7521,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_wal_checkpoint(_In_ sqlite3 *db, _In_z_ co
 ** from SQL.
 */
 SQLITE_API SQLITE_API_ANY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_wal_checkpoint_v2(
-  _In_ sqlite3 *db,                    /* Database handle */
+  _Inout_ sqlite3 *db,                    /* Database handle */
   _In_opt_z_ const char *zDb,                /* Name of attached database (or NULL) */
   _In_range_( 0, 3 ) int eMode,                      /* SQLITE_CHECKPOINT_* value */
   _Out_opt_ int *pnLog,                     /* OUT: Size of WAL log in frames */
