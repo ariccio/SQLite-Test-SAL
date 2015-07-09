@@ -749,7 +749,7 @@ struct sqlite3_io_methods {
   int (*xTruncate)(sqlite3_file*, sqlite3_int64 size);
   int (*xSync)(sqlite3_file*, int flags);
   int (*xFileSize)(sqlite3_file*, sqlite3_int64 *pSize);
-  int (*xLock)(sqlite3_file*, int);
+  int (*xLock)(sqlite3_file*, _In_range_( SQLITE_LOCK_NONE, SQLITE_LOCK_EXCLUSIVE ) int);
   int (*xUnlock)(sqlite3_file*, int);
   int (*xCheckReservedLock)(sqlite3_file*, int *pResOut);
   int (*xFileControl)(sqlite3_file*, int op, void *pArg);

@@ -472,3 +472,36 @@ sqlite3BtreeInsert
 btreeMoveto
 btreeParseCellPtr
 sqlite3AllocateIndexObject
+pager_wait_on_lock
+pager_playback
+pagerSyncHotJournal
+pagerUnlockDb
+pagerPagecount
+
+
+NO_LOCK //_Create_lock_level_, _Has_lock_kind_, _Has_lock_level_, _Lock_level_order_, _Set_lock_level_, _Set_lock_level_order_
+SHARED_LOCK
+RESERVED_LOCK
+PENDING_LOCK
+EXCLUSIVE_LOCK
+
+
+SQLITE_LOCK_NONE //_Create_lock_level_, _Has_lock_kind_, _Has_lock_level_, _Lock_level_order_, _Set_lock_level_, _Set_lock_level_order_
+SQLITE_LOCK_SHARED
+SQLITE_LOCK_RESERVED
+SQLITE_LOCK_PENDING
+SQLITE_LOCK_EXCLUSIVE
+
+xLock
+xUnlock
+xBusyHandler
+
+"Functions for accessing sqlite3_file methods"
+
+
+winLock
+assert_pager_state
+hasHotJournal
+sqlite3OsAccess
+sqlite3OsOpen
+sqlite3OsClose
