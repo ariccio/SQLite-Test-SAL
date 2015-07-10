@@ -522,4 +522,6 @@ walChecksumBytes
 walIndexPage
 walHashGet
 walCheckpoint
-
+sqlite3BtreeLastPage
+sqlite3VdbeIdxRowid
+sqlite3VdbeIdxKeyCompare
