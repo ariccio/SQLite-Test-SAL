@@ -3318,14 +3318,14 @@ SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare_v2(
   _Outptr_opt_ const char **pzTail     /* OUT: Pointer to unused portion of zSql */
 );
 SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare16(
-  _In_ sqlite3 *db,            /* Database handle */
+  _Inout_ sqlite3 *db,            /* Database handle */
   _When_( nByte < 0, _In_z_ ) _When_( nByte >= 0, _In_reads_bytes_( nByte ) ) const void *zSql,       /* SQL statement, UTF-16 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
   _Outptr_ sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
   _Outptr_opt_ const void **pzTail     /* OUT: Pointer to unused portion of zSql */
 );
 SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_prepare16_v2(
-  _In_ sqlite3 *db,            /* Database handle */
+  _Inout_ sqlite3 *db,            /* Database handle */
   _When_( nByte < 0, _In_z_ ) _When_( nByte >= 0, _In_reads_bytes_( nByte ) ) const void *zSql,       /* SQL statement, UTF-16 encoded */
   int nByte,              /* Maximum length of zSql in bytes. */
   _Outptr_ sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
@@ -3654,7 +3654,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_clear_bindings(sqlite3_stmt*);
 **
 ** See also: [sqlite3_data_count()]
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_column_count(sqlite3_stmt *pStmt);
+SQLITE_API int SQLITE_STDCALL sqlite3_column_count(_In_ sqlite3_stmt *pStmt);
 
 /*
 ** CAPI3REF: Column Names In A Result Set
@@ -4736,23 +4736,26 @@ SQLITE_API void SQLITE_STDCALL sqlite3_result_zeroblob(_Inout_ _Requires_lock_he
 **
 ** See also:  [sqlite3_collation_needed()] and [sqlite3_collation_needed16()].
 */
-SQLITE_API int SQLITE_STDCALL sqlite3_create_collation(
-  sqlite3*, 
-  const char *zName, 
+_Pre_satisfies_( db->mallocFailed == 0 )
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_create_collation(
+  _Inout_ sqlite3* db, 
+  _In_z_ const char *zName, 
   int eTextRep, 
   void *pArg,
   int(*xCompare)(void*,int,const void*,int,const void*)
 );
-SQLITE_API int SQLITE_STDCALL sqlite3_create_collation_v2(
-  sqlite3*, 
-  const char *zName, 
-  int eTextRep, 
-  void *pArg,
+
+_Pre_satisfies_( db->mallocFailed == 0 )
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_create_collation_v2(
+  _Inout_ sqlite3* db, 
+  _In_z_ const char *zName, 
+  int enc, 
+  void *pCtx,
   int(*xCompare)(void*,int,const void*,int,const void*),
-  void(*xDestroy)(void*)
+  void(*xDel)(_Post_ptr_invalid_ void*)
 );
-SQLITE_API int SQLITE_STDCALL sqlite3_create_collation16(
-  sqlite3*, 
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_create_collation16(
+  _Inout_ sqlite3* db, 
   const void *zName,
   int eTextRep, 
   void *pArg,
