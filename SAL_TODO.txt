@@ -586,3 +586,4 @@ fts3SegReaderCursor
 fts3SegReaderCursorAddZero
 fts3TermSegReaderCursor
 fts3DoclistCountDocids
+sqlite3PagerExclusiveLock
