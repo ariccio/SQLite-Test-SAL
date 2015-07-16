@@ -757,7 +757,7 @@ struct sqlite3_io_methods {
   int (*xDeviceCharacteristics)(sqlite3_file*);
   /* Methods above are valid for version 1 */
   int (*xShmMap)(sqlite3_file*, int iPg, int pgsz, int, void volatile**);
-  int (*xShmLock)(sqlite3_file*, int offset, int n, int flags);
+  int (*xShmLock)(sqlite3_file*, int offset, _Pre_satisfies_( ofst>=0 && ofst+n<=SQLITE_SHM_NLOCK ) int n, int flags);
   void (*xShmBarrier)(sqlite3_file*);
   int (*xShmUnmap)(sqlite3_file*, int deleteFlag);
   /* Methods above are valid for version 2 */
@@ -5356,7 +5356,7 @@ SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_table_colum
   _In_opt_z_ const char* zDbName,        /* Database name or NULL */
   _In_z_ const char* zTableName,     /* Table name */
   _In_opt_z_ const char* zColumnName,    /* Column name */
-  _Outptr_opt_result_z_ _On_failure_(_Deref_post_opt_z_) char const **pzDataType,    /* OUTPUT: Declared data type */
+  _Outptr_opt_result_maybenull_z_ _On_failure_(_Deref_post_opt_z_) char const **pzDataType,    /* OUTPUT: Declared data type */
   _Outptr_opt_result_z_ char const **pzCollSeq,     /* OUTPUT: Collation sequence name */
   _Out_opt_ int *pNotNull,              /* OUTPUT: True if NOT NULL constraint exists */
   _Out_opt_ int *pPrimaryKey,           /* OUTPUT: True if column part of PK */
@@ -5868,6 +5868,7 @@ typedef struct sqlite3_blob sqlite3_blob;
 ** To avoid a resource leak, every open [BLOB handle] should eventually
 ** be released by a call to [sqlite3_blob_close()].
 */
+_Success_( ( return == 0 ) && db->mallocFailed==0 )
 SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_open(
   _In_ sqlite3*,
   _In_z_ const char* zDb,

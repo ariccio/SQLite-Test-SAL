@@ -587,3 +587,15 @@ fts3SegReaderCursorAddZero
 fts3TermSegReaderCursor
 fts3DoclistCountDocids
 sqlite3PagerExclusiveLock
+walIndexClose
+sqlite3WalExclusiveMode
+writeMasterJournal
+writeJournalHdr
+pager_end_transaction
+releaseAllSavepoints
+sqlite3OsClose
+pager_truncate
+walBusyLock
+winShmLock
+walRestartHdr
+walTryBeginRead
