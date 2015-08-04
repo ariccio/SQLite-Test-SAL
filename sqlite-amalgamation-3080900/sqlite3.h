@@ -186,7 +186,7 @@ SQLITE_API int SQLITE_STDCALL sqlite3_libversion_number(void);
 ** [sqlite_compileoption_get()] and the [compile_options pragma].
 */
 #ifndef SQLITE_OMIT_COMPILEOPTION_DIAGS
-SQLITE_API int SQLITE_STDCALL sqlite3_compileoption_used(_In_z_ const char* zOptName);
+_Ret_range_( 0, 1 ) SQLITE_API int SQLITE_STDCALL sqlite3_compileoption_used(_In_z_ const char* zOptName);
 SQLITE_API _Ret_maybenull_z_ const char* SQLITE_STDCALL sqlite3_compileoption_get(_In_range_(0, (sizeof(azCompileOpt)/sizeof(azCompileOpt[0]))) int N);
 #endif
 
@@ -744,24 +744,24 @@ typedef struct sqlite3_io_methods sqlite3_io_methods;
 struct sqlite3_io_methods {
   int iVersion;
   int (*xClose)(sqlite3_file*);
-  int (*xRead)(sqlite3_file*, void*, int iAmt, sqlite3_int64 iOfst);
-  int (*xWrite)(sqlite3_file*, const void*, int iAmt, sqlite3_int64 iOfst);
-  int (*xTruncate)(sqlite3_file*, sqlite3_int64 size);
-  int (*xSync)(sqlite3_file*, int flags);
-  int (*xFileSize)(sqlite3_file*, sqlite3_int64 *pSize);
-  int (*xLock)(sqlite3_file*, _In_range_( SQLITE_LOCK_NONE, SQLITE_LOCK_EXCLUSIVE ) int);
-  int (*xUnlock)(sqlite3_file*, int);
-  int (*xCheckReservedLock)(sqlite3_file*, int *pResOut);
-  int (*xFileControl)(sqlite3_file*, int op, void *pArg);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xRead)(_Inout_ sqlite3_file*, _Out_writes_bytes_( iAmt ) void*, _In_range_( >, 0 ) int iAmt, _In_range_( >=, 0 ) sqlite3_int64 iOfst);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xWrite)(_Inout_ sqlite3_file*, _In_reads_bytes_( iAmt ) const void*, _In_range_( >, 0 ) int iAmt, _In_range_( >=, 0 ) sqlite3_int64 iOfst);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xTruncate)(_In_ sqlite3_file*, sqlite3_int64 size);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xSync)(_In_ sqlite3_file*, int flags);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xFileSize)(_In_ sqlite3_file*, _Out_ sqlite3_int64 *pSize);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xLock)(_In_ _Acquires_lock_( id ) sqlite3_file* id, _In_range_( SQLITE_LOCK_NONE, SQLITE_LOCK_EXCLUSIVE ) int);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xUnlock)(_In_ _Releases_lock_( id ) sqlite3_file* id, _In_range_( SQLITE_LOCK_NONE, SQLITE_LOCK_EXCLUSIVE ) int);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xCheckReservedLock)(sqlite3_file*, int *pResOut);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xFileControl)(_In_ sqlite3_file*, int op, void *pArg);
   int (*xSectorSize)(sqlite3_file*);
   int (*xDeviceCharacteristics)(sqlite3_file*);
   /* Methods above are valid for version 1 */
   int (*xShmMap)(sqlite3_file*, int iPg, int pgsz, int, void volatile**);
-  int (*xShmLock)(sqlite3_file*, int offset, _Pre_satisfies_( ofst>=0 && ofst+n<=SQLITE_SHM_NLOCK ) int n, int flags);
+  int (*xShmLock)(_In_ sqlite3_file*, int offset, _Pre_satisfies_( ofst>=0 && ofst+n<=SQLITE_SHM_NLOCK ) int n, int flags);
   void (*xShmBarrier)(sqlite3_file*);
   int (*xShmUnmap)(sqlite3_file*, int deleteFlag);
   /* Methods above are valid for version 2 */
-  int (*xFetch)(sqlite3_file*, sqlite3_int64 iOfst, int iAmt, void **pp);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xFetch)(_In_ sqlite3_file*, sqlite3_int64 iOfst, _In_range_( (-iOff), SQLITE_MAX_MMAP_SIZE ) int iAmt, _Outptr_result_maybenull_ void **pp);
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xUnfetch)(_In_ _Pre_satisfies_( ( p==0 ) == ( ((winFile*)fd)->nFetchOut == 0 ) ) _Pre_satisfies_( p==0 || p == &((u8 *)((winFile*)fd)->pMapRegion)[iOff] ) sqlite3_file* fd, sqlite3_int64 iOfst, _In_opt_ _When_( p == 0, _At_( ((winFile*)fd)->pMapRegion, _Post_ptr_invalid_ ) ) void *p);
   /* Methods above are valid for version 3 */
   /* Additional methods may be added in future releases */
@@ -1186,11 +1186,11 @@ struct sqlite3_vfs {
   sqlite3_vfs *pNext;      /* Next registered VFS */
   _Field_z_ const char *zName;       /* Name of this virtual file system */
   void *pAppData;          /* Pointer to application-specific data */
-  int (*xOpen)(sqlite3_vfs*, _In_opt_z_ const char *zName, sqlite3_file*,
-               int flags, int *pOutFlags);
-  int (*xDelete)(sqlite3_vfs*, const char *zName, int syncDir);
-  int (*xAccess)(sqlite3_vfs*, const char *zName, int flags, int *pResOut);
-  int (*xFullPathname)(sqlite3_vfs*, const char *zName, int nOut, char *zOut);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xOpen)(sqlite3_vfs*, _In_opt_z_ const char *zName, _Out_ sqlite3_file*,
+               int flags, _Out_ int *pOutFlags);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xDelete)(sqlite3_vfs*, _In_opt_z_ const char *zName, int syncDir);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xAccess)(sqlite3_vfs*, _In_z_ const char *zName, int flags, _Out_ int *pResOut);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xFullPathname)(sqlite3_vfs*, _In_z_ const char *zName, int nOut, _Out_writes_z_( nOut ) char *zOut);
   void *(*xDlOpen)(sqlite3_vfs*, const char *zFilename);
   void (*xDlError)(sqlite3_vfs*, int nByte, char *zErrMsg);
   void (*(*xDlSym)(sqlite3_vfs*,void*, const char *zSymbol))(void);
@@ -5524,7 +5524,7 @@ struct sqlite3_module {
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xDisconnect)(_Post_invalid_ sqlite3_vtab *pVTab);
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xDestroy)(_Post_ptr_invalid_ sqlite3_vtab *pVTab);
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xOpen)(_Inout_ sqlite3_vtab *pVTab, _Outptr_ sqlite3_vtab_cursor **ppCursor);
-  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xClose)(_Post_ptr_invalid_ sqlite3_vtab_cursor*);
+  SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xClose)(_In_ _Post_ptr_invalid_ sqlite3_vtab_cursor*);
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xFilter)(_Inout_ sqlite3_vtab_cursor*, int idxNum, _In_z_ const char *idxStr,
                 _In_range_( >=, 0 ) int argc, _Pre_readable_size_( argc ) sqlite3_value **argv);
   SQLITE_API_OK_ONLY_RESULT_CODE_INT (*xNext)(_Inout_ sqlite3_vtab_cursor*);
@@ -6043,8 +6043,8 @@ SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_blob_write(
 ** ^(If the default VFS is unregistered, another VFS is chosen as
 ** the default.  The choice for the new VFS is arbitrary.)^
 */
-SQLITE_API sqlite3_vfs *SQLITE_STDCALL sqlite3_vfs_find(_In_opt_z_ const char* zVfsName);
-SQLITE_API int SQLITE_STDCALL sqlite3_vfs_register(sqlite3_vfs*, int makeDflt);
+_Ret_maybenull_ SQLITE_API sqlite3_vfs *SQLITE_STDCALL sqlite3_vfs_find(_In_opt_z_ const char* zVfsName);
+SQLITE_API SQLITE_API_OK_ONLY_RESULT_CODE_INT SQLITE_STDCALL sqlite3_vfs_register(_Inout_ sqlite3_vfs*, int makeDflt);
 SQLITE_API int SQLITE_STDCALL sqlite3_vfs_unregister(sqlite3_vfs*);
 
 /*
