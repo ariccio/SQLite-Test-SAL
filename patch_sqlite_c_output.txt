@@ -1,657 +1,663 @@
-AlexanderRiccio@ALEXANDERLAPTOP ~/Documents/GitHub/SQLite-Test-SAL/sqlite-amalgamation-3080900 (master)
-$ patch -p1 --dry-run --ignore-whitespace --fuzz 500 --verbose < ../3_8_10_2__3_8_11_1_modfied_for_30_80_900.patch > patch_sqlite_c_output.txt
+$ patch -p1 --dry-run --ignore-whitespace --fuzz 500 --verbose < ../3_8_10_2__3_8_11_1_modfied_for_30_80_900.patch
 Hmm...  Looks like a unified diff to me...
 The text leading up to this was:
 --------------------------
 |diff -rupN sqlite-amalgamation-3080900/sqlite3.c sqlite-amalgamation-3081101/sqlite3.c
-|--- sqlite-amalgamation-3080900/sqlite3.c	Wed May 20 14:28:10 2015
-|+++ sqlite-amalgamation-3081101/sqlite3.c	Wed Jul 29 16:06:58 2015
+|--- sqlite-amalgamation-3080900/sqlite3.c      Wed May 20 14:28:10 2015
+|+++ sqlite-amalgamation-3081101/sqlite3.c      Wed Jul 29 16:06:58 2015
 --------------------------
 Patching file `sqlite3.c' using Plan A...
-Reversed (or previously applied) patch detected!  Assume -R? [n] 
-Apply anyway? [n] 
-Skipping patch.
-Hunk #1 ignored at 1.
-Hunk #2 ignored at 158.
-Hunk #3 ignored at 237.
-Hunk #4 ignored at 325.
-Hunk #5 ignored at 1177.
-Hunk #6 ignored at 1210.
-Hunk #7 ignored at 3614.
-Hunk #8 ignored at 3776.
-Hunk #9 ignored at 4120.
-Hunk #10 ignored at 4179.
-Hunk #11 ignored at 4217.
-Hunk #12 ignored at 4241.
-Hunk #13 ignored at 4261.
-Hunk #14 ignored at 4511.
-Hunk #15 ignored at 4570.
-Hunk #16 ignored at 4749.
-Hunk #17 ignored at 4833.
-Hunk #18 ignored at 4866.
-Hunk #19 ignored at 6110.
-Hunk #20 ignored at 6507.
-Hunk #21 ignored at 7923.
-Hunk #22 ignored at 7939.
-Hunk #23 ignored at 8054.
-Hunk #24 ignored at 8362.
-Hunk #25 ignored at 8952.
-Hunk #26 ignored at 9197.
-Hunk #27 ignored at 9729.
-Hunk #28 ignored at 9803.
-Hunk #29 ignored at 9846.
-Hunk #30 ignored at 9907.
-Hunk #31 ignored at 9929.
-Hunk #32 ignored at 9940.
-Hunk #33 ignored at 10019.
-Hunk #34 ignored at 10054.
-Hunk #35 ignored at 10356.
-Hunk #36 ignored at 10449.
-Hunk #37 ignored at 11240.
-Hunk #38 ignored at 11488.
-Hunk #39 ignored at 11622.
-Hunk #40 ignored at 11642.
-Hunk #41 ignored at 11801.
-Hunk #42 ignored at 12247.
-Hunk #43 ignored at 12383.
-Hunk #44 ignored at 12638.
-Hunk #45 ignored at 13053.
-Hunk #46 ignored at 13083.
-Hunk #47 ignored at 13153.
-Hunk #48 ignored at 13161.
-Hunk #49 ignored at 13225.
-Hunk #50 ignored at 13320.
-Hunk #51 ignored at 13337.
-Hunk #52 ignored at 13558.
-Hunk #53 ignored at 13871.
-Hunk #54 ignored at 13893.
-Hunk #55 ignored at 14067.
-Hunk #56 ignored at 14133.
-Hunk #57 ignored at 14162.
-Hunk #58 ignored at 14592.
-Hunk #59 ignored at 14680.
-Hunk #60 ignored at 14786.
-Hunk #61 ignored at 14876.
-Hunk #62 ignored at 14999.
-Hunk #63 ignored at 15476.
-Hunk #64 ignored at 15788.
-Hunk #65 ignored at 16589.
-Hunk #66 ignored at 16996.
-Hunk #67 ignored at 17078.
-Hunk #68 ignored at 17165.
-Hunk #69 ignored at 17441.
-Hunk #70 ignored at 17976.
-Hunk #71 ignored at 18691.
-Hunk #72 ignored at 19235.
-Hunk #73 ignored at 19267.
-Hunk #74 ignored at 19409.
-Hunk #75 ignored at 19491.
-Hunk #76 ignored at 19613.
-Hunk #77 ignored at 19707.
-Hunk #78 ignored at 19746.
-Hunk #79 ignored at 19988.
-Hunk #80 ignored at 20356.
-Hunk #81 ignored at 20430.
-Hunk #82 ignored at 20664.
-Hunk #83 ignored at 20845.
-Hunk #84 ignored at 20877.
-Hunk #85 ignored at 20888.
-Hunk #86 ignored at 21422.
-Hunk #87 ignored at 21447.
-Hunk #88 ignored at 21467.
-Hunk #89 ignored at 22396.
-Hunk #90 ignored at 22479.
-Hunk #91 ignored at 22527.
-Hunk #92 ignored at 22578.
-Hunk #93 ignored at 22612.
-Hunk #94 ignored at 22991.
-Hunk #95 ignored at 23138.
-Hunk #96 ignored at 23414.
-Hunk #97 ignored at 23929.
-Hunk #98 ignored at 24019.
-Hunk #99 ignored at 24992.
-Hunk #100 ignored at 25326.
-Hunk #101 ignored at 25592.
-Hunk #102 ignored at 25653.
-Hunk #103 ignored at 25675.
-Hunk #104 ignored at 25686.
-Hunk #105 ignored at 25804.
-Hunk #106 ignored at 26588.
-Hunk #107 ignored at 33539.
-Hunk #108 ignored at 33748.
-Hunk #109 ignored at 36740.
-Hunk #110 ignored at 37115.
-Hunk #111 ignored at 39142.
-Hunk #112 ignored at 39402.
-Hunk #113 ignored at 39494.
-Hunk #114 ignored at 39517.
-Hunk #115 ignored at 39792.
-Hunk #116 ignored at 39809.
-Hunk #117 ignored at 39886.
-Hunk #118 ignored at 39978.
-Hunk #119 ignored at 40102.
-Hunk #120 ignored at 40126.
-Hunk #121 ignored at 40136.
-Hunk #122 ignored at 40148.
-Hunk #123 ignored at 40176.
-Hunk #124 ignored at 40184.
-Hunk #125 ignored at 40201.
-Hunk #126 ignored at 40271.
-Hunk #127 ignored at 40469.
-Hunk #128 ignored at 40587.
-Hunk #129 ignored at 40603.
-Hunk #130 ignored at 40617.
-Hunk #131 ignored at 40625.
-Hunk #132 ignored at 40644.
-Hunk #133 ignored at 40671.
-Hunk #134 ignored at 40696.
-Hunk #135 ignored at 40715.
-Hunk #136 ignored at 40798.
-Hunk #137 ignored at 40815.
-Hunk #138 ignored at 40850.
-Hunk #139 ignored at 41003.
-Hunk #140 ignored at 41048.
-Hunk #141 ignored at 41113.
-Hunk #142 ignored at 41181.
-Hunk #143 ignored at 41196.
-Hunk #144 ignored at 41228.
-Hunk #145 ignored at 41246.
-Hunk #146 ignored at 41299.
-Hunk #147 ignored at 41321.
-Hunk #148 ignored at 41397.
-Hunk #149 ignored at 41411.
-Hunk #150 ignored at 41496.
-Hunk #151 ignored at 41583.
-Hunk #152 ignored at 41641.
-Hunk #153 ignored at 41651.
-Hunk #154 ignored at 41747.
-Hunk #155 ignored at 42217.
-Hunk #156 ignored at 42239.
-Hunk #157 ignored at 42795.
-Hunk #158 ignored at 42879.
-Hunk #159 ignored at 42986.
-Hunk #160 ignored at 43147.
-Hunk #161 ignored at 43370.
-Hunk #162 ignored at 43996.
-Hunk #163 ignored at 44557.
-Hunk #164 ignored at 45491.
-Hunk #165 ignored at 46659.
-Hunk #166 ignored at 46705.
-Hunk #167 ignored at 46769.
-Hunk #168 ignored at 46782.
-Hunk #169 ignored at 47037.
-Hunk #170 ignored at 47056.
-Hunk #171 ignored at 47443.
-Hunk #172 ignored at 47651.
-Hunk #173 ignored at 47669.
-Hunk #174 ignored at 47684.
-Hunk #175 ignored at 47762.
-Hunk #176 ignored at 47967.
-Hunk #177 ignored at 48029.
-Hunk #178 ignored at 48041.
-Hunk #179 ignored at 48059.
-Hunk #180 ignored at 48115.
-Hunk #181 ignored at 48213.
-Hunk #182 ignored at 48235.
-Hunk #183 ignored at 48259.
-Hunk #184 ignored at 48726.
-Hunk #185 ignored at 48816.
-Hunk #186 ignored at 49102.
-Hunk #187 ignored at 49854.
-Hunk #188 ignored at 50260.
-Hunk #189 ignored at 50564.
-Hunk #190 ignored at 51072.
-Hunk #191 ignored at 51083.
-Hunk #192 ignored at 51096.
-Hunk #193 ignored at 53009.
-Hunk #194 ignored at 53027.
-Hunk #195 ignored at 53091.
-Hunk #196 ignored at 53150.
-Hunk #197 ignored at 53261.
-Hunk #198 ignored at 53303.
-Hunk #199 ignored at 53313.
-Hunk #200 ignored at 53335.
-Hunk #201 ignored at 53478.
-Hunk #202 ignored at 53489.
-Hunk #203 ignored at 53807.
-Hunk #204 ignored at 54284.
-Hunk #205 ignored at 54414.
-Hunk #206 ignored at 54427.
-Hunk #207 ignored at 54449.
-Hunk #208 ignored at 54469.
-Hunk #209 ignored at 54759.
-Hunk #210 ignored at 54848.
-Hunk #211 ignored at 54948.
-Hunk #212 ignored at 54956.
-Hunk #213 ignored at 54982.
-Hunk #214 ignored at 55020.
-Hunk #215 ignored at 55061.
-Hunk #216 ignored at 55118.
-Hunk #217 ignored at 55167.
-Hunk #218 ignored at 55192.
-Hunk #219 ignored at 55214.
-Hunk #220 ignored at 55257.
-Hunk #221 ignored at 55274.
-Hunk #222 ignored at 55290.
-Hunk #223 ignored at 55336.
-Hunk #224 ignored at 55365.
-Hunk #225 ignored at 55373.
-Hunk #226 ignored at 55431.
-Hunk #227 ignored at 55441.
-Hunk #228 ignored at 55463.
-Hunk #229 ignored at 55487.
-Hunk #230 ignored at 55519.
-Hunk #231 ignored at 55547.
-Hunk #232 ignored at 55567.
-Hunk #233 ignored at 55639.
-Hunk #234 ignored at 55658.
-Hunk #235 ignored at 55719.
-Hunk #236 ignored at 55784.
-Hunk #237 ignored at 56769.
-Hunk #238 ignored at 57074.
-Hunk #239 ignored at 57383.
-Hunk #240 ignored at 57825.
-Hunk #241 ignored at 57841.
-Hunk #242 ignored at 57861.
-Hunk #243 ignored at 57883.
-Hunk #244 ignored at 57928.
-Hunk #245 ignored at 57959.
-Hunk #246 ignored at 57971.
-Hunk #247 ignored at 58485.
-Hunk #248 ignored at 58494.
-Hunk #249 ignored at 58543.
-Hunk #250 ignored at 58586.
-Hunk #251 ignored at 58805.
-Hunk #252 ignored at 58840.
-Hunk #253 ignored at 58864.
-Hunk #254 ignored at 58896.
-Hunk #255 ignored at 58925.
-Hunk #256 ignored at 59236.
-Hunk #257 ignored at 59279.
-Hunk #258 ignored at 59328.
-Hunk #259 ignored at 59396.
-Hunk #260 ignored at 59476.
-Hunk #261 ignored at 59525.
-Hunk #262 ignored at 59539.
-Hunk #263 ignored at 59554.
-Hunk #264 ignored at 59580.
-Hunk #265 ignored at 59723.
-Hunk #266 ignored at 59735.
-Hunk #267 ignored at 59835.
-Hunk #268 ignored at 59875.
-Hunk #269 ignored at 59990.
-Hunk #270 ignored at 60045.
-Hunk #271 ignored at 60061.
-Hunk #272 ignored at 60074.
-Hunk #273 ignored at 60090.
-Hunk #274 ignored at 60122.
-Hunk #275 ignored at 60180.
-Hunk #276 ignored at 60205.
-Hunk #277 ignored at 60221.
-Hunk #278 ignored at 60254.
-Hunk #279 ignored at 60291.
-Hunk #280 ignored at 60346.
-Hunk #281 ignored at 60370.
-Hunk #282 ignored at 60389.
-Hunk #283 ignored at 60403.
-Hunk #284 ignored at 60412.
-Hunk #285 ignored at 60423.
-Hunk #286 ignored at 60503.
-Hunk #287 ignored at 60583.
-Hunk #288 ignored at 60714.
-Hunk #289 ignored at 60724.
-Hunk #290 ignored at 60731.
-Hunk #291 ignored at 60798.
-Hunk #292 ignored at 60809.
-Hunk #293 ignored at 60853.
-Hunk #294 ignored at 61068.
-Hunk #295 ignored at 61108.
-Hunk #296 ignored at 61124.
-Hunk #297 ignored at 61229.
-Hunk #298 ignored at 61255.
-Hunk #299 ignored at 61272.
-Hunk #300 ignored at 61303.
-Hunk #301 ignored at 61361.
-Hunk #302 ignored at 61418.
-Hunk #303 ignored at 61441.
-Hunk #304 ignored at 61716.
-Hunk #305 ignored at 61755.
-Hunk #306 ignored at 61839.
-Hunk #307 ignored at 61865.
-Hunk #308 ignored at 61894.
-Hunk #309 ignored at 61987.
-Hunk #310 ignored at 62117.
-Hunk #311 ignored at 62138.
-Hunk #312 ignored at 62718.
-Hunk #313 ignored at 62766.
-Hunk #314 ignored at 62863.
-Hunk #315 ignored at 62922.
-Hunk #316 ignored at 62995.
-Hunk #317 ignored at 63013.
-Hunk #318 ignored at 63043.
-Hunk #319 ignored at 63079.
-Hunk #320 ignored at 63303.
-Hunk #321 ignored at 63389.
-Hunk #322 ignored at 64062.
-Hunk #323 ignored at 64085.
-Hunk #324 ignored at 64189.
-Hunk #325 ignored at 64762.
-Hunk #326 ignored at 64944.
-Hunk #327 ignored at 64951.
-Hunk #328 ignored at 64975.
-Hunk #329 ignored at 65125.
-Hunk #330 ignored at 65180.
-Hunk #331 ignored at 65501.
-Hunk #332 ignored at 65868.
-Hunk #333 ignored at 65908.
-Hunk #334 ignored at 65935.
-Hunk #335 ignored at 66130.
-Hunk #336 ignored at 66310.
-Hunk #337 ignored at 66322.
-Hunk #338 ignored at 66338.
-Hunk #339 ignored at 66353.
-Hunk #340 ignored at 66385.
-Hunk #341 ignored at 66628.
-Hunk #342 ignored at 67016.
-Hunk #343 ignored at 67143.
-Hunk #344 ignored at 67157.
-Hunk #345 ignored at 67333.
-Hunk #346 ignored at 68236.
-Hunk #347 ignored at 68858.
-Hunk #348 ignored at 68955.
-Hunk #349 ignored at 69240.
-Hunk #350 ignored at 69586.
-Hunk #351 ignored at 69612.
-Hunk #352 ignored at 69985.
-Hunk #353 ignored at 70158.
-Hunk #354 ignored at 70198.
-Hunk #355 ignored at 70243.
-Hunk #356 ignored at 70265.
-Hunk #357 ignored at 70307.
-Hunk #358 ignored at 70388.
-Hunk #359 ignored at 70572.
-Hunk #360 ignored at 70635.
-Hunk #361 ignored at 70704.
-Hunk #362 ignored at 70731.
-Hunk #363 ignored at 71560.
-Hunk #364 ignored at 71823.
-Hunk #365 ignored at 72017.
-Hunk #366 ignored at 72269.
-Hunk #367 ignored at 72670.
-Hunk #368 ignored at 73052.
-Hunk #369 ignored at 73634.
-Hunk #370 ignored at 73649.
-Hunk #371 ignored at 73905.
-Hunk #372 ignored at 74718.
-Hunk #373 ignored at 74790.
-Hunk #374 ignored at 74916.
-Hunk #375 ignored at 74967.
-Hunk #376 ignored at 75080.
-Hunk #377 ignored at 75112.
-Hunk #378 ignored at 75636.
-Hunk #379 ignored at 76144.
-Hunk #380 ignored at 76884.
-Hunk #381 ignored at 76893.
-Hunk #382 ignored at 77562.
-Hunk #383 ignored at 77823.
-Hunk #384 ignored at 77941.
-Hunk #385 ignored at 78046.
-Hunk #386 ignored at 78177.
-Hunk #387 ignored at 78725.
-Hunk #388 ignored at 78733.
-Hunk #389 ignored at 78744.
-Hunk #390 ignored at 78755.
-Hunk #391 ignored at 78777.
-Hunk #392 ignored at 79377.
-Hunk #393 ignored at 81995.
-Hunk #394 ignored at 82243.
-Hunk #395 ignored at 82499.
-Hunk #396 ignored at 82658.
-Hunk #397 ignored at 83002.
-Hunk #398 ignored at 83032.
-Hunk #399 ignored at 83975.
-Hunk #400 ignored at 84171.
-Hunk #401 ignored at 84350.
-Hunk #402 ignored at 84380.
-Hunk #403 ignored at 84394.
-Hunk #404 ignored at 85200.
-Hunk #405 ignored at 85427.
-Hunk #406 ignored at 85535.
-Hunk #407 ignored at 85641.
-Hunk #408 ignored at 86092.
-Hunk #409 ignored at 86367.
-Hunk #410 ignored at 86379.
-Hunk #411 ignored at 86408.
-Hunk #412 ignored at 87014.
-Hunk #413 ignored at 87084.
-Hunk #414 ignored at 87455.
-Hunk #415 ignored at 87847.
-Hunk #416 ignored at 88334.
-Hunk #417 ignored at 89014.
-Hunk #418 ignored at 89297.
-Hunk #419 ignored at 90100.
-Hunk #420 ignored at 90255.
-Hunk #421 ignored at 90351.
-Hunk #422 ignored at 91063.
-Hunk #423 ignored at 91411.
-Hunk #424 ignored at 91653.
-Hunk #425 ignored at 91924.
-Hunk #426 ignored at 92878.
-Hunk #427 ignored at 92994.
-Hunk #428 ignored at 93032.
-Hunk #429 ignored at 93058.
-Hunk #430 ignored at 93227.
-Hunk #431 ignored at 93450.
-Hunk #432 ignored at 93463.
-Hunk #433 ignored at 93584.
-Hunk #434 ignored at 93601.
-Hunk #435 ignored at 93746.
-Hunk #436 ignored at 93814.
-Hunk #437 ignored at 95152.
-Hunk #438 ignored at 95200.
-Hunk #439 ignored at 95604.
-Hunk #440 ignored at 95677.
-Hunk #441 ignored at 96245.
-Hunk #442 ignored at 96723.
-Hunk #443 ignored at 97509.
-Hunk #444 ignored at 97566.
-Hunk #445 ignored at 98128.
-Hunk #446 ignored at 98178.
-Hunk #447 ignored at 98202.
-Hunk #448 ignored at 98252.
-Hunk #449 ignored at 98298.
-Hunk #450 ignored at 98675.
-Hunk #451 ignored at 99363.
-Hunk #452 ignored at 100768.
-Hunk #453 ignored at 100798.
-Hunk #454 ignored at 100812.
-Hunk #455 ignored at 100855.
-Hunk #456 ignored at 100867.
-Hunk #457 ignored at 100889.
-Hunk #458 ignored at 102137.
-Hunk #459 ignored at 102752.
-Hunk #460 ignored at 102787.
-Hunk #461 ignored at 102834.
-Hunk #462 ignored at 103003.
-Hunk #463 ignored at 103253.
-Hunk #464 ignored at 103488.
-Hunk #465 ignored at 103514.
-Hunk #466 ignored at 103899.
-Hunk #467 ignored at 104286.
-Hunk #468 ignored at 104393.
-Hunk #469 ignored at 104406.
-Hunk #470 ignored at 104767.
-Hunk #471 ignored at 105463.
-Hunk #472 ignored at 106740.
-Hunk #473 ignored at 106753.
-Hunk #474 ignored at 106951.
-Hunk #475 ignored at 107635.
-Hunk #476 ignored at 107644.
-Hunk #477 ignored at 107989.
-Hunk #478 ignored at 108343.
-Hunk #479 ignored at 108404.
-Hunk #480 ignored at 108447.
-Hunk #481 ignored at 108458.
-Hunk #482 ignored at 108705.
-Hunk #483 ignored at 108718.
-Hunk #484 ignored at 108863.
-Hunk #485 ignored at 108940.
-Hunk #486 ignored at 109013.
-Hunk #487 ignored at 109337.
-Hunk #488 ignored at 109498.
-Hunk #489 ignored at 109691.
-Hunk #490 ignored at 109721.
-Hunk #491 ignored at 109737.
-Hunk #492 ignored at 109745.
-Hunk #493 ignored at 109854.
-Hunk #494 ignored at 110147.
-Hunk #495 ignored at 110214.
-Hunk #496 ignored at 110249.
-Hunk #497 ignored at 110486.
-Hunk #498 ignored at 110845.
-Hunk #499 ignored at 111056.
-Hunk #500 ignored at 111339.
-Hunk #501 ignored at 111348.
-Hunk #502 ignored at 111498.
-Hunk #503 ignored at 111688.
-Hunk #504 ignored at 111933.
-Hunk #505 ignored at 112311.
-Hunk #506 ignored at 112394.
-Hunk #507 ignored at 112444.
-Hunk #508 ignored at 112457.
-Hunk #509 ignored at 112542.
-Hunk #510 ignored at 112611.
-Hunk #511 ignored at 112647.
-Hunk #512 ignored at 112694.
-Hunk #513 ignored at 112779.
-Hunk #514 ignored at 112960.
-Hunk #515 ignored at 113033.
-Hunk #516 ignored at 113198.
-Hunk #517 ignored at 113232.
-Hunk #518 ignored at 113252.
-Hunk #519 ignored at 113449.
-Hunk #520 ignored at 114573.
-Hunk #521 ignored at 115304.
-Hunk #522 ignored at 115350.
-Hunk #523 ignored at 115724.
-Hunk #524 ignored at 116549.
-Hunk #525 ignored at 116562.
-Hunk #526 ignored at 116863.
-Hunk #527 ignored at 116876.
-Hunk #528 ignored at 116907.
-Hunk #529 ignored at 117049.
-Hunk #530 ignored at 117164.
-Hunk #531 ignored at 117257.
-Hunk #532 ignored at 117313.
-Hunk #533 ignored at 117417.
-Hunk #534 ignored at 119344.
-Hunk #535 ignored at 119373.
-Hunk #536 ignored at 119419.
-Hunk #537 ignored at 119445.
-Hunk #538 ignored at 119465.
-Hunk #539 ignored at 119544.
-Hunk #540 ignored at 119564.
-Hunk #541 ignored at 119637.
-Hunk #542 ignored at 119746.
-Hunk #543 ignored at 119780.
-Hunk #544 ignored at 119796.
-Hunk #545 ignored at 119959.
-Hunk #546 ignored at 121724.
-Hunk #547 ignored at 121876.
-Hunk #548 ignored at 122217.
-Hunk #549 ignored at 122287.
-Hunk #550 ignored at 122353.
-Hunk #551 ignored at 122403.
-Hunk #552 ignored at 122420.
-Hunk #553 ignored at 122691.
-Hunk #554 ignored at 122828.
-Hunk #555 ignored at 122874.
-Hunk #556 ignored at 122883.
-Hunk #557 ignored at 122913.
-Hunk #558 ignored at 122921.
-Hunk #559 ignored at 123020.
-Hunk #560 ignored at 123083.
-Hunk #561 ignored at 123152.
-Hunk #562 ignored at 123294.
-Hunk #563 ignored at 123306.
-Hunk #564 ignored at 123337.
-Hunk #565 ignored at 123431.
-Hunk #566 ignored at 123904.
-Hunk #567 ignored at 123921.
-Hunk #568 ignored at 123950.
-Hunk #569 ignored at 124144.
-Hunk #570 ignored at 124190.
-Hunk #571 ignored at 124215.
-Hunk #572 ignored at 124227.
-Hunk #573 ignored at 124253.
-Hunk #574 ignored at 124284.
-Hunk #575 ignored at 124318.
-Hunk #576 ignored at 124332.
-Hunk #577 ignored at 124372.
-Hunk #578 ignored at 124421.
-Hunk #579 ignored at 124460.
-Hunk #580 ignored at 124581.
-Hunk #581 ignored at 124676.
-Hunk #582 ignored at 126154.
-Hunk #583 ignored at 126855.
-Hunk #584 ignored at 127079.
-Hunk #585 ignored at 127090.
-Hunk #586 ignored at 127156.
-Hunk #587 ignored at 127453.
-Hunk #588 ignored at 128262.
-Hunk #589 ignored at 128627.
-Hunk #590 ignored at 128979.
-Hunk #591 ignored at 129002.
-Hunk #592 ignored at 129072.
-Hunk #593 ignored at 129340.
-Hunk #594 ignored at 129363.
-Hunk #595 ignored at 129383.
-Hunk #596 ignored at 129416.
-Hunk #597 ignored at 129449.
-Hunk #598 ignored at 130082.
-Hunk #599 ignored at 130133.
-Hunk #600 ignored at 131524.
-Hunk #601 ignored at 132203.
-Hunk #602 ignored at 132325.
-Hunk #603 ignored at 132370.
-Hunk #604 ignored at 132428.
-Hunk #605 ignored at 132800.
-Hunk #606 ignored at 133244.
-Hunk #607 ignored at 133889.
-Hunk #608 ignored at 133922.
-Hunk #609 ignored at 134336.
-Hunk #610 ignored at 134447.
-Hunk #611 ignored at 134567.
-Hunk #612 ignored at 134690.
-Hunk #613 ignored at 134706.
-Hunk #614 ignored at 134763.
-Hunk #615 ignored at 136136.
-Hunk #616 ignored at 137637.
-Hunk #617 ignored at 138692.
-Hunk #618 ignored at 138811.
-Hunk #619 ignored at 139535.
-Hunk #620 ignored at 139755.
-Hunk #621 ignored at 139876.
-Hunk #622 ignored at 139923.
-Hunk #623 ignored at 140084.
-Hunk #624 ignored at 140109.
-Hunk #625 ignored at 140218.
-Hunk #626 ignored at 140255.
-Hunk #627 ignored at 140383.
-Hunk #628 ignored at 140940.
-Hunk #629 ignored at 141896.
-Hunk #630 ignored at 143270.
-Hunk #631 ignored at 143285.
-Hunk #632 ignored at 143767.
-Hunk #633 ignored at 143781.
-Hunk #634 ignored at 143789.
-Hunk #635 ignored at 143858.
-Hunk #636 ignored at 143900.
-Hunk #637 ignored at 144463.
-Hunk #638 ignored at 145611.
-Hunk #639 ignored at 152601.
-Hunk #640 ignored at 160988.
-Hunk #641 ignored at 161591.
-Hunk #642 ignored at 161616.
-642 out of 642 hunks ignored -- saving rejects to sqlite3.c.rej
+Reversed (or previously applied) patch detected!  Assume -R? [n] n
+Apply anyway? [n] y
+Hunk #1 FAILED at 1.
+Hunk #2 succeeded at 187 with fuzz 2 (offset 29 lines).
+Hunk #3 FAILED at 266.
+Hunk #4 FAILED at 354.
+Hunk #5 succeeded at 3133 with fuzz 2 (offset 1956 lines).
+misordered hunks! output would be garbled
+Hunk #6 FAILED at 1210.
+Hunk #7 FAILED at 3614.
+Hunk #8 succeeded at 3776 with fuzz 3.
+Hunk #9 succeeded at 4168 (offset 48 lines).
+Hunk #10 FAILED at 4227.
+Hunk #11 succeeded at 4218 (offset 1 line).
+Hunk #12 succeeded at 4289 (offset 48 lines).
+Hunk #13 succeeded at 4262 (offset 1 line).
+Hunk #14 succeeded at 4559 (offset 48 lines).
+Hunk #15 succeeded at 4571 (offset 1 line).
+Hunk #16 succeeded at 4798 (offset 49 lines).
+Hunk #17 succeeded at 4834 (offset 1 line).
+misordered hunks! output would be garbled
+Hunk #18 FAILED at 4866.
+Hunk #19 FAILED at 6110.
+Hunk #20 succeeded at 6567 (offset 60 lines).
+Hunk #21 FAILED at 7983.
+Hunk #22 succeeded at 7944 (offset 5 lines).
+Hunk #23 succeeded at 8114 (offset 60 lines).
+Hunk #24 succeeded at 8367 (offset 5 lines).
+Hunk #25 succeeded at 9015 (offset 63 lines).
+Hunk #26 succeeded at 9202 (offset 5 lines).
+Hunk #27 succeeded at 9904 (offset 175 lines).
+Hunk #28 succeeded at 9808 (offset 5 lines).
+Hunk #29 succeeded at 10021 (offset 175 lines).
+Hunk #30 succeeded at 9912 (offset 5 lines).
+Hunk #31 succeeded at 10104 (offset 175 lines).
+Hunk #32 succeeded at 9945 (offset 5 lines).
+Hunk #33 succeeded at 10194 (offset 175 lines).
+Hunk #34 succeeded at 10054 with fuzz 3.
+Hunk #35 succeeded at 10596 (offset 240 lines).
+Hunk #36 succeeded at 10449.
+Hunk #37 succeeded at 11505 with fuzz 2 (offset 265 lines).
+Hunk #38 succeeded at 11487 (offset -1 lines).
+Hunk #39 succeeded at 11887 (offset 265 lines).
+Hunk #40 succeeded at 11641 (offset -1 lines).
+Hunk #41 succeeded at 12066 (offset 265 lines).
+Hunk #42 FAILED at 12512.
+Hunk #43 succeeded at 12382 (offset -1 lines).
+Hunk #44 succeeded at 12903 (offset 265 lines).
+Hunk #45 succeeded at 13052 (offset -1 lines).
+Hunk #46 succeeded at 13369 (offset 286 lines).
+Hunk #47 FAILED at 13439.
+Hunk #48 FAILED at 13447.
+Hunk #49 succeeded at 13268 with fuzz 1 (offset 43 lines).
+misordered hunks! output would be garbled
+Hunk #50 FAILED at 13320.
+Hunk #51 succeeded at 13694 (offset 357 lines).
+Hunk #52 succeeded at 13558 with fuzz 3.
+Hunk #53 succeeded at 14312 with fuzz 1 (offset 441 lines).
+Hunk #54 succeeded at 13893.
+Hunk #55 succeeded at 14508 (offset 441 lines).
+Hunk #56 succeeded at 14133.
+Hunk #57 succeeded at 14603 (offset 441 lines).
+Hunk #58 succeeded at 14592.
+Hunk #59 succeeded at 15121 (offset 441 lines).
+Hunk #60 succeeded at 14792 with fuzz 2 (offset 6 lines).
+Hunk #61 succeeded at 15317 (offset 441 lines).
+Hunk #62 succeeded at 15005 (offset 6 lines).
+Hunk #63 succeeded at 15958 (offset 482 lines).
+Hunk #64 succeeded at 15794 (offset 6 lines).
+Hunk #65 succeeded at 17073 (offset 484 lines).
+Hunk #66 succeeded at 17002 (offset 6 lines).
+Hunk #67 succeeded at 17562 (offset 484 lines).
+Hunk #68 succeeded at 17171 (offset 6 lines).
+Hunk #69 succeeded at 17925 (offset 484 lines).
+Hunk #70 succeeded at 17982 (offset 6 lines).
+Hunk #71 succeeded at 19175 (offset 484 lines).
+Hunk #72 succeeded at 19241 (offset 6 lines).
+Hunk #73 succeeded at 19751 (offset 484 lines).
+Hunk #74 succeeded at 19415 (offset 6 lines).
+Hunk #75 succeeded at 19975 (offset 484 lines).
+Hunk #76 succeeded at 19619 (offset 6 lines).
+Hunk #77 succeeded at 20191 (offset 484 lines).
+Hunk #78 succeeded at 19752 (offset 6 lines).
+Hunk #79 succeeded at 20472 (offset 484 lines).
+Hunk #80 succeeded at 20364 (offset 8 lines).
+Hunk #81 succeeded at 20914 (offset 484 lines).
+Hunk #82 succeeded at 20673 (offset 9 lines).
+Hunk #83 succeeded at 21329 (offset 484 lines).
+Hunk #84 succeeded at 20886 (offset 9 lines).
+Hunk #85 succeeded at 21372 (offset 484 lines).
+Hunk #86 FAILED at 21906.
+Hunk #87 FAILED at 21931.
+Hunk #88 succeeded at 21491 (offset 24 lines).
+Hunk #89 FAILED at 22420.
+Hunk #90 succeeded at 22981 with fuzz 2 (offset 502 lines).
+Hunk #91 FAILED at 23029.
+Hunk #92 FAILED at 23080.
+Hunk #93 FAILED at 23114.
+Hunk #94 succeeded at 23017 (offset 26 lines).
+Hunk #95 succeeded at 23640 (offset 502 lines).
+Hunk #96 succeeded at 23442 (offset 28 lines).
+Hunk #97 succeeded at 24443 (offset 514 lines).
+Hunk #98 succeeded at 24048 with fuzz 3 (offset 29 lines).
+Hunk #99 succeeded at 25509 (offset 517 lines).
+Hunk #100 succeeded at 25358 (offset 32 lines).
+Hunk #101 succeeded at 26111 (offset 519 lines).
+Hunk #102 succeeded at 25685 (offset 32 lines).
+Hunk #103 succeeded at 26194 (offset 519 lines).
+Hunk #104 succeeded at 25718 (offset 32 lines).
+Hunk #105 succeeded at 26323 (offset 519 lines).
+Hunk #106 succeeded at 26620 (offset 32 lines).
+Hunk #107 succeeded at 34058 (offset 519 lines).
+Hunk #108 succeeded at 33780 (offset 32 lines).
+Hunk #109 succeeded at 37260 (offset 520 lines).
+Hunk #110 succeeded at 37161 (offset 46 lines).
+Hunk #111 succeeded at 39671 (offset 529 lines).
+Hunk #112 succeeded at 39448 (offset 46 lines).
+Hunk #113 succeeded at 40023 (offset 529 lines).
+Hunk #114 succeeded at 39563 (offset 46 lines).
+Hunk #115 succeeded at 40321 (offset 529 lines).
+Hunk #116 succeeded at 39855 (offset 46 lines).
+Hunk #117 succeeded at 40415 (offset 529 lines).
+Hunk #118 succeeded at 40024 (offset 46 lines).
+Hunk #119 succeeded at 40631 (offset 529 lines).
+Hunk #120 succeeded at 40172 (offset 46 lines).
+Hunk #121 succeeded at 40665 (offset 529 lines).
+Hunk #122 succeeded at 40194 (offset 46 lines).
+Hunk #123 succeeded at 40705 (offset 529 lines).
+Hunk #124 succeeded at 40230 (offset 46 lines).
+Hunk #125 succeeded at 40730 (offset 529 lines).
+Hunk #126 succeeded at 40317 (offset 46 lines).
+Hunk #127 succeeded at 40999 (offset 530 lines).
+Hunk #128 succeeded at 40633 (offset 46 lines).
+misordered hunks! output would be garbled
+Hunk #129 FAILED at 40603.
+Hunk #130 succeeded at 41193 (offset 576 lines).
+Hunk #131 succeeded at 40625.
+Hunk #132 succeeded at 41220 (offset 576 lines).
+Hunk #133 succeeded at 40671.
+Hunk #134 succeeded at 41272 (offset 576 lines).
+Hunk #135 succeeded at 40715.
+Hunk #136 FAILED at 40798.
+Hunk #137 succeeded at 41392 (offset 577 lines).
+Hunk #138 FAILED at 41427.
+Hunk #139 succeeded at 41004 (offset 1 line).
+Hunk #140 succeeded at 41625 (offset 577 lines).
+Hunk #141 succeeded at 41117 (offset 4 lines).
+Hunk #142 succeeded at 41762 (offset 581 lines).
+Hunk #143 succeeded at 41200 (offset 4 lines).
+Hunk #144 succeeded at 41809 (offset 581 lines).
+Hunk #145 succeeded at 41250 (offset 4 lines).
+Hunk #146 succeeded at 41881 (offset 582 lines).
+Hunk #147 succeeded at 41325 (offset 4 lines).
+Hunk #148 succeeded at 41979 (offset 582 lines).
+Hunk #149 succeeded at 41415 (offset 4 lines).
+Hunk #150 succeeded at 42078 (offset 582 lines).
+Hunk #151 succeeded at 41590 (offset 7 lines).
+Hunk #152 succeeded at 42247 (offset 606 lines).
+Hunk #153 succeeded at 41658 (offset 7 lines).
+Hunk #154 succeeded at 42353 (offset 606 lines).
+Hunk #155 succeeded at 42225 (offset 8 lines).
+Hunk #156 succeeded at 42845 (offset 606 lines).
+Hunk #157 succeeded at 42807 (offset 12 lines).
+Hunk #158 succeeded at 43485 (offset 606 lines).
+Hunk #159 succeeded at 42998 (offset 12 lines).
+Hunk #160 succeeded at 43753 (offset 606 lines).
+Hunk #161 succeeded at 43450 (offset 80 lines).
+Hunk #162 succeeded at 44606 (offset 610 lines).
+Hunk #163 succeeded at 44640 (offset 83 lines).
+Hunk #164 succeeded at 46101 (offset 610 lines).
+Hunk #165 succeeded at 46749 (offset 90 lines).
+Hunk #166 succeeded at 47315 (offset 610 lines).
+Hunk #167 succeeded at 46859 (offset 90 lines).
+Hunk #168 succeeded at 47392 (offset 610 lines).
+Hunk #169 succeeded at 47127 (offset 90 lines).
+Hunk #170 succeeded at 47666 (offset 610 lines).
+Hunk #171 succeeded at 47540 (offset 97 lines).
+Hunk #172 succeeded at 48263 (offset 612 lines).
+Hunk #173 succeeded at 47766 (offset 97 lines).
+Hunk #174 succeeded at 48296 (offset 612 lines).
+Hunk #175 succeeded at 47859 (offset 97 lines).
+Hunk #176 succeeded at 48579 (offset 612 lines).
+Hunk #177 succeeded at 48126 (offset 97 lines).
+Hunk #178 succeeded at 48653 (offset 612 lines).
+Hunk #179 succeeded at 48156 (offset 97 lines).
+Hunk #180 FAILED at 48212.
+Hunk #181 succeeded at 48835 with fuzz 3 (offset 622 lines).
+Hunk #182 succeeded at 48332 (offset 97 lines).
+Hunk #183 succeeded at 48881 (offset 622 lines).
+Hunk #184 succeeded at 48823 (offset 97 lines).
+Hunk #185 succeeded at 49438 (offset 622 lines).
+Hunk #186 succeeded at 49204 (offset 102 lines).
+Hunk #187 succeeded at 50480 (offset 626 lines).
+Hunk #188 succeeded at 50363 (offset 103 lines).
+Hunk #189 succeeded at 51198 (offset 634 lines).
+Hunk #190 succeeded at 51177 (offset 105 lines).
+Hunk #191 succeeded at 51717 (offset 634 lines).
+Hunk #192 succeeded at 51201 (offset 105 lines).
+Hunk #193 succeeded at 53650 (offset 641 lines).
+Hunk #194 succeeded at 53132 (offset 105 lines).
+Hunk #195 succeeded at 53732 (offset 641 lines).
+Hunk #196 succeeded at 53255 (offset 105 lines).
+Hunk #197 succeeded at 53902 with fuzz 1 (offset 641 lines).
+Hunk #198 succeeded at 53408 with fuzz 3 (offset 105 lines).
+Hunk #199 succeeded at 53954 (offset 641 lines).
+Hunk #200 succeeded at 53440 (offset 105 lines).
+Hunk #201 succeeded at 54119 (offset 641 lines).
+Hunk #202 succeeded at 53594 (offset 105 lines).
+Hunk #203 succeeded at 54482 (offset 675 lines).
+Hunk #204 succeeded at 54402 (offset 118 lines).
+Hunk #205 succeeded at 55092 (offset 678 lines).
+Hunk #206 succeeded at 54545 (offset 118 lines).
+Hunk #207 succeeded at 55128 (offset 679 lines).
+Hunk #208 succeeded at 54588 (offset 119 lines).
+Hunk #209 FAILED at 54878.
+Hunk #210 succeeded at 55551 (offset 703 lines).
+Hunk #211 succeeded at 55067 with fuzz 1 (offset 119 lines).
+Hunk #212 succeeded at 55664 with fuzz 2 (offset 708 lines).
+Hunk #213 succeeded at 55101 (offset 119 lines).
+Hunk #214 FAILED at 55139.
+Hunk #215 succeeded at 55774 (offset 713 lines).
+Hunk #216 succeeded at 55243 (offset 125 lines).
+Hunk #217 FAILED at 55292.
+Hunk #218 succeeded at 55908 (offset 716 lines).
+Hunk #219 succeeded at 55339 (offset 125 lines).
+Hunk #220 succeeded at 55982 (offset 725 lines).
+Hunk #221 succeeded at 55399 (offset 125 lines).
+Hunk #222 succeeded at 56015 (offset 725 lines).
+Hunk #223 succeeded at 55469 (offset 133 lines).
+Hunk #224 succeeded at 56090 (offset 725 lines).
+Hunk #225 succeeded at 55506 (offset 133 lines).
+Hunk #226 succeeded at 56161 (offset 730 lines).
+Hunk #227 succeeded at 55574 (offset 133 lines).
+Hunk #228 succeeded at 56193 (offset 730 lines).
+Hunk #229 succeeded at 55636 with fuzz 1 (offset 149 lines).
+Hunk #230 succeeded at 56249 (offset 730 lines).
+Hunk #231 succeeded at 55696 (offset 149 lines).
+Hunk #232 succeeded at 56297 (offset 730 lines).
+Hunk #233 succeeded at 55789 (offset 150 lines).
+Hunk #234 succeeded at 56389 (offset 731 lines).
+Hunk #235 FAILED at 56450.
+Hunk #236 succeeded at 55939 (offset 155 lines).
+Hunk #237 succeeded at 57510 (offset 741 lines).
+Hunk #238 succeeded at 57238 (offset 164 lines).
+Hunk #239 succeeded at 58131 (offset 748 lines).
+Hunk #240 succeeded at 57990 (offset 165 lines).
+Hunk #241 succeeded at 58589 (offset 748 lines).
+Hunk #242 succeeded at 58026 (offset 165 lines).
+Hunk #243 succeeded at 58631 with fuzz 1 (offset 748 lines).
+Hunk #244 succeeded at 58093 (offset 165 lines).
+Hunk #245 succeeded at 58707 (offset 748 lines).
+Hunk #246 succeeded at 58136 (offset 165 lines).
+Hunk #247 succeeded at 59288 with fuzz 3 (offset 803 lines).
+Hunk #248 succeeded at 58659 (offset 165 lines).
+Hunk #249 succeeded at 59346 (offset 803 lines).
+Hunk #250 succeeded at 58755 (offset 169 lines).
+Hunk #251 succeeded at 59610 (offset 805 lines).
+Hunk #252 succeeded at 59009 (offset 169 lines).
+Hunk #253 succeeded at 59669 (offset 805 lines).
+Hunk #254 succeeded at 59065 (offset 169 lines).
+Hunk #255 succeeded at 59730 (offset 805 lines).
+Hunk #256 succeeded at 59415 (offset 179 lines).
+Hunk #257 succeeded at 60087 (offset 808 lines).
+Hunk #258 succeeded at 59507 (offset 179 lines).
+Hunk #259 succeeded at 60204 (offset 808 lines).
+Hunk #260 succeeded at 59655 (offset 179 lines).
+Hunk #261 succeeded at 60333 (offset 808 lines).
+Hunk #262 succeeded at 59718 (offset 179 lines).
+Hunk #263 succeeded at 60362 (offset 808 lines).
+Hunk #264 succeeded at 59759 (offset 179 lines).
+Hunk #265 succeeded at 60532 (offset 809 lines).
+Hunk #266 succeeded at 59914 (offset 179 lines).
+Hunk #267 succeeded at 60645 (offset 810 lines).
+Hunk #268 succeeded at 60054 (offset 179 lines).
+Hunk #269 succeeded at 60801 (offset 811 lines).
+Hunk #270 succeeded at 60224 (offset 179 lines).
+Hunk #271 succeeded at 60872 (offset 811 lines).
+Hunk #272 succeeded at 60253 (offset 179 lines).
+Hunk #273 succeeded at 60901 (offset 811 lines).
+Hunk #274 succeeded at 60301 (offset 179 lines).
+Hunk #275 succeeded at 60991 (offset 811 lines).
+Hunk #276 succeeded at 60384 (offset 179 lines).
+Hunk #277 succeeded at 61032 (offset 811 lines).
+Hunk #278 succeeded at 60434 (offset 180 lines).
+Hunk #279 succeeded at 61102 (offset 811 lines).
+Hunk #280 succeeded at 60526 (offset 180 lines).
+Hunk #281 succeeded at 61181 (offset 811 lines).
+Hunk #282 succeeded at 60569 (offset 180 lines).
+Hunk #283 succeeded at 61214 (offset 811 lines).
+Hunk #284 succeeded at 60592 (offset 180 lines).
+Hunk #285 succeeded at 61234 (offset 811 lines).
+Hunk #286 succeeded at 60683 (offset 180 lines).
+Hunk #287 succeeded at 61394 (offset 811 lines).
+Hunk #288 succeeded at 60894 (offset 180 lines).
+Hunk #289 succeeded at 61535 (offset 811 lines).
+Hunk #290 succeeded at 60911 (offset 180 lines).
+Hunk #291 succeeded at 61609 (offset 811 lines).
+Hunk #292 succeeded at 60989 (offset 180 lines).
+Hunk #293 succeeded at 61664 (offset 811 lines).
+Hunk #294 succeeded at 61248 (offset 180 lines).
+Hunk #295 succeeded at 61919 (offset 811 lines).
+Hunk #296 succeeded at 61304 (offset 180 lines).
+Hunk #297 succeeded at 62040 (offset 811 lines).
+Hunk #298 succeeded at 61435 (offset 180 lines).
+Hunk #299 succeeded at 62083 (offset 811 lines).
+Hunk #300 succeeded at 61483 (offset 180 lines).
+Hunk #301 succeeded at 62172 (offset 811 lines).
+Hunk #302 succeeded at 61598 (offset 180 lines).
+Hunk #303 succeeded at 62252 (offset 811 lines).
+Hunk #304 succeeded at 61901 (offset 185 lines).
+Hunk #305 succeeded at 62566 (offset 811 lines).
+Hunk #306 succeeded at 62024 (offset 185 lines).
+Hunk #307 succeeded at 62676 (offset 811 lines).
+Hunk #308 succeeded at 62079 (offset 185 lines).
+Hunk #309 succeeded at 62799 (offset 812 lines).
+Hunk #310 succeeded at 62302 (offset 185 lines).
+Hunk #311 succeeded at 62950 (offset 812 lines).
+Hunk #312 FAILED at 63530.
+Hunk #313 succeeded at 62955 (offset 189 lines).
+Hunk #314 succeeded at 63675 (offset 812 lines).
+Hunk #315 succeeded at 63111 (offset 189 lines).
+Hunk #316 succeeded at 63809 with fuzz 1 (offset 814 lines).
+Hunk #317 succeeded at 63202 (offset 189 lines).
+Hunk #318 succeeded at 63857 (offset 814 lines).
+Hunk #319 succeeded at 63268 (offset 189 lines).
+Hunk #320 succeeded at 64120 with fuzz 2 (offset 817 lines).
+Hunk #321 succeeded at 63579 (offset 190 lines).
+Hunk #322 succeeded at 64883 (offset 821 lines).
+Hunk #323 succeeded at 64275 (offset 190 lines).
+Hunk #324 succeeded at 65010 (offset 821 lines).
+Hunk #325 succeeded at 64955 (offset 193 lines).
+Hunk #326 succeeded at 65768 (offset 824 lines).
+Hunk #327 FAILED at 65775.
+Hunk #328 succeeded at 65168 with fuzz 1 (offset 193 lines).
+misordered hunks! output would be garbled
+Hunk #329 FAILED at 65125.
+Hunk #330 succeeded at 66200 (offset 1020 lines).
+Hunk #331 succeeded at 65510 (offset 9 lines).
+Hunk #332 FAILED at 65877.
+Hunk #333 succeeded at 66930 (offset 1022 lines).
+Hunk #334 succeeded at 65944 with fuzz 1 (offset 9 lines).
+Hunk #335 succeeded at 67167 (offset 1037 lines).
+Hunk #336 succeeded at 66320 (offset 10 lines).
+Hunk #337 succeeded at 67359 (offset 1037 lines).
+Hunk #338 succeeded at 66348 (offset 10 lines).
+Hunk #339 succeeded at 67390 (offset 1037 lines).
+Hunk #340 succeeded at 66395 (offset 10 lines).
+Hunk #341 succeeded at 67733 (offset 1105 lines).
+Hunk #342 succeeded at 67034 (offset 18 lines).
+Hunk #343 succeeded at 68248 (offset 1105 lines).
+Hunk #344 succeeded at 67175 (offset 18 lines).
+Hunk #345 succeeded at 68439 (offset 1106 lines).
+Hunk #346 succeeded at 68254 (offset 18 lines).
+Hunk #347 succeeded at 69964 (offset 1106 lines).
+Hunk #348 succeeded at 68973 (offset 18 lines).
+Hunk #349 succeeded at 70348 (offset 1108 lines).
+Hunk #350 succeeded at 69618 (offset 32 lines).
+Hunk #351 succeeded at 70720 (offset 1108 lines).
+Hunk #352 succeeded at 70018 (offset 33 lines).
+Hunk #353 succeeded at 71267 (offset 1109 lines).
+Hunk #354 succeeded at 70231 (offset 33 lines).
+Hunk #355 succeeded at 71352 (offset 1109 lines).
+Hunk #356 succeeded at 70298 (offset 33 lines).
+Hunk #357 succeeded at 71416 with fuzz 1 (offset 1109 lines).
+Hunk #358 succeeded at 70421 (offset 33 lines).
+misordered hunks! output would be garbled
+Hunk #359 FAILED at 70572.
+Hunk #360 succeeded at 71781 (offset 1146 lines).
+Hunk #361 succeeded at 70704.
+Hunk #362 succeeded at 71877 (offset 1146 lines).
+Hunk #363 succeeded at 71563 (offset 3 lines).
+Hunk #364 succeeded at 72969 (offset 1146 lines).
+Hunk #365 succeeded at 72020 (offset 3 lines).
+Hunk #366 succeeded at 73415 with fuzz 1 (offset 1146 lines).
+Hunk #367 succeeded at 72674 (offset 4 lines).
+Hunk #368 succeeded at 74198 (offset 1146 lines).
+Hunk #369 succeeded at 73638 (offset 4 lines).
+Hunk #370 succeeded at 74795 (offset 1146 lines).
+Hunk #371 succeeded at 73909 (offset 4 lines).
+Hunk #372 succeeded at 75864 (offset 1146 lines).
+Hunk #373 succeeded at 74794 (offset 4 lines).
+Hunk #374 succeeded at 76062 (offset 1146 lines).
+Hunk #375 succeeded at 74971 (offset 4 lines).
+Hunk #376 succeeded at 76226 (offset 1146 lines).
+Hunk #377 succeeded at 75116 (offset 4 lines).
+Hunk #378 succeeded at 76782 (offset 1146 lines).
+Hunk #379 succeeded at 76148 (offset 4 lines).
+Hunk #380 succeeded at 78030 (offset 1146 lines).
+Hunk #381 succeeded at 76897 (offset 4 lines).
+Hunk #382 succeeded at 78708 (offset 1146 lines).
+Hunk #383 succeeded at 77827 (offset 4 lines).
+Hunk #384 succeeded at 79087 (offset 1146 lines).
+Hunk #385 succeeded at 78050 (offset 4 lines).
+Hunk #386 succeeded at 79323 (offset 1146 lines).
+Hunk #387 succeeded at 78729 (offset 4 lines).
+Hunk #388 succeeded at 79879 (offset 1146 lines).
+Hunk #389 succeeded at 78748 (offset 4 lines).
+Hunk #390 succeeded at 79901 (offset 1146 lines).
+Hunk #391 succeeded at 78781 (offset 4 lines).
+Hunk #392 succeeded at 80528 (offset 1151 lines).
+Hunk #393 succeeded at 81999 (offset 4 lines).
+Hunk #394 succeeded at 83394 (offset 1151 lines).
+Hunk #395 succeeded at 82503 (offset 4 lines).
+Hunk #396 succeeded at 83809 (offset 1151 lines).
+Hunk #397 succeeded at 83006 (offset 4 lines).
+Hunk #398 succeeded at 84183 (offset 1151 lines).
+Hunk #399 succeeded at 83980 (offset 5 lines).
+Hunk #400 succeeded at 85322 (offset 1151 lines).
+Hunk #401 succeeded at 84355 (offset 5 lines).
+Hunk #402 succeeded at 85531 (offset 1151 lines).
+Hunk #403 succeeded at 84399 (offset 5 lines).
+Hunk #404 succeeded at 86357 (offset 1157 lines).
+Hunk #405 succeeded at 85440 (offset 13 lines).
+Hunk #406 succeeded at 86692 (offset 1157 lines).
+Hunk #407 succeeded at 85654 (offset 13 lines).
+Hunk #408 succeeded at 87249 (offset 1157 lines).
+Hunk #409 succeeded at 86380 (offset 13 lines).
+Hunk #410 succeeded at 87536 (offset 1157 lines).
+Hunk #411 succeeded at 86421 (offset 13 lines).
+Hunk #412 succeeded at 88172 (offset 1158 lines).
+Hunk #413 succeeded at 87097 (offset 13 lines).
+Hunk #414 succeeded at 88614 (offset 1159 lines).
+Hunk #415 succeeded at 87860 (offset 13 lines).
+Hunk #416 succeeded at 89493 (offset 1159 lines).
+Hunk #417 succeeded at 89026 (offset 12 lines).
+Hunk #418 succeeded at 90456 (offset 1159 lines).
+Hunk #419 succeeded at 90112 (offset 12 lines).
+Hunk #420 succeeded at 91414 (offset 1159 lines).
+Hunk #421 succeeded at 90363 (offset 12 lines).
+Hunk #422 succeeded at 92224 (offset 1161 lines).
+Hunk #423 succeeded at 91428 (offset 17 lines).
+Hunk #424 succeeded at 92822 (offset 1169 lines).
+Hunk #425 succeeded at 91941 (offset 17 lines).
+Hunk #426 succeeded at 94053 (offset 1175 lines).
+Hunk #427 succeeded at 93011 (offset 17 lines).
+Hunk #428 succeeded at 94207 (offset 1175 lines).
+Hunk #429 succeeded at 93075 (offset 17 lines).
+Hunk #430 succeeded at 94403 (offset 1176 lines).
+Hunk #431 succeeded at 93467 (offset 17 lines).
+Hunk #432 succeeded at 94639 (offset 1176 lines).
+Hunk #433 succeeded at 93601 (offset 17 lines).
+Hunk #434 succeeded at 94777 (offset 1176 lines).
+Hunk #435 succeeded at 93763 (offset 17 lines).
+Hunk #436 succeeded at 94990 (offset 1176 lines).
+Hunk #437 succeeded at 95171 (offset 19 lines).
+Hunk #438 succeeded at 96376 (offset 1176 lines).
+Hunk #439 succeeded at 95626 (offset 22 lines).
+Hunk #440 succeeded at 96853 (offset 1176 lines).
+Hunk #441 succeeded at 96273 (offset 28 lines).
+Hunk #442 succeeded at 97906 (offset 1183 lines).
+Hunk #443 succeeded at 97537 (offset 28 lines).
+Hunk #444 succeeded at 98749 (offset 1183 lines).
+Hunk #445 succeeded at 98157 (offset 29 lines).
+Hunk #446 succeeded at 99361 (offset 1183 lines).
+Hunk #447 succeeded at 98231 (offset 29 lines).
+Hunk #448 succeeded at 99435 (offset 1183 lines).
+Hunk #449 succeeded at 98327 (offset 29 lines).
+Hunk #450 succeeded at 99858 (offset 1183 lines).
+Hunk #451 succeeded at 99392 (offset 29 lines).
+Hunk #452 succeeded at 101951 (offset 1183 lines).
+Hunk #453 succeeded at 100827 (offset 29 lines).
+Hunk #454 succeeded at 101995 (offset 1183 lines).
+Hunk #455 succeeded at 100884 (offset 29 lines).
+misordered hunks! output would be garbled
+Hunk #456 FAILED at 101995.
+Hunk #457 succeeded at 100973 (offset 84 lines).
+Hunk #458 succeeded at 103265 (offset 1128 lines).
+Hunk #459 succeeded at 102836 (offset 84 lines).
+Hunk #460 succeeded at 103915 (offset 1128 lines).
+Hunk #461 succeeded at 102918 (offset 84 lines).
+Hunk #462 succeeded at 104131 (offset 1128 lines).
+Hunk #463 succeeded at 103337 (offset 84 lines).
+Hunk #464 succeeded at 104616 (offset 1128 lines).
+Hunk #465 succeeded at 103598 (offset 84 lines).
+Hunk #466 succeeded at 105027 (offset 1128 lines).
+Hunk #467 succeeded at 104370 (offset 84 lines).
+Hunk #468 succeeded at 105521 (offset 1128 lines).
+Hunk #469 succeeded at 104490 (offset 84 lines).
+Hunk #470 succeeded at 105895 (offset 1128 lines).
+Hunk #471 succeeded at 105547 (offset 84 lines).
+Hunk #472 succeeded at 107868 (offset 1128 lines).
+Hunk #473 succeeded at 106837 (offset 84 lines).
+Hunk #474 succeeded at 108079 (offset 1128 lines).
+Hunk #475 succeeded at 107725 (offset 90 lines).
+Hunk #476 succeeded at 108772 (offset 1128 lines).
+Hunk #477 succeeded at 108080 (offset 91 lines).
+Hunk #478 succeeded at 109471 (offset 1128 lines).
+Hunk #479 succeeded at 108495 (offset 91 lines).
+Hunk #480 succeeded at 109575 (offset 1128 lines).
+Hunk #481 succeeded at 108549 (offset 91 lines).
+Hunk #482 succeeded at 109833 (offset 1128 lines).
+Hunk #483 succeeded at 108809 (offset 91 lines).
+Hunk #484 succeeded at 109991 (offset 1128 lines).
+Hunk #485 succeeded at 109031 (offset 91 lines).
+Hunk #486 succeeded at 110141 (offset 1128 lines).
+Hunk #487 succeeded at 109428 (offset 91 lines).
+Hunk #488 succeeded at 110626 (offset 1128 lines).
+Hunk #489 succeeded at 109782 (offset 91 lines).
+Hunk #490 FAILED at 109812.
+Hunk #491 succeeded at 110865 (offset 1128 lines).
+Hunk #492 succeeded at 109836 (offset 91 lines).
+Hunk #493 succeeded at 110982 (offset 1128 lines).
+Hunk #494 succeeded at 110238 (offset 91 lines).
+Hunk #495 succeeded at 111342 (offset 1128 lines).
+Hunk #496 succeeded at 110340 (offset 91 lines).
+Hunk #497 succeeded at 111614 (offset 1128 lines).
+Hunk #498 succeeded at 110940 (offset 95 lines).
+Hunk #499 succeeded at 112184 (offset 1128 lines).
+Hunk #500 succeeded at 111434 (offset 95 lines).
+Hunk #501 succeeded at 112476 (offset 1128 lines).
+Hunk #502 succeeded at 111593 with fuzz 3 (offset 95 lines).
+Hunk #503 succeeded at 112816 (offset 1128 lines).
+Hunk #504 succeeded at 112028 (offset 95 lines).
+Hunk #505 succeeded at 113439 (offset 1128 lines).
+Hunk #506 succeeded at 112489 (offset 95 lines).
+Hunk #507 succeeded at 113572 (offset 1128 lines).
+Hunk #508 succeeded at 112552 (offset 95 lines).
+Hunk #509 succeeded at 113670 (offset 1128 lines).
+Hunk #510 succeeded at 112706 (offset 95 lines).
+Hunk #511 succeeded at 113775 (offset 1128 lines).
+Hunk #512 succeeded at 112789 (offset 95 lines).
+Hunk #513 succeeded at 113907 (offset 1128 lines).
+Hunk #514 succeeded at 113055 (offset 95 lines).
+Hunk #515 succeeded at 114161 (offset 1128 lines).
+Hunk #516 succeeded at 113293 (offset 95 lines).
+Hunk #517 succeeded at 114360 (offset 1128 lines).
+Hunk #518 succeeded at 113347 (offset 95 lines).
+Hunk #519 succeeded at 114578 (offset 1129 lines).
+Hunk #520 succeeded at 114674 (offset 101 lines).
+Hunk #521 succeeded at 116433 (offset 1129 lines).
+Hunk #522 succeeded at 115451 (offset 101 lines).
+Hunk #523 succeeded at 116853 (offset 1129 lines).
+Hunk #524 succeeded at 116651 with fuzz 1 (offset 102 lines).
+Hunk #525 succeeded at 117691 (offset 1129 lines).
+Hunk #526 succeeded at 116965 (offset 102 lines).
+Hunk #527 succeeded at 118005 (offset 1129 lines).
+Hunk #528 succeeded at 117009 (offset 102 lines).
+Hunk #529 succeeded at 118178 (offset 1129 lines).
+Hunk #530 succeeded at 117266 (offset 102 lines).
+Hunk #531 succeeded at 118386 (offset 1129 lines).
+Hunk #532 succeeded at 117415 (offset 102 lines).
+Hunk #533 FAILED at 117519.
+Hunk #534 succeeded at 120473 (offset 1129 lines).
+Hunk #535 succeeded at 119475 (offset 102 lines).
+Hunk #536 succeeded at 120548 (offset 1129 lines).
+Hunk #537 succeeded at 119547 (offset 102 lines).
+Hunk #538 succeeded at 120594 (offset 1129 lines).
+Hunk #539 succeeded at 119646 (offset 102 lines).
+Hunk #540 succeeded at 120693 (offset 1129 lines).
+Hunk #541 succeeded at 119739 (offset 102 lines).
+Hunk #542 succeeded at 120875 (offset 1129 lines).
+Hunk #543 succeeded at 119882 (offset 102 lines).
+Hunk #544 succeeded at 120925 (offset 1129 lines).
+Hunk #545 FAILED at 121088.
+Hunk #546 succeeded at 121826 (offset 102 lines).
+Hunk #547 succeeded at 123005 (offset 1129 lines).
+Hunk #548 succeeded at 122319 (offset 102 lines).
+Hunk #549 succeeded at 123416 (offset 1129 lines).
+Hunk #550 succeeded at 122455 (offset 102 lines).
+Hunk #551 succeeded at 123532 (offset 1129 lines).
+Hunk #552 succeeded at 122522 (offset 102 lines).
+Hunk #553 succeeded at 123820 (offset 1129 lines).
+Hunk #554 succeeded at 122930 (offset 102 lines).
+Hunk #555 succeeded at 124003 (offset 1129 lines).
+Hunk #556 succeeded at 122985 (offset 102 lines).
+Hunk #557 succeeded at 124042 (offset 1129 lines).
+Hunk #558 succeeded at 123023 (offset 102 lines).
+Hunk #559 succeeded at 124149 (offset 1129 lines).
+Hunk #560 succeeded at 123185 (offset 102 lines).
+Hunk #561 succeeded at 124281 (offset 1129 lines).
+Hunk #562 succeeded at 123397 (offset 103 lines).
+Hunk #563 succeeded at 124435 (offset 1129 lines).
+Hunk #564 succeeded at 123440 (offset 103 lines).
+Hunk #565 succeeded at 124560 (offset 1129 lines).
+Hunk #566 succeeded at 124007 (offset 103 lines).
+Hunk #567 succeeded at 125050 (offset 1129 lines).
+Hunk #568 succeeded at 124053 (offset 103 lines).
+Hunk #569 succeeded at 125273 (offset 1129 lines).
+Hunk #570 succeeded at 124293 (offset 103 lines).
+Hunk #571 succeeded at 125344 (offset 1129 lines).
+Hunk #572 succeeded at 124330 (offset 103 lines).
+Hunk #573 succeeded at 125382 (offset 1129 lines).
+Hunk #574 succeeded at 124387 (offset 103 lines).
+Hunk #575 succeeded at 125447 (offset 1129 lines).
+Hunk #576 succeeded at 124435 (offset 103 lines).
+Hunk #577 succeeded at 125501 (offset 1129 lines).
+Hunk #578 succeeded at 124524 (offset 103 lines).
+Hunk #579 succeeded at 125589 (offset 1129 lines).
+Hunk #580 succeeded at 124684 (offset 103 lines).
+Hunk #581 succeeded at 125805 (offset 1129 lines).
+Hunk #582 succeeded at 126257 (offset 103 lines).
+Hunk #583 succeeded at 127984 (offset 1129 lines).
+Hunk #584 succeeded at 127182 (offset 103 lines).
+Hunk #585 succeeded at 128219 (offset 1129 lines).
+Hunk #586 succeeded at 127259 (offset 103 lines).
+Hunk #587 succeeded at 128582 (offset 1129 lines).
+Hunk #588 succeeded at 128365 (offset 103 lines).
+Hunk #589 succeeded at 129756 (offset 1129 lines).
+Hunk #590 succeeded at 129082 (offset 103 lines).
+Hunk #591 succeeded at 130131 (offset 1129 lines).
+Hunk #592 succeeded at 129175 (offset 103 lines).
+Hunk #593 succeeded at 130469 (offset 1129 lines).
+Hunk #594 succeeded at 129466 (offset 103 lines).
+Hunk #595 succeeded at 130512 (offset 1129 lines).
+Hunk #596 succeeded at 129519 (offset 103 lines).
+Hunk #597 succeeded at 130578 (offset 1129 lines).
+Hunk #598 succeeded at 130185 (offset 103 lines).
+Hunk #599 succeeded at 131262 (offset 1129 lines).
+Hunk #600 succeeded at 131629 (offset 105 lines).
+Hunk #601 succeeded at 133334 (offset 1131 lines).
+Hunk #602 succeeded at 132430 (offset 105 lines).
+Hunk #603 succeeded at 133501 (offset 1131 lines).
+Hunk #604 succeeded at 132533 (offset 105 lines).
+Hunk #605 succeeded at 133933 (offset 1133 lines).
+Hunk #606 succeeded at 133349 (offset 105 lines).
+Hunk #607 succeeded at 135022 (offset 1133 lines).
+Hunk #608 succeeded at 134027 (offset 105 lines).
+Hunk #609 succeeded at 135469 (offset 1133 lines).
+Hunk #610 succeeded at 134552 (offset 105 lines).
+Hunk #611 succeeded at 135700 (offset 1133 lines).
+Hunk #612 succeeded at 134795 (offset 105 lines).
+Hunk #613 succeeded at 135839 (offset 1133 lines).
+Hunk #614 succeeded at 134868 (offset 105 lines).
+Hunk #615 succeeded at 137277 (offset 1141 lines).
+Hunk #616 succeeded at 137744 (offset 107 lines).
+Hunk #617 succeeded at 139833 (offset 1141 lines).
+Hunk #618 succeeded at 138918 (offset 107 lines).
+Hunk #619 succeeded at 140676 (offset 1141 lines).
+Hunk #620 succeeded at 139862 (offset 107 lines).
+Hunk #621 succeeded at 141017 (offset 1141 lines).
+Hunk #622 succeeded at 140030 (offset 107 lines).
+Hunk #623 succeeded at 141225 (offset 1141 lines).
+Hunk #624 succeeded at 140216 (offset 107 lines).
+Hunk #625 succeeded at 141359 (offset 1141 lines).
+Hunk #626 succeeded at 140362 (offset 107 lines).
+Hunk #627 succeeded at 141524 (offset 1141 lines).
+Hunk #628 succeeded at 141047 (offset 107 lines).
+Hunk #629 succeeded at 143037 (offset 1141 lines).
+Hunk #630 succeeded at 143377 (offset 107 lines).
+Hunk #631 succeeded at 144426 (offset 1141 lines).
+Hunk #632 succeeded at 143874 (offset 107 lines).
+misordered hunks! output would be garbled
+Hunk #633 FAILED at 144539.
+Hunk #634 succeeded at 144279 (offset 490 lines).
+Hunk #635 succeeded at 144616 (offset 758 lines).
+Hunk #636 succeeded at 144390 (offset 490 lines).
+Hunk #637 succeeded at 145221 (offset 758 lines).
+Hunk #638 FAILED at 146369.
+Hunk #639 FAILED at 153359.
+Hunk #640 succeeded at 161479 (offset 491 lines).
+Hunk #641 succeeded at 162349 (offset 758 lines).
+Hunk #642 succeeded at 162107 (offset 491 lines).
+39 out of 642 hunks FAILED -- saving rejects to sqlite3.c.rej
 done
