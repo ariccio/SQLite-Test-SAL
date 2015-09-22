@@ -1110,34 +1110,6 @@
   
   /************** End of vdbemem.c *********************************************/
 ***************
-*** 108635,108653 ****
-  );
-  
-  /*
-- ** Error message for when two or more terms of a compound select have different
-- ** size result sets.
-- */
-- static void selectWrongNumTermsError(Parse *pParse, Select *p){
--   if( p->selFlags & SF_Values ){
--     sqlite3ErrorMsg(pParse, "all VALUES must have the same number of terms");
--   }else{
--     sqlite3ErrorMsg(pParse, "SELECTs to the left and right of %s"
--       " do not have the same number of result columns", selectOpName(p->op));
--   }
-- }
-- 
-- /*
-  ** Handle the special case of a compound-select that originates from a
-  ** VALUES clause.  By handling this as a special case, we avoid deep
-  ** recursion, and thus do not need to enforce the SQLITE_LIMIT_COMPOUND_SELECT
---- 109812,109817 ----
-  );
-  
-  /*
-  ** Handle the special case of a compound-select that originates from a
-  ** VALUES clause.  By handling this as a special case, we avoid deep
-  ** recursion, and thus do not need to enforce the SQLITE_LIMIT_COMPOUND_SELECT
-***************
 *** 116293,117069 ****
   #define WHERE_PARTIALIDX   0x00020000  /* The automatic index is partial */
   
