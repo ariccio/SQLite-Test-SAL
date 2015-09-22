@@ -432,27 +432,6 @@
   /*
   ** 2001 September 15
 ***************
-*** 40155,40163 ****
-  /*
-  ** Free an allocated buffer obtained from pcache1Alloc().
-  */
-- static int pcache1Free(void *p){
-    int nFreed = 0;
--   if( p==0 ) return 0;
-    if( p>=pcache1.pStart && p<pcache1.pEnd ){
-      PgFreeslot *pSlot;
-      sqlite3_mutex_enter(pcache1.mutex);
---- 40798,40806 ----
-  /*
-  ** Free an allocated buffer obtained from pcache1Alloc().
-  */
-+ static void pcache1Free(void *p){
-    int nFreed = 0;
-+   if( p==0 ) return;
-    if( p>=pcache1.pStart && p<pcache1.pEnd ){
-      PgFreeslot *pSlot;
-      sqlite3_mutex_enter(pcache1.mutex);
-***************
 *** 40785,40838 ****
     PgHdr1 *p = 0;
     void *pPg;
