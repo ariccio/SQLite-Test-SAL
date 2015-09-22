@@ -554,43 +554,6 @@
   }
   
 ***************
-*** 47517,47533 ****
-  ** a write.
-  **
-  ** Usually, the sector size is less than or equal to the page size, in which
-- ** case pages can be individually written.  This routine only runs in the exceptional
-- ** case where the page size is smaller than the sector size.
-  */
-  static SQLITE_NOINLINE int pagerWriteLargeSector(PgHdr *pPg){
--   int rc = SQLITE_OK;            /* Return code */
--   Pgno nPageCount;               /* Total number of pages in database file */
--   Pgno pg1;                      /* First page of the sector pPg is located on. */
--   int nPage = 0;                 /* Number of pages starting at pg1 to journal */
--   int ii;                        /* Loop counter */
--   int needSync = 0;              /* True if any page has PGHDR_NEED_SYNC */
--   Pager *pPager = pPg->pPager;   /* The pager that owns pPg */
-    Pgno nPagePerSector = (pPager->sectorSize/pPager->pageSize);
-  
-    /* Set the doNotSpill NOSYNC bit to 1. This is because we cannot allow
---- 48212,48228 ----
-  ** a write.
-  **
-  ** Usually, the sector size is less than or equal to the page size, in which
-+ ** case pages can be individually written.  This routine only runs in the
-+ ** exceptional case where the page size is smaller than the sector size.
-  */
-  static SQLITE_NOINLINE int pagerWriteLargeSector(PgHdr *pPg){
-+   int rc = SQLITE_OK;          /* Return code */
-+   Pgno nPageCount;             /* Total number of pages in database file */
-+   Pgno pg1;                    /* First page of the sector pPg is located on. */
-+   int nPage = 0;               /* Number of pages starting at pg1 to journal */
-+   int ii;                      /* Loop counter */
-+   int needSync = 0;            /* True if any page has PGHDR_NEED_SYNC */
-+   Pager *pPager = pPg->pPager; /* The pager that owns pPg */
-    Pgno nPagePerSector = (pPager->sectorSize/pPager->pageSize);
-  
-    /* Set the doNotSpill NOSYNC bit to 1. This is because we cannot allow
-***************
 *** 54122,54160 ****
   ** the page, 1 means the second cell, and so forth) return a pointer
   ** to the cell content.
