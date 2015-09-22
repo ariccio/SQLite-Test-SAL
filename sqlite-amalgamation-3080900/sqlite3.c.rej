@@ -1110,30 +1110,6 @@
   
   /************** End of vdbemem.c *********************************************/
 ***************
-*** 69341,69346 ****
-    assert( sqlite3_mutex_held(pCtx->pOut->db->mutex) );
-    sqlite3VdbeMemSetZeroBlob(pCtx->pOut, n);
-  }
-  SQLITE_API void SQLITE_STDCALL sqlite3_result_error_code(sqlite3_context *pCtx, int errCode){
-    pCtx->isError = errCode;
-    pCtx->fErrorOrAux = 1;
---- 70572,70586 ----
-    assert( sqlite3_mutex_held(pCtx->pOut->db->mutex) );
-    sqlite3VdbeMemSetZeroBlob(pCtx->pOut, n);
-  }
-+ SQLITE_API int SQLITE_STDCALL sqlite3_result_zeroblob64(sqlite3_context *pCtx, u64 n){
-+   Mem *pOut = pCtx->pOut;
-+   assert( sqlite3_mutex_held(pOut->db->mutex) );
-+   if( n>(u64)pOut->db->aLimit[SQLITE_LIMIT_LENGTH] ){
-+     return SQLITE_TOOBIG;
-+   }
-+   sqlite3VdbeMemSetZeroBlob(pCtx->pOut, (int)n);
-+   return SQLITE_OK;
-+ }
-  SQLITE_API void SQLITE_STDCALL sqlite3_result_error_code(sqlite3_context *pCtx, int errCode){
-    pCtx->isError = errCode;
-    pCtx->fErrorOrAux = 1;
-***************
 *** 100869,100875 ****
   **
   **  Character      Column affinity
