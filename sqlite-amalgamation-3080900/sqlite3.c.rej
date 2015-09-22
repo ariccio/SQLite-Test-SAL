@@ -432,23 +432,6 @@
   /*
   ** 2001 September 15
 ***************
-*** 40010,40015 ****
-    unsigned int nPage;                 /* Total number of pages in apHash */
-    unsigned int nHash;                 /* Number of slots in apHash[] */
-    PgHdr1 **apHash;                    /* Hash table for fast lookup by key */
-  };
-  
-  /*
---- 40603,40610 ----
-    unsigned int nPage;                 /* Total number of pages in apHash */
-    unsigned int nHash;                 /* Number of slots in apHash[] */
-    PgHdr1 **apHash;                    /* Hash table for fast lookup by key */
-+   PgHdr1 *pFree;                      /* List of unused pcache-local pages */
-+   void *pBulk;                        /* Bulk memory used by pcache-local */
-  };
-  
-  /*
-***************
 *** 40155,40163 ****
   /*
   ** Free an allocated buffer obtained from pcache1Alloc().
