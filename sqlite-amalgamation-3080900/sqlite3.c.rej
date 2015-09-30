@@ -1,43 +1,4 @@
 ***************
-*** 22947,22961 ****
-    if( p->iLevel<sizeof(p->bLine) ) p->bLine[p->iLevel] = moreToFollow;
-    return p;
-  }
-- /* Finished with one layer of the tree */
-- SQLITE_PRIVATE void sqlite3TreeViewPop(TreeView *p){
-    if( p==0 ) return;
-    p->iLevel--;
-    if( p->iLevel<0 ) sqlite3_free(p);
-  }
-- /* Generate a single line of output for the tree, with a prefix that contains
-- ** all the appropriate tree lines */
-- SQLITE_PRIVATE void sqlite3TreeViewLine(TreeView *p, const char *zFormat, ...){
-    va_list ap;
-    int i;
-    StrAccum acc;
---- 23080,23100 ----
-    if( p->iLevel<sizeof(p->bLine) ) p->bLine[p->iLevel] = moreToFollow;
-    return p;
-  }
-+ 
-+ /*
-+ ** Finished with one layer of the tree
-+ */
-+ static void sqlite3TreeViewPop(TreeView *p){
-    if( p==0 ) return;
-    p->iLevel--;
-    if( p->iLevel<0 ) sqlite3_free(p);
-  }
-+ 
-+ /*
-+ ** Generate a single line of output for the tree, with a prefix that contains
-+ ** all the appropriate tree lines
-+ */
-+ static void sqlite3TreeViewLine(TreeView *p, const char *zFormat, ...){
-    va_list ap;
-    int i;
-    StrAccum acc;
-***************
 *** 22975,22998 ****
     fprintf(stdout,"%s", zBuf);
     fflush(stdout);
