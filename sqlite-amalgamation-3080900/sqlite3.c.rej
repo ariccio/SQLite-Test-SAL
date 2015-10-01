@@ -1,45 +1,4 @@
 ***************
-*** 54429,54446 ****
-  ** This function may detect corruption within pPg.  If corruption is
-  ** detected then *pRc is set to SQLITE_CORRUPT and NULL is returned.
-  **
-- ** If a slot of at least nByte bytes is found but cannot be used because 
-- ** there are already at least 60 fragmented bytes on the page, return NULL.
-- ** In this case, if pbDefrag parameter is not NULL, set *pbDefrag to true.
-  */
-- static u8 *pageFindSlot(MemPage *pPg, int nByte, int *pRc, int *pbDefrag){
-    const int hdr = pPg->hdrOffset;
-    u8 * const aData = pPg->aData;
--   int iAddr;
--   int pc;
-    int usableSize = pPg->pBt->usableSize;
-  
--   for(iAddr=hdr+1; (pc = get2byte(&aData[iAddr]))>0; iAddr=pc){
-      int size;            /* Size of the free slot */
-      /* EVIDENCE-OF: R-06866-39125 Freeblocks are always connected in order of
-      ** increasing offset. */
---- 55292,55311 ----
-  ** This function may detect corruption within pPg.  If corruption is
-  ** detected then *pRc is set to SQLITE_CORRUPT and NULL is returned.
-  **
-+ ** Slots on the free list that are between 1 and 3 bytes larger than nByte
-+ ** will be ignored if adding the extra space to the fragmentation count
-+ ** causes the fragmentation count to exceed 60.
-  */
-+ static u8 *pageFindSlot(MemPage *pPg, int nByte, int *pRc){
-    const int hdr = pPg->hdrOffset;
-    u8 * const aData = pPg->aData;
-+   int iAddr = hdr + 1;
-+   int pc = get2byte(&aData[iAddr]);
-+   int x;
-    int usableSize = pPg->pBt->usableSize;
-  
-+   assert( pc>0 );
-+   do{
-      int size;            /* Size of the free slot */
-      /* EVIDENCE-OF: R-06866-39125 Freeblocks are always connected in order of
-      ** increasing offset. */
-***************
 *** 55569,55603 ****
   }
   
