@@ -622,9 +622,3 @@ debugMutexTry
 debugMutexLeave
 sqlite3Realloc
 sqlite3_realloc
-explainOneScan
-isLikeOrGlob
-whereClauseInsert
-codeRowTrigger
-transferParseError
-getRowTrigger
