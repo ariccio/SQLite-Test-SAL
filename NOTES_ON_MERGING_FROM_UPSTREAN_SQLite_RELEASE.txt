@@ -1,0 +1,13 @@
+NOTE TO SELF, FROM "Maintaining Private Branches Of SQLite":
+
+FIRST, pushd INTO `raw_source`.
+
+BEFORE MERGING CHANGES FROM SQLITE UPSTREAM,
+  `fossil commit` ALL LOCAL CHANGES TO THE
+  FOSSIL `private` BRANCH (`fossil update private` TO CHECKOUT PRIVATE BRANCH!)
+
+TO BEGIN MERGING CHANGES FROM SQLITE UPSTREAM, `fossil update trunk`.
+THEN, COPY NEW SQLite SOURCES INTO `raw_source`.
+NEXT, CHECKOUT PRIVATE BRANCH (`fossil update private`), and MERGE WITH `fossil merge trunk`.
+
+FINALLY, `fossil commit` TO STORE EVERYTHING IN FOSSIL.
